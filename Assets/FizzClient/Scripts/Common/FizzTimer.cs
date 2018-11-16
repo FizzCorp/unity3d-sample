@@ -1,8 +1,5 @@
 ﻿using System;
 
-// TODO: Remove dependency on infrastructure concerns
-using Fizz.Threading;
-
 namespace Fizz.Common
 {
     public class FizzTimer

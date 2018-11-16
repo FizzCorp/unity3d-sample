@@ -2,9 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using Fizz.Threading;
 using Fizz.Common.Json;
 
 namespace Fizz.Common

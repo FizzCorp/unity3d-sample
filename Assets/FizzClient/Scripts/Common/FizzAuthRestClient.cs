@@ -2,7 +2,6 @@
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using Fizz.Common.Json;
-using Fizz.Threading;
 
 namespace Fizz.Common
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Fizz.Common;
 
 namespace Fizz.Chat
 {
