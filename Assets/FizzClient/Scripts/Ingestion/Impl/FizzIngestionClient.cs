@@ -8,9 +8,64 @@ using Fizz.Common.Json;
 
 namespace Fizz.Ingestion.Impl
 {
+    public class FizzInterval
+    {
+        bool _isEnabled = false;
+        readonly IFizzActionDispatcher _dispatcher = null;
+        readonly int _intervalMS;
+        readonly Action _callback;
+
+        public FizzInterval(IFizzActionDispatcher dispatcher, Action callback, int intervalMS)
+        {
+            if (dispatcher == null)
+            {
+                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
+            }
+            if (callback == null)
+            {
+                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_interval_callback");
+            }
+            if (intervalMS <= 0)
+            {
+                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_interval");
+            }
+
+            _dispatcher = dispatcher;
+            _callback = callback;
+            _intervalMS = intervalMS;
+        }
+
+        public void Enable()
+        {
+            if(_isEnabled)
+            {
+                return;
+            }
+
+            _isEnabled = true;
+            _dispatcher.Delay(_intervalMS, Tick);
+        }
+
+        public void Disable()
+        {
+            _isEnabled = false;
+        }
+
+        public void Tick()
+        {
+            if (!_isEnabled)
+            {
+                return;
+            }
+
+            _callback.Invoke();
+            _dispatcher.Delay(_intervalMS, Tick);
+        }
+    }
+
     public class FizzIngestionClient : IFizzIngestionClient
     {
-        static readonly int LOG_ROLL_INTERVAL = 5 * 1000;
+        static readonly int LOG_FLUSH_INTERVAL = 5 * 1000;
         static readonly int EVENT_VER = 1;
 #if UNITY_ANDROID
         static readonly string PLATFORM = "android";
@@ -31,6 +86,8 @@ namespace Fizz.Ingestion.Impl
         IFizzEventLog _eventLog;
         IFizzActionDispatcher _dispatcher;
         Action _onLogEmpty;
+        bool _flushInProgress = false;
+        readonly FizzInterval _interval = null;
 
         public string BuildVer { get; set; }
         public string CustomDimesion01 { get; set; }
@@ -50,6 +107,7 @@ namespace Fizz.Ingestion.Impl
 
             _eventLog = eventLog;
             _dispatcher = dispatcher;
+            _interval = new FizzInterval(dispatcher, Flush, LOG_FLUSH_INTERVAL);
         }
 
         public void Open(string userId, long curServerTS, IFizzAuthRestClient client)
@@ -69,7 +127,6 @@ namespace Fizz.Ingestion.Impl
                 throw ERROR_INVALID_CLIENT;
             }
 
-
             _client = client;
             _userId = userId;
             _timeOffset = FizzUtils.Now() - curServerTS;
@@ -78,13 +135,14 @@ namespace Fizz.Ingestion.Impl
 
             SessionStarted();
 
-            _dispatcher.Delay(LOG_ROLL_INTERVAL, () => Flush());
+            _interval.Enable();
         }
 
         public void Close(Action callback)
         {
             IfOpened(() =>
             {
+                _interval.Disable();
                 SessionEnded();
                 Flush();
 
@@ -200,10 +258,17 @@ namespace Fizz.Ingestion.Impl
 
         public void Flush()
         {
+            if (_flushInProgress)
+            {
+                return;
+            }
+
+            _flushInProgress = true;
             _eventLog.Read(128, items =>
             {
                 if (items.Count <= 0)
                 {
+                    _flushInProgress = false;
                     FizzUtils.DoCallback(_onLogEmpty);
                     return;
                 }
@@ -231,7 +296,7 @@ namespace Fizz.Ingestion.Impl
                         _eventLog.RollTo(items[items.Count - 1]);
                     }
 
-                    _dispatcher.Delay(LOG_ROLL_INTERVAL, () => Flush());
+                    _flushInProgress = false;
                 });
             }
           );
