@@ -156,11 +156,11 @@ namespace Fizz.Ingestion.Impl
             });
         }
 
-        public void ProductPurchased(string productId, double amount, string currency)
+        public void ProductPurchased(string productId, double amount, string currency, string receipt)
         {
             IfOpened(() => 
             {
-                FizzLogger.D("Product Purchased => id:" + productId + " amount:" + amount + " currency:" + currency);
+                FizzLogger.D("Product Purchased => id:" + productId + " amount:" + amount + " currency:" + currency + " receipt:" + receipt);
 
                 JSONClass fields = new JSONClass();
 
@@ -171,6 +171,10 @@ namespace Fizz.Ingestion.Impl
                 if (currency != null)
                 {
                     fields["currency"] = currency;
+                }
+                if (receipt != null) 
+                {
+                    fields["receipt"] = receipt;
                 }
                 fields["amount"].AsDouble = amount;
 
