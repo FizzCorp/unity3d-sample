@@ -5,7 +5,7 @@
 //
 using UnityEngine;
 
-namespace FIZZ.UI.Components.Extentions
+namespace Fizz.UI.Components.Extentions
 {
 	public interface ICustomScrollRectDataSource
 	{

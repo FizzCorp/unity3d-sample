@@ -25,7 +25,7 @@ SOFTWARE.
 using UnityEngine;
 using UnityEditor;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	[CustomEditor(typeof(TextWithEmoji), true)]
 	public class TextWithEmojiEditor : UnityEditor.UI.TextEditor

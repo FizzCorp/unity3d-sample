@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FIZZ.UI.Core {
+namespace Fizz.UI.Core {
 	public static class Singleton<T> where T: class {
 		public static T Create () {
 			if (m_instance == null) {

@@ -5,10 +5,10 @@
 //
 using UnityEngine;
 using UnityEngine.UI;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine.Events;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface toggle.

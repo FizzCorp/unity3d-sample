@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components.Extentions {
+namespace Fizz.UI.Components.Extentions {
     [ExecuteInEditMode]
     public class CustomScrollRect : ScrollRect, IPointerDownHandler {
         public PullDirection pullDirection = PullDirection.Up;

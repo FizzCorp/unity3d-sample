@@ -6,9 +6,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface main tab bar item.

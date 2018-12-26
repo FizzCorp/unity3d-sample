@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 #endregion
 
-namespace FIZZ.UI.ArabicSupport
+namespace Fizz.UI.ArabicSupport
 {
 	
 	public class ArabicFixer

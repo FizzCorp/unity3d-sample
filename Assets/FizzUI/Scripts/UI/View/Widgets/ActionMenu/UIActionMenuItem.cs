@@ -7,7 +7,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public class UIActionMenuItem : MonoBehaviour
 	{

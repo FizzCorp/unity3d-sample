@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
-    m_Right: 10
+    m_Left: 7
+    m_Right: 7
     m_Top: 3
     m_Bottom: 3
   m_ChildAlignment: 4
@@ -161,7 +161,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundImage: {fileID: 114000013111709588}
   messageLabel: {fileID: 114926436975036448}
-  customNode: {fileID: 0}
   timeLabel: {fileID: 0}
 --- !u!114 &114926436975036448
 MonoBehaviour:
@@ -175,11 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color:
-    r: 0
-    g: 0
-    b: 0
-    a: 1
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -188,7 +183,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: c6cb1a51128cb4babaab5ac667878a17, type: 3}
-    m_FontSize: 18
+    m_FontSize: 15
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -200,6 +195,10 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Hello
+  m_Config: {fileID: 0}
+  showRawText: 0
+  characterBaseline: 0
+  emojiBaseline: 0
 --- !u!222 &222000010162361302
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -3,9 +3,9 @@
 //
 //  Copyright (c) 2016 Fizz Inc
 //
-using FIZZ.UI.Components.Models;
+using Fizz.UI.Components.Models;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public class UIChatDateHeaderCellView : UIChatCellView
 	{

@@ -5,10 +5,10 @@
 //
 using System.Collections;
 using System.Collections.Generic;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
 
     public class UISpinner : UIComponent {
 

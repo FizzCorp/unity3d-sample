@@ -7,7 +7,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-namespace FIZZ.UI.Core
+namespace Fizz.UI.Core
 {
 	public class UITransitionSlide : UITransition
 	{

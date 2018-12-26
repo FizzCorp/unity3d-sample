@@ -63,7 +63,7 @@ namespace Fizz
 
         private void SubscribeAndQuery()
         {
-            FIZZ.FizzService.Instance.Client.Chat.Subscribe(Id, subEx =>
+            FizzService.Instance.Client.Chat.Subscribe(Id, subEx =>
             {
                 if (subEx != null)
                 {
@@ -72,14 +72,14 @@ namespace Fizz
                 else
                 {
                     FizzLogger.D("Subscribed " + Id);
-                    FIZZ.FizzService.Instance.Client.Chat.QueryLatest(Id, FIZZ.FizzService.QUERY_MESSAGES_COUNT, (msgs, qEx) =>
+                    FizzService.Instance.Client.Chat.QueryLatest(Id, FizzService.QUERY_MESSAGES_COUNT, (msgs, qEx) =>
                     {
                         if (qEx == null)
                         {
                             FizzLogger.D("QueryLatest " + msgs.Count);
                             Reset();
                             AddMessages(msgs);
-                            FIZZ.FizzService.Instance.OnChannelHistoryUpdated.Invoke (Id);
+                            FizzService.Instance.OnChannelHistoryUpdated.Invoke (Id);
                         }
                     });
                 }

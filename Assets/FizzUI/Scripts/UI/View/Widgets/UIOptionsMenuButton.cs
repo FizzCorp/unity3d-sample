@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public class UIOptionsMenuButton : MonoBehaviour
 	{

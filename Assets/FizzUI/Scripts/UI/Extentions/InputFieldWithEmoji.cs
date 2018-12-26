@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public class InputFieldWithEmoji : InputField
 	{

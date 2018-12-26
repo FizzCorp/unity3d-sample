@@ -4,14 +4,14 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 using Fizz;
-using FIZZ.UI.Bridge;
-using FIZZ.UI.Components.Extentions;
-using FIZZ.UI.Core;
+using Fizz.UI.Bridge;
+using Fizz.UI.Components.Extentions;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     /// <summary>
     /// User interface chat input.
     /// </summary>

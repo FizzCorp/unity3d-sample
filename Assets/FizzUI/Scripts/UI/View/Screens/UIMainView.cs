@@ -3,11 +3,11 @@
 //
 //  Copyright (c) 2016 Fizz Inc
 //
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     /// <summary>
     /// MainView which contains topbar with title, back and settings button and navigation tabbar.
     /// </summary>

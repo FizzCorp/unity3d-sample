@@ -4,11 +4,11 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 using System;
-using FIZZ.UI.Components.Models;
+using Fizz.UI.Components.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     /// <summary>
     /// User interface other chat cell view.
     /// </summary>
@@ -33,11 +33,11 @@ namespace FIZZ.UI.Components {
         }
 
         void OnEnable () {
-            translateToggle.onClick.AddListener (ToggleTranslateClicked);
+            // translateToggle.onClick.AddListener (ToggleTranslateClicked);
         }
 
         void OnDisable () {
-            translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
+            // translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
         }
 
         #region Public Methods
@@ -92,7 +92,7 @@ namespace FIZZ.UI.Components {
             translateToggleNode.gameObject.SetActive (showTranslationToggle);
         }
 
-        void ToggleTranslateClicked () {
+        public void ToggleTranslateClicked () {
             _model.ToggleTranslationState();
             messageLabel.text = _model.GetActiveMessage();
             onTranslateTogglePressed.Invoke(rowNumber);

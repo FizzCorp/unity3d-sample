@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Fizz.Common.Json;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Demo {
+namespace Fizz.UI.Demo {
 	public class UITestConfiguration : MonoBehaviour {
 
 		[SerializeField] InputField userIdInput;
@@ -16,6 +17,7 @@ namespace FIZZ.UI.Demo {
 		[SerializeField] Button launchButton;
 		[SerializeField] Button connectButton;
 		[SerializeField] Button disconnectButton;
+		[SerializeField] GameObject connectingAnim;
 
 		void Awake ()
 		{
@@ -62,16 +64,18 @@ namespace FIZZ.UI.Demo {
 			connectButton.interactable = false;
 			TestConfigurationMeta testMeta = BuildMeta ();
 			SerializeAndSave (testMeta);
+			connectingAnim.gameObject.SetActive (true);
 			FizzService.Instance.Open (
 				testMeta.userId, 
 				testMeta.userName,
-				Core.Utils.GetSystemLanguage (),
+				Utils.GetSystemLanguage (),
 				testMeta.Channels,
 				(bool success) => {
 					launchButton.interactable = success;
 					disconnectButton.interactable = success;
 					connectButton.interactable = !success;
 					channelAddButton.interactable = !success;
+					connectingAnim.gameObject.SetActive (false);
 				}
 			);
         }

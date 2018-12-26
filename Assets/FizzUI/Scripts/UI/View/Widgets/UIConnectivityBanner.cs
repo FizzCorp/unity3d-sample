@@ -3,12 +3,12 @@
 //
 //  Copyright (c) 2016 Fizz Inc
 //
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public class UIConnectivityBanner : UIComponent
 	{

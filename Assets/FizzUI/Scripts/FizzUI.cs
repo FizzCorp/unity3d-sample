@@ -4,12 +4,12 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 
-using FIZZ.UI.Components;
-using FIZZ.UI.Core;
+using Fizz.UI.Components;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FIZZ {
+namespace Fizz.UI {
     public class FizzUI : MonoBehaviour {
 
         [SerializeField] bool dontDestroyOnLoad = true;

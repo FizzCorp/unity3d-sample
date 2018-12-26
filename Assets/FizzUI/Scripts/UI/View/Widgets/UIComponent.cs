@@ -5,7 +5,7 @@
 //
 using UnityEngine;
 
-namespace FIZZ.UI.Core
+namespace Fizz.UI.Core
 {
 	public class UIComponent : MonoBehaviour
 	{

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     public class UIToastsView : MonoBehaviour {
 		/// <summary>
 		/// The toast.

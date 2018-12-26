@@ -6,7 +6,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace FIZZ.UI.Components.Extentions
+namespace Fizz.UI.Components.Extentions
 {
 	public class CustomScrollRectContent : UIBehaviour
 	{

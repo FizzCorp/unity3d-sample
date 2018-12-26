@@ -6,12 +6,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FIZZ.UI.Components.Extentions;
+using Fizz.UI.Components.Extentions;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     public class TextWithEmoji : Text {
         [FormerlySerializedAs ("config")]
         [SerializeField]

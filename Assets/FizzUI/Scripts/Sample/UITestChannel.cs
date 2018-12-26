@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Demo 
+namespace Fizz.UI.Demo 
 {
 	public class UITestChannel : MonoBehaviour 
 	{

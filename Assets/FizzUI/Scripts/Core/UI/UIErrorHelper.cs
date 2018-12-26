@@ -6,7 +6,7 @@
 
 using Fizz;
 
-namespace FIZZ.UI.Core {
+namespace Fizz.UI.Core {
     public static class UIErrorHelper {
         public static bool IsAnyGeneralArror (FizzException error) {
             if (error == null) {

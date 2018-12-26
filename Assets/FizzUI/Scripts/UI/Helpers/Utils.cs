@@ -4,11 +4,11 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 using System;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     public static class Utils {
         private static Dictionary<string, Color> _userColor = new Dictionary<string, Color> ();
 

@@ -4,10 +4,10 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 using UnityEngine;
-using FIZZ.UI.Components;
+using Fizz.UI.Components;
 using Fizz;
 
-namespace FIZZ.UI.Core
+namespace Fizz.UI.Core
 {
 	public class UITransitableComponent : UIComponent, IUITransitable
 	{

@@ -1,5 +1,5 @@
 ﻿using System;
-using FIZZ.UI.Bridge;
+using Fizz.UI.Bridge;
 
 public class FIZZKeyboard {
 

@@ -24,7 +24,7 @@ SOFTWARE.
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace FIZZ.UI.Components.Extentions
+namespace Fizz.UI.Components.Extentions
 {
 	public class EmojiConfig : ScriptableObject
 	{

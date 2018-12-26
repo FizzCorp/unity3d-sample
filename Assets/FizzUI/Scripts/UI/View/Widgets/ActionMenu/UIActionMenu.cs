@@ -5,11 +5,11 @@
 //
 using System;
 using System.Collections.Generic;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     /// <summary>
     /// User interface action menu.
     /// </summary>

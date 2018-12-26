@@ -26,7 +26,7 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
-namespace FIZZ.UI.Components.Extentions
+namespace Fizz.UI.Components.Extentions
 {
 	[CustomEditor(typeof(EmojiConfig))]
 	public class EmojiConfigEditor : Editor

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311947, g: 0.38074005, b: 0.35872722, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &64549795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1256,6 +1256,16 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224523893269220826, guid: 485d88969f99e4dfa96ee2503d0d1fe7,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000061035156
+      objectReference: {fileID: 0}
+    - target: {fileID: 224101662068262594, guid: 485d88969f99e4dfa96ee2503d0d1fe7,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000061035156
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 485d88969f99e4dfa96ee2503d0d1fe7, type: 2}
   m_IsPrefabParent: 0
@@ -1581,12 +1591,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf26edbecc5c645d6a1bbbe164bd2038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fizzButton: {fileID: 1347521276}
-  connectButton: {fileID: 1438361888}
-  disconnectButton: {fileID: 947723060}
-  connectingAnim: {fileID: 64549796}
-  internalUserIdLabel: {fileID: 59451169}
-  isDebug: 1
 --- !u!1 &1281430426
 GameObject:
   m_ObjectHideFlags: 0

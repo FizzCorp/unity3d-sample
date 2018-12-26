@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Fizz.Common.Json;
 using UnityEngine;
 
-namespace FIZZ.UI.Core {
+namespace Fizz.UI.Core {
     public class LocalizationService : IServiceLocalization {
         private string m_path = "FizzConfigration/";
         private string m_language = string.Empty;

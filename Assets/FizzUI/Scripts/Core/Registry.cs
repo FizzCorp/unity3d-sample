@@ -5,7 +5,7 @@
 //
 using System;
 
-namespace FIZZ.UI.Core
+namespace Fizz.UI.Core
 {
 	public enum RouterHistoryMode
 	{

@@ -1,4 +1,4 @@
-namespace FIZZ.UI.Components.Extentions {
+namespace Fizz.UI.Components.Extentions {
     using System.Diagnostics;
     using System.Text.RegularExpressions;
     using System;

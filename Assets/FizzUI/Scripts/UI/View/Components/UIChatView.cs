@@ -10,13 +10,13 @@ using Fizz;
 using Fizz.Chat;
 using Fizz.Common;
 using Fizz.Common.Json;
-using FIZZ.UI.Components.Extentions;
-using FIZZ.UI.Components.Models;
-using FIZZ.UI.Core;
+using Fizz.UI.Components.Extentions;
+using Fizz.UI.Components.Models;
+using Fizz.UI.Core;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     /// <summary>
     /// User interface chat view.
     /// </summary>

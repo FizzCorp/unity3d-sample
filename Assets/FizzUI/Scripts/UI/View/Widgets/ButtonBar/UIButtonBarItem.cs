@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface tab bar button.

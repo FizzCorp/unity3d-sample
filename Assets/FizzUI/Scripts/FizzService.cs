@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using Fizz;
 using Fizz.Chat;
-using FIZZ.UI.Demo;
+using Fizz.UI.Demo;
 using UnityEngine;
 
-namespace FIZZ {
+namespace Fizz {
     public class FizzService : MonoBehaviour {
 
         private static string APP_ID = "751326fc-305b-4aef-950a-074c9a21d461";
         private static string APP_SECRET = "5c963d03-64e6-439a-b2a9-31db60dd0b34";
 
-        public static int QUERY_MESSAGES_COUNT = 10;
+        public static int QUERY_MESSAGES_COUNT = 30;
 
         public static FizzService Instance { get; private set; } = null;
 
@@ -98,8 +98,6 @@ namespace FIZZ {
 
         void Listener_OnConnected(bool syncRequired)
         {
-
-            Debug.Log("On Connected " + syncRequired);
             IsConnected = true;
 
             if (!syncRequired)

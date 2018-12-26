@@ -3,11 +3,11 @@
 //
 //  Copyright (c) 2016 Fizz Inc
 //
-using FIZZ.UI.Components.Models;
+using Fizz.UI.Components.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface own repeat chat cell view.

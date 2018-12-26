@@ -7,7 +7,7 @@ using UnityEngine;
 using System;
 using Fizz.Common.Json;
 
-namespace FIZZ.UI.Core
+namespace Fizz.UI.Core
 {
 	public static class Utils
 	{

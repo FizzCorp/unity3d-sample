@@ -11,7 +11,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace FIZZ.UI.Components {
+namespace Fizz.UI.Components {
     public class UICanvasScaler : UIBehaviour {
 
 #if UNITY_IOS

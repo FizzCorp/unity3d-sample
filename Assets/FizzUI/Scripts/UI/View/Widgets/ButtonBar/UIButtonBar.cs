@@ -5,12 +5,12 @@
 //
 using UnityEngine;
 using System.Collections.Generic;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface tab bar.

@@ -6,9 +6,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using FIZZ.UI.Components.Models;
+using Fizz.UI.Components.Models;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// Cell view for chat messages

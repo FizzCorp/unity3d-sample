@@ -7,7 +7,7 @@ using FIZZ.Bridge.UI.Android;
 using FIZZ.Bridge.UI.Mock;
 #endif
 
-namespace FIZZ.UI.Bridge
+namespace Fizz.UI.Bridge
 {
     internal static class FIZZBridgeUI
 	{

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System;
 
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface chat cell options menu.

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace FIZZ.UI.Core {
+namespace Fizz.UI.Core {
     public class UIRouter : IUIRouter {
 
         public override void Show (IUITransitable panel, RouterHistoryMode mode, UITransitionConfig config) {

@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-namespace FIZZ.UI.Bridge {
+namespace Fizz.UI.Bridge {
     //
     // Summary:
     //     ///

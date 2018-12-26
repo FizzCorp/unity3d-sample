@@ -6,7 +6,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	public static class UIExtentions
 	{

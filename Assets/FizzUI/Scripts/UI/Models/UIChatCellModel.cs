@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using Fizz.Chat;
 using Fizz.Common.Json;
 
-namespace FIZZ.UI.Components.Models
+namespace Fizz.UI.Components.Models
 {
 	public class UIChatCellModel
 	{

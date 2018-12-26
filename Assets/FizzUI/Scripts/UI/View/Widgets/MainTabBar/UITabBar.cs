@@ -4,12 +4,12 @@
 //  Copyright (c) 2016 Fizz Inc
 //
 using UnityEngine;
-using FIZZ.UI.Core;
+using Fizz.UI.Core;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
-namespace FIZZ.UI.Components
+namespace Fizz.UI.Components
 {
 	/// <summary>
 	/// User interface main tab bar.
