@@ -1,0 +1,5084 @@
+{
+  "theme": {
+    "avatarConfig": {
+      "maskImageConfig": {
+        "source": "avatarContainer",
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "borderImageConfig": {
+        "source": "avatarContainer",
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "relationshipBlockedUserCellConfig": {
+      "backgroundConfig": {
+        "source": "bubble_2@2x",
+        "color": {
+          "r": 0.5,
+          "g": 0.5,
+          "b": 0.5,
+          "a": 1
+        }
+      },
+      "nickConfig": {
+        "font": "SourceSansPro-Semibold",
+        "fontSize": 36,
+        "color": {
+          "r": 1,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "avatarConfig": {
+        "maskImageConfig": {
+          "source": "genericButton",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "rightChatCellViewConfig": {
+      "deliveryStatusImageConfig": {
+        "source": "deliveredState",
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "backgroundImageConfig": {
+        "source": "bubbleOwnChatCell",
+        "color": {
+          "r": 0,
+          "g": 0.6745098,
+          "b": 0.76171875,
+          "a": 1
+        }
+      },
+      "messageLabelConfig": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 30,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "timeLabelConfig": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 15,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "rightRepeatChatCellViewConfig": {
+      "deliveryStatusImageConfig": {
+        "source": "deliveredState",
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "backgroundImageConfig": {
+        "source": "bubbleOwnRepeatChatCell",
+        "color": {
+          "r": 0,
+          "g": 0.6745098,
+          "b": 0.76171875,
+          "a": 1
+        }
+      },
+      "messageLabelConfig": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 30,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "timeLabelConfig": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 15,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "leftChatCellViewConfig": {
+      "avatarConfig": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nickLabelConfig": {
+        "font": "SourceSansPro-Regular",
+        "fontSize": 30,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "translateButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": "translateToggle",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 0.5,
+            "g": 0.5,
+            "b": 0.5,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "backgroundImageConfig": {
+        "source": "bubbleOtherChatCell",
+        "color": {
+          "r": 0.9411765,
+          "g": 0.9411765,
+          "b": 0.9411765,
+          "a": 1
+        }
+      },
+      "messageLabelConfig": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 30,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "timeLabelConfig": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 15,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    },
+    "leftRepeatChatCellViewConfig": {
+      "translateButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": "translateToggle",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 0.5,
+            "g": 0.5,
+            "b": 0.5,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "backgroundImageConfig": {
+        "source": "bubbleOtherRepeatChatCell",
+        "color": {
+          "r": 0.9411765,
+          "g": 0.9411765,
+          "b": 0.9411765,
+          "a": 1
+        }
+      },
+      "messageLabelConfig": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 30,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "timeLabelConfig": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 15,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    },
+    "chatNotificationCellViewConfig": {
+      "backgroundImageConfig": {
+        "source": "bubbleNotificationCell",
+        "color": {
+          "r": 0.8235294,
+          "g": 0.9411765,
+          "b": 0.980392158,
+          "a": 1
+        }
+      },
+      "messageLabelConfig": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 22,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "timeLabelConfig": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 15,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    },
+    "chatInputConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "inputFieldConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "sendButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": "sendButton",
+          "color": {
+            "r": 0.156862751,
+            "g": 0.545098066,
+            "b": 0.9882353,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": "sendButton",
+          "color": {
+            "r": 0.156862751,
+            "g": 0.545098066,
+            "b": 0.9882353,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "profileConfig": {
+      "backgroundImageConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "closeButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "avatarConfig": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nickConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "moodConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "friendButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "chatButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "blockButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "mainTabBarConfig": {
+      "background": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "tabNormalColor": {
+        "r": 0.6875,
+        "g": 0.7265625,
+        "b": 0.734375,
+        "a": 1
+      },
+      "tabPressedColor": {
+        "r": 0.9765625,
+        "g": 0.17578125,
+        "b": 0.39453125,
+        "a": 1
+      }
+    },
+    "tabBarConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "tabButtonConfig": {
+        "textConfig": {
+          "font": "SourceSansPro-Regular",
+          "fontSize": 25,
+          "color": {
+            "r": 0.6901961,
+            "g": 0.7137255,
+            "b": 0.7372549,
+            "a": 1
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 0.6901961,
+            "g": 0.7137255,
+            "b": 0.7372549,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 0.6901961,
+            "g": 0.7137255,
+            "b": 0.7372549,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
+      }
+    },
+    "updateSettingsInputConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "iconConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "inputFieldConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "messageConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      }
+    },
+    "userSettingsViewConfig": {
+      "mainBackgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "headerBackgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatarBackgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatarConfig": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "userNickSettingsConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "userMoodSettingsConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "autoTranslationIconConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "autoTranslationTextConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "registerUserButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "signInButtonConfig": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "blockListTitleConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "blockListIconConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "addBlockUserTextConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "blockedUserCellConfig": {
+        "backgroundConfig": {
+          "source": "bubble_2@2x",
+          "color": {
+            "r": 0.5,
+            "g": 0.5,
+            "b": 0.5,
+            "a": 1
+          }
+        },
+        "nickConfig": {
+          "font": "SourceSansPro-Semibold",
+          "fontSize": 36,
+          "color": {
+            "r": 1,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "avatarConfig": {
+          "maskImageConfig": {
+            "source": "genericButton",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "borderImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        }
+      },
+      "buildDetailTextConfig": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      }
+    },
+    "mainViewConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "topBarBackgorundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleConfig": {
+        "font": "SourceSansPro-Semibold",
+        "fontSize": 35,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "mainTabBarConfig": {
+        "background": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "tabNormalColor": {
+          "r": 0.6875,
+          "g": 0.7265625,
+          "b": 0.734375,
+          "a": 1
+        },
+        "tabPressedColor": {
+          "r": 0.9765625,
+          "g": 0.17578125,
+          "b": 0.39453125,
+          "a": 1
+        }
+      }
+    },
+    "messageViewConfig": {
+      "groupsScrollView": {
+        "background": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "groupCellViewConfig": {
+          "background": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "avatar": {
+            "maskImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "borderImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "titleLabel": {
+            "font": "SourceSansPro-Regular",
+            "fontSize": 30,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "lastActivityLabel": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 25,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "lastActivityTimeLabel": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 20,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          }
+        }
+      },
+      "groupChatViewConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "titleLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "backButton": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "settingsButton": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "chatView": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "chatInputConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "inputFieldConfig": {
+              "backgroundConfig": {
+                "source": null,
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              },
+              "textConfig": {
+                "font": null,
+                "fontSize": 0,
+                "color": {
+                  "r": 0,
+                  "g": 0,
+                  "b": 0,
+                  "a": 0
+                }
+              }
+            },
+            "sendButtonConfig": {
+              "textConfig": {
+                "font": null,
+                "fontSize": 0,
+                "color": {
+                  "r": 0,
+                  "g": 0,
+                  "b": 0,
+                  "a": 0
+                }
+              },
+              "normalImageConfig": {
+                "source": "sendButton",
+                "color": {
+                  "r": 0.156862751,
+                  "g": 0.545098066,
+                  "b": 0.9882353,
+                  "a": 1
+                }
+              },
+              "pressedImageConfig": {
+                "source": "sendButton",
+                "color": {
+                  "r": 0.156862751,
+                  "g": 0.545098066,
+                  "b": 0.9882353,
+                  "a": 1
+                }
+              },
+              "disabledImageConfig": {
+                "source": null,
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              }
+            }
+          },
+          "leftChatCellViewConfig": {
+            "avatarConfig": {
+              "maskImageConfig": {
+                "source": "avatarContainer",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              },
+              "borderImageConfig": {
+                "source": "avatarContainer",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              }
+            },
+            "nickLabelConfig": {
+              "font": "SourceSansPro-Regular",
+              "fontSize": 30,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "translateButtonConfig": {
+              "textConfig": {
+                "font": null,
+                "fontSize": 0,
+                "color": {
+                  "r": 0,
+                  "g": 0,
+                  "b": 0,
+                  "a": 0
+                }
+              },
+              "normalImageConfig": {
+                "source": "translateToggle",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              },
+              "pressedImageConfig": {
+                "source": null,
+                "color": {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1
+                }
+              },
+              "disabledImageConfig": {
+                "source": null,
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              }
+            },
+            "backgroundImageConfig": {
+              "source": "bubbleOtherChatCell",
+              "color": {
+                "r": 0.972549,
+                "g": 0.972549,
+                "b": 0.972549,
+                "a": 1
+              }
+            },
+            "messageLabelConfig": {
+              "font": "SourceSansPro-Light",
+              "fontSize": 30,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "timeLabelConfig": {
+              "font": "SourceSansPro-ExtraLight",
+              "fontSize": 15,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            }
+          },
+          "leftRepeatChatCellViewConfig": {
+            "translateButtonConfig": {
+              "textConfig": {
+                "font": null,
+                "fontSize": 0,
+                "color": {
+                  "r": 0,
+                  "g": 0,
+                  "b": 0,
+                  "a": 0
+                }
+              },
+              "normalImageConfig": {
+                "source": "translateToggle",
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              },
+              "pressedImageConfig": {
+                "source": null,
+                "color": {
+                  "r": 0.5,
+                  "g": 0.5,
+                  "b": 0.5,
+                  "a": 1
+                }
+              },
+              "disabledImageConfig": {
+                "source": null,
+                "color": {
+                  "r": 1,
+                  "g": 1,
+                  "b": 1,
+                  "a": 1
+                }
+              }
+            },
+            "backgroundImageConfig": {
+              "source": "bubbleOtherRepeatChatCell",
+              "color": {
+                "r": 0.972549,
+                "g": 0.972549,
+                "b": 0.972549,
+                "a": 1
+              }
+            },
+            "messageLabelConfig": {
+              "font": "SourceSansPro-Light",
+              "fontSize": 30,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "timeLabelConfig": {
+              "font": "SourceSansPro-ExtraLight",
+              "fontSize": 15,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            }
+          },
+          "rightChatCellViewConfig": {
+            "deliveryStatusImageConfig": {
+              "source": "deliveredState",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "backgroundImageConfig": {
+              "source": "bubbleOwnChatCell",
+              "color": {
+                "r": 0,
+                "g": 0.6745098,
+                "b": 0.76171875,
+                "a": 1
+              }
+            },
+            "messageLabelConfig": {
+              "font": "SourceSansPro-Light",
+              "fontSize": 30,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "timeLabelConfig": {
+              "font": "SourceSansPro-ExtraLight",
+              "fontSize": 15,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "rightRepeatChatCellViewConfig": {
+            "deliveryStatusImageConfig": {
+              "source": "deliveredState",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "backgroundImageConfig": {
+              "source": "bubbleOwnRepeatChatCell",
+              "color": {
+                "r": 0,
+                "g": 0.6745098,
+                "b": 0.76171875,
+                "a": 1
+              }
+            },
+            "messageLabelConfig": {
+              "font": "SourceSansPro-Light",
+              "fontSize": 30,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "timeLabelConfig": {
+              "font": "SourceSansPro-ExtraLight",
+              "fontSize": 15,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "chatNotificationCellViewConfig": {
+            "backgroundImageConfig": {
+              "source": "bubbleNotificationCell",
+              "color": {
+                "r": 0.8235294,
+                "g": 0.9411765,
+                "b": 0.980392158,
+                "a": 1
+              }
+            },
+            "messageLabelConfig": {
+              "font": "SourceSansPro-Light",
+              "fontSize": 22,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            },
+            "timeLabelConfig": {
+              "font": "SourceSansPro-ExtraLight",
+              "fontSize": 15,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "friendsViewConfig": {
+      "relationshipView": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "relationshipCell": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "nickConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "avatarConfig": {
+            "maskImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "borderImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          }
+        }
+      },
+      "requestsView": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "requestsReceivedTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsReceivedCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestReceivedCell": {
+          "acceptButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "rejectButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "requestSentCell": {
+          "cancelButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        }
+      },
+      "addFriendButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "groupCreateViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "headerBackgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "createButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "changeAvatarButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nameSettingsInput": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "passwordView": {
+        "headerBackgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "headerLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "iconImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "passwordInput": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "iconConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "inputFieldConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            }
+          },
+          "messageConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "passwordConfirmInput": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "iconConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "inputFieldConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            }
+          },
+          "messageConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        }
+      },
+      "addUserButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "memberCell": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "avatar": {
+          "maskImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "borderImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "nickLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      }
+    },
+    "groupPasswordViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "doneButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "passwordView": {
+        "headerBackgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "headerLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "iconImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "passwordInput": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "iconConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "inputFieldConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            }
+          },
+          "messageConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "passwordConfirmInput": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "iconConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "inputFieldConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            }
+          },
+          "messageConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        }
+      }
+    },
+    "roomRequestsViewConfig": {
+      "topBarBg": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "requestsView": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "requestsReceivedTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsReceivedCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestReceivedCell": {
+          "acceptButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "rejectButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "requestSentCell": {
+          "cancelButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        }
+      }
+    },
+    "groupSettingsViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "headerBackgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "changeAvatarButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nameSettingsInput": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "limitSettingsInput": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "passwordButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "requestButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "membersView": {
+        "titleLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "addButton": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "template": {
+          "backgroundImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "avatar": {
+            "maskImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "borderImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "nickLabel": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "roleLabel": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        }
+      },
+      "leaveButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "deleteButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "groupsViewConfig": {
+      "groupsScrollView": {
+        "background": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "groupCellViewConfig": {
+          "background": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "avatar": {
+            "maskImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "borderImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "titleLabel": {
+            "font": "SourceSansPro-Regular",
+            "fontSize": 30,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "lastActivityLabel": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 25,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "lastActivityTimeLabel": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 20,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          }
+        }
+      },
+      "joinButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "createButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "groupRequestView": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "requestsReceivedTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsReceivedCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentTitle": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestsSentCount": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "requestReceivedCell": {
+          "acceptButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "rejectButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "requestSentCell": {
+          "cancelButtonImage": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        }
+      }
+    },
+    "searchViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "topBarBackground": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "doneButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "inputField": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      }
+    },
+    "searchInputConfig": {
+      "backgroundImageConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "chatViewConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "chatInputConfig": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "sendButtonConfig": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": "sendButton",
+            "color": {
+              "r": 0.156862751,
+              "g": 0.545098066,
+              "b": 0.9882353,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": "sendButton",
+            "color": {
+              "r": 0.156862751,
+              "g": 0.545098066,
+              "b": 0.9882353,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        }
+      },
+      "leftChatCellViewConfig": {
+        "avatarConfig": {
+          "maskImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "borderImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "nickLabelConfig": {
+          "font": "SourceSansPro-Regular",
+          "fontSize": 30,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "translateButtonConfig": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": "translateToggle",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": null,
+            "color": {
+              "r": 0.5,
+              "g": 0.5,
+              "b": 0.5,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "backgroundImageConfig": {
+          "source": "bubbleOtherChatCell",
+          "color": {
+            "r": 0.972549,
+            "g": 0.972549,
+            "b": 0.972549,
+            "a": 1
+          }
+        },
+        "messageLabelConfig": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 30,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "timeLabelConfig": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 15,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
+      },
+      "leftRepeatChatCellViewConfig": {
+        "translateButtonConfig": {
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          },
+          "normalImageConfig": {
+            "source": "translateToggle",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "pressedImageConfig": {
+            "source": null,
+            "color": {
+              "r": 0.5,
+              "g": 0.5,
+              "b": 0.5,
+              "a": 1
+            }
+          },
+          "disabledImageConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "backgroundImageConfig": {
+          "source": "bubbleOtherRepeatChatCell",
+          "color": {
+            "r": 0.972549,
+            "g": 0.972549,
+            "b": 0.972549,
+            "a": 1
+          }
+        },
+        "messageLabelConfig": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 30,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "timeLabelConfig": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 15,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
+      },
+      "rightChatCellViewConfig": {
+        "deliveryStatusImageConfig": {
+          "source": "deliveredState",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "backgroundImageConfig": {
+          "source": "bubbleOwnChatCell",
+          "color": {
+            "r": 0,
+            "g": 0.6745098,
+            "b": 0.76171875,
+            "a": 1
+          }
+        },
+        "messageLabelConfig": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 30,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "timeLabelConfig": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 15,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "rightRepeatChatCellViewConfig": {
+        "deliveryStatusImageConfig": {
+          "source": "deliveredState",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "backgroundImageConfig": {
+          "source": "bubbleOwnRepeatChatCell",
+          "color": {
+            "r": 0,
+            "g": 0.6745098,
+            "b": 0.76171875,
+            "a": 1
+          }
+        },
+        "messageLabelConfig": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 30,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "timeLabelConfig": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 15,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "chatNotificationCellViewConfig": {
+        "backgroundImageConfig": {
+          "source": "bubbleNotificationCell",
+          "color": {
+            "r": 0.8235294,
+            "g": 0.9411765,
+            "b": 0.980392158,
+            "a": 1
+          }
+        },
+        "messageLabelConfig": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 22,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "timeLabelConfig": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 15,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
+      }
+    },
+    "groupChatViewConfig": {
+      "backgroundConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "backButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "settingsButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "chatView": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "chatInputConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "inputFieldConfig": {
+            "backgroundConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            }
+          },
+          "sendButtonConfig": {
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            },
+            "normalImageConfig": {
+              "source": "sendButton",
+              "color": {
+                "r": 0.156862751,
+                "g": 0.545098066,
+                "b": 0.9882353,
+                "a": 1
+              }
+            },
+            "pressedImageConfig": {
+              "source": "sendButton",
+              "color": {
+                "r": 0.156862751,
+                "g": 0.545098066,
+                "b": 0.9882353,
+                "a": 1
+              }
+            },
+            "disabledImageConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          }
+        },
+        "leftChatCellViewConfig": {
+          "avatarConfig": {
+            "maskImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "borderImageConfig": {
+              "source": "avatarContainer",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "nickLabelConfig": {
+            "font": "SourceSansPro-Regular",
+            "fontSize": 30,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "translateButtonConfig": {
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            },
+            "normalImageConfig": {
+              "source": "translateToggle",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "pressedImageConfig": {
+              "source": null,
+              "color": {
+                "r": 0.5,
+                "g": 0.5,
+                "b": 0.5,
+                "a": 1
+              }
+            },
+            "disabledImageConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "backgroundImageConfig": {
+            "source": "bubbleOtherChatCell",
+            "color": {
+              "r": 0.972549,
+              "g": 0.972549,
+              "b": 0.972549,
+              "a": 1
+            }
+          },
+          "messageLabelConfig": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 30,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "timeLabelConfig": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 15,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          }
+        },
+        "leftRepeatChatCellViewConfig": {
+          "translateButtonConfig": {
+            "textConfig": {
+              "font": null,
+              "fontSize": 0,
+              "color": {
+                "r": 0,
+                "g": 0,
+                "b": 0,
+                "a": 0
+              }
+            },
+            "normalImageConfig": {
+              "source": "translateToggle",
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            },
+            "pressedImageConfig": {
+              "source": null,
+              "color": {
+                "r": 0.5,
+                "g": 0.5,
+                "b": 0.5,
+                "a": 1
+              }
+            },
+            "disabledImageConfig": {
+              "source": null,
+              "color": {
+                "r": 1,
+                "g": 1,
+                "b": 1,
+                "a": 1
+              }
+            }
+          },
+          "backgroundImageConfig": {
+            "source": "bubbleOtherRepeatChatCell",
+            "color": {
+              "r": 0.972549,
+              "g": 0.972549,
+              "b": 0.972549,
+              "a": 1
+            }
+          },
+          "messageLabelConfig": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 30,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "timeLabelConfig": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 15,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          }
+        },
+        "rightChatCellViewConfig": {
+          "deliveryStatusImageConfig": {
+            "source": "deliveredState",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "backgroundImageConfig": {
+            "source": "bubbleOwnChatCell",
+            "color": {
+              "r": 0,
+              "g": 0.6745098,
+              "b": 0.76171875,
+              "a": 1
+            }
+          },
+          "messageLabelConfig": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 30,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "timeLabelConfig": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 15,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "rightRepeatChatCellViewConfig": {
+          "deliveryStatusImageConfig": {
+            "source": "deliveredState",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "backgroundImageConfig": {
+            "source": "bubbleOwnRepeatChatCell",
+            "color": {
+              "r": 0,
+              "g": 0.6745098,
+              "b": 0.76171875,
+              "a": 1
+            }
+          },
+          "messageLabelConfig": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 30,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "timeLabelConfig": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 15,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "chatNotificationCellViewConfig": {
+          "backgroundImageConfig": {
+            "source": "bubbleNotificationCell",
+            "color": {
+              "r": 0.8235294,
+              "g": 0.9411765,
+              "b": 0.980392158,
+              "a": 1
+            }
+          },
+          "messageLabelConfig": {
+            "font": "SourceSansPro-Light",
+            "fontSize": 22,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          },
+          "timeLabelConfig": {
+            "font": "SourceSansPro-ExtraLight",
+            "fontSize": 15,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 1
+            }
+          }
+        }
+      }
+    },
+    "groupsScrollViewConfig": {
+      "background": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "groupCellViewConfig": {
+        "background": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "avatar": {
+          "maskImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "borderImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "titleLabel": {
+          "font": "SourceSansPro-Regular",
+          "fontSize": 30,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "lastActivityLabel": {
+          "font": "SourceSansPro-Light",
+          "fontSize": 25,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        },
+        "lastActivityTimeLabel": {
+          "font": "SourceSansPro-ExtraLight",
+          "fontSize": 20,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 1
+          }
+        }
+      }
+    },
+    "groupMembersViewConfig": {
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "addButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "template": {
+        "backgroundImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "avatar": {
+          "maskImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "borderImageConfig": {
+            "source": "avatarContainer",
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          }
+        },
+        "nickLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "roleLabel": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      }
+    },
+    "passwordViewConfig": {
+      "headerBackgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "headerLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "iconImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "passwordInput": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      },
+      "passwordConfirmInput": {
+        "backgroundConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "iconConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "inputFieldConfig": {
+          "backgroundConfig": {
+            "source": null,
+            "color": {
+              "r": 1,
+              "g": 1,
+              "b": 1,
+              "a": 1
+            }
+          },
+          "textConfig": {
+            "font": null,
+            "fontSize": 0,
+            "color": {
+              "r": 0,
+              "g": 0,
+              "b": 0,
+              "a": 0
+            }
+          }
+        },
+        "messageConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        }
+      }
+    },
+    "requestsViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "requestsReceivedTitle": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "requestsReceivedCount": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "requestsSentTitle": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "requestsSentCount": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "requestReceivedCell": {
+        "acceptButtonImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "rejectButtonImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "requestSentCell": {
+        "cancelButtonImage": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "avatarSelectionViewConfig": {
+      "backgroundImageConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "overlayImageConfig": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "avatarSelectionCellViewConfig": {
+      "avatarConfig": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      }
+    },
+    "groupMemberCellViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nickLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "roleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      }
+    },
+    "searchGroupCellViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "actionButton": {
+        "textConfig": {
+          "font": null,
+          "fontSize": 0,
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0,
+            "a": 0
+          }
+        },
+        "normalImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "pressedImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "disabledImageConfig": {
+          "source": null,
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "actionButtonLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      }
+    },
+    "searchUserCellViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "titleLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      },
+      "markImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "groupCellViewConfig": {
+      "background": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "titleLabel": {
+        "font": "SourceSansPro-Regular",
+        "fontSize": 30,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "lastActivityLabel": {
+        "font": "SourceSansPro-Light",
+        "fontSize": 25,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      },
+      "lastActivityTimeLabel": {
+        "font": "SourceSansPro-ExtraLight",
+        "fontSize": 20,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 1
+        }
+      }
+    },
+    "requestReceivedCellConfig": {
+      "acceptButtonImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "rejectButtonImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "requestSentCellConfig": {
+      "cancelButtonImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      }
+    },
+    "groupCreateMemberCellViewConfig": {
+      "backgroundImage": {
+        "source": null,
+        "color": {
+          "r": 1,
+          "g": 1,
+          "b": 1,
+          "a": 1
+        }
+      },
+      "avatar": {
+        "maskImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        },
+        "borderImageConfig": {
+          "source": "avatarContainer",
+          "color": {
+            "r": 1,
+            "g": 1,
+            "b": 1,
+            "a": 1
+          }
+        }
+      },
+      "nickLabel": {
+        "font": null,
+        "fontSize": 0,
+        "color": {
+          "r": 0,
+          "g": 0,
+          "b": 0,
+          "a": 0
+        }
+      }
+    }
+  }
+}

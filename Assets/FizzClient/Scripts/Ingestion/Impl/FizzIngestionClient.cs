@@ -153,6 +153,8 @@ namespace Fizz.Ingestion.Impl
                     _sessionId = null;
                     _onLogEmpty = null;
                 };
+
+                callback();
             });
         }
 

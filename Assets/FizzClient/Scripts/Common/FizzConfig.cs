@@ -6,10 +6,10 @@ namespace Fizz.Common
     {
         // TODO: manage the following using config management
 #if FIZZ_CONFIG_PROD
-        public static readonly string API_PROTOCOL = "https";
-        public static readonly string API_ENDPOINT = "api.fizz.io";
+        public static readonly string API_PROTOCOL = "http";
+        public static readonly string API_ENDPOINT = "api.fizz.io:3000";
 
-        public static bool MQTT_USE_TLS = true;
+        public static bool MQTT_USE_TLS = false;
         public static string MQTT_HOST_ENDPOINT = "mqtt.fizz.io";
 #else
         public static readonly string API_PROTOCOL = "http";

@@ -30,6 +30,7 @@ namespace Fizz
 
         IFizzChatClient Chat { get; }
         IFizzIngestionClient Ingestion { get; }
+        FizzClientState State { get; }
     }
 
     public class FizzClient: IFizzClient
@@ -59,7 +60,10 @@ namespace Fizz
         {
             if (_state != FizzClientState.Closed)
             {
-                Close();
+                Close( () => {
+                    Open(userId, locale, services, callback);
+                });
+                return;
             }
 
             try
@@ -98,8 +102,7 @@ namespace Fizz
         {
             try
             {
-                Close();
-                FizzUtils.DoCallback(null, callback);
+                Close(() => { FizzUtils.DoCallback(null, callback); });
             }
             catch (FizzException ex)
             {
@@ -136,14 +139,16 @@ namespace Fizz
             }
         }
 
-        private void Close()
+        private void Close(Action callback)
         {
-            _ingestion.Close(() => 
+            _ingestion.Close(() =>
             {
                 _chat.Close();
                 _restClient.Close();
                 _userId = null;
                 _state = FizzClientState.Closed;
+
+                callback();
             });
         }
 
