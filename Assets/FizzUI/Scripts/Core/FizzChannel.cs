@@ -14,7 +14,7 @@ namespace Fizz
 
         public string Id { 
             get { 
-                return channelId + "_temp001"; 
+                return channelId;
             } 
         }
 

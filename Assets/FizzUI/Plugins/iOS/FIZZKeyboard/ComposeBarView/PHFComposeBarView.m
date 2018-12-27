@@ -33,8 +33,8 @@ CGFloat const kButtonHeight               = 30.0f;
 CGFloat const kButtonTouchableOverlap     =  0.0f;
 CGFloat const kButtonRightMargin          = -2.0f;
 CGFloat const kButtonBottomMargin         =  8.0f;
-CGFloat const kUtilityButtonWidth         = 25.0f;
-CGFloat const kUtilityButtonHeight        = 25.0f;
+CGFloat const kUtilityButtonWidth         = 0.0f;
+CGFloat const kUtilityButtonHeight        = 0.0f;
 CGFloat const kUtilityButtonBottomMargin  =  9.0f;
 CGFloat const kCaretYOffset               =  7.0f;
 CGFloat const kCharCountFontSize          = 11.0f;
@@ -297,7 +297,7 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 - (UIButton *)button {
     if (!_button) {
         _button = [PHFComposeBarView_Button buttonWithType:UIButtonTypeCustom];
-        CGRect frame = CGRectMake([self bounds].size.width - kUtilityButtonWidth - kButtonRightMargin - (kHorizontalSpacing * 3) - kButtonTouchableOverlap,
+        CGRect frame = CGRectMake([self bounds].size.width - kButtonHeight - kButtonRightMargin - (kHorizontalSpacing * 3) - kButtonTouchableOverlap,
                                   [self bounds].size.height - kButtonBottomMargin - kButtonHeight,
                                   kButtonHeight * 1.363,
                                   kButtonHeight);
@@ -662,13 +662,14 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 }
 
 - (void)updateUtilityButtonVisibility {
-    if ([self utilityButtonImage] && ![[self utilityButton] superview]) {
+//    if ([self utilityButtonImage] && ![[self utilityButton] superview]) {
 //        [self shifTextFieldInDirection:+1];
-        [self insertUtilityButton];
-    } else if (![self utilityButtonImage] && [[self utilityButton] superview]) {
+//        [self insertUtilityButton];
+//    } else if (![self utilityButtonImage] && [[self utilityButton] superview]) {
 //        [self shifTextFieldInDirection:-1];
+//        [self removeUtilityButton];
+//    }
         [self removeUtilityButton];
-    }
 }
 
 // +1 shifts to the right, -1 to the left.
@@ -681,10 +682,10 @@ static CGFloat kTextViewToSuperviewHeightDelta;
 
 - (void)insertUtilityButton {
     UIButton *utilityButton = [self utilityButton];
-//    CGRect utilityButtonFrame = [utilityButton frame];
-//    utilityButtonFrame.origin.x = (kHorizontalSpacing * 2) + [[self textContainer] frame].size.width;
-//    utilityButtonFrame.origin.y = [self frame].size.height - kUtilityButtonHeight - kUtilityButtonBottomMargin;
-//    [utilityButton setFrame:utilityButtonFrame];
+    CGRect utilityButtonFrame = [utilityButton frame];
+    utilityButtonFrame.origin.x = (kHorizontalSpacing * 2) + [[self textContainer] frame].size.width;
+    utilityButtonFrame.origin.y = [self frame].size.height - kUtilityButtonHeight - kUtilityButtonBottomMargin;
+    [utilityButton setFrame:utilityButtonFrame];
     [self addSubview:utilityButton];
 }
 

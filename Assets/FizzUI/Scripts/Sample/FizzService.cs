@@ -100,7 +100,7 @@ namespace Fizz {
         {
             IsConnected = true;
 
-            if (!syncRequired)
+            if (!syncRequired) 
                 return;
 
             Channels.Clear();
@@ -108,6 +108,9 @@ namespace Fizz {
 
             foreach (TestChannelMeta channelMeta in metaChannelList)
             {
+                if (channelLoopup.ContainsKey (channelMeta.channelId))
+                    continue;
+                    
                 FizzChannel globalChannel = new FizzChannel(channelMeta.channelId, channelMeta.channelName);
                 Channels.Add(globalChannel);
                 channelLoopup.Add(globalChannel.Id, globalChannel);

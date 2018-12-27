@@ -21,6 +21,9 @@ namespace Fizz.UI.Demo {
 
 		void Awake ()
 		{
+			PlayerPrefs.DeleteAll();
+			PlayerPrefs.Save ();
+
 			launchButton.interactable = false;
 			connectButton.interactable = true;
 			disconnectButton.interactable = false;
@@ -132,7 +135,8 @@ namespace Fizz.UI.Demo {
 
 		void DeserializeAndLoad ()
 		{
-			string json = PlayerPrefs.GetString ("meta", "{\"userId\":\"test_001\",\"userName\":\"TesterOne\",\"channels\":[{\"channelId\":\"global-test\",\"channelName\":\"Global\"}]}");
+			string defaultJson = "{\"userId\":\""+ System.Guid.NewGuid () +"\",\"userName\":\"User\",\"channels\":[{\"channelId\":\"global-test\",\"channelName\":\"Global\"}]}";
+			string json = PlayerPrefs.GetString ("meta", defaultJson);
 			JSONNode jsonClass = JSONClass.Parse (json);
 
 			userIdInput.text = jsonClass["userId"].Value;

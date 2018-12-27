@@ -184,42 +184,6 @@ namespace Fizz.UI.Components {
                         onEmojiChar (singleChar, -1);
                         i++;
                     }
-                    // string doubleChar = "";
-                    // string fourChar = "";
-
-                    // if (i < (inputString.Length - 1))
-                    // {
-                    // 	doubleChar = inputString.Substring(i, 2);
-                    // }
-
-                    // if (i < (inputString.Length - 3))
-                    // {
-                    // 	fourChar = inputString.Substring(i, 4);
-                    // }
-
-                    // int emojiIndex;
-                    // if (config.map.TryGetValue(fourChar, out emojiIndex))
-                    // {
-                    // 	// Check 64 bit emojis first
-                    // 	onEmojiChar(fourChar, emojiIndex);
-                    // 	i += 4;
-                    // }
-                    // else if (config.map.TryGetValue(doubleChar, out emojiIndex))
-                    // {
-                    // 	// Then check 32 bit emojis
-                    // 	onEmojiChar(doubleChar, emojiIndex);
-                    // 	i += 2;
-                    // }
-                    // else if (config.map.TryGetValue(singleChar, out emojiIndex))
-                    // {
-                    // 	onEmojiChar(singleChar, emojiIndex);
-                    // 	i++;
-                    // }
-                    // else
-                    // {
-                    // onEmojiChar(singleChar, -1);
-                    // i++;
-                    // }
                 }
             }
         }

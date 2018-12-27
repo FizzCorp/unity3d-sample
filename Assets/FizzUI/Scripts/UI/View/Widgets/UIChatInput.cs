@@ -217,7 +217,7 @@ namespace Fizz.UI.Components {
                 _keyboard.active = true;
             }
 
-            DeviceOrientation deviceOrientation = FIZZUISDK.Instance.CanvasScaler.Orientation;
+            DeviceOrientation deviceOrientation = FizzUI.Instance.CanvasScaler.Orientation;
             if ((deviceOrientation == DeviceOrientation.PortraitUpsideDown || deviceOrientation == DeviceOrientation.Portrait) &&
                 nodeToMove != null) {
                 _moveUI = true;
