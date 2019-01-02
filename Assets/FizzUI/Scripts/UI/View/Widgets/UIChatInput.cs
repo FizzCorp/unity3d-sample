@@ -233,7 +233,7 @@ namespace Fizz.UI.Components {
             FIZZKeyboard.OnEmojiClicked = OnEmojiClicked;
 				
             string _initialText = (_message.Equals (_placeholderText)) ? string.Empty : _message;
-            FIZZKeyboard.ShowKeyboard (_initialText, _placeholderText, true);
+            FIZZKeyboard.ShowKeyboard (_initialText, _placeholderText, false);
 #endif
         }
 

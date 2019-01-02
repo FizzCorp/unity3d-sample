@@ -23,34 +23,24 @@ namespace Fizz.UI.Components
 		/// The translate toggle.
 		/// </summary>
 		[SerializeField] Button translateToggle;
-		/// <summary>
-		/// The translate button node.
-		/// </summary>
-		[SerializeField] RectTransform translateButtonNode;
-		/// <summary>
-		/// Chat message translate button.
-		/// </summary>
-		[SerializeField] Button translateButton;
-		/// <summary>
-		/// The translate button text.
-		/// </summary>
-		[SerializeField] Text translateButtonText;
 
 		public Action<int> onTranslateTogglePressed;
+		private UITranslateToggleButton translateToggleImage;
 
 		protected override void Awake ()
 		{
 			base.Awake ();
+			translateToggleImage = translateToggle.GetComponent<UITranslateToggleButton> ();
 		}
 
 		void OnEnable ()
 		{
-			// translateToggle.onClick.AddListener (ToggleTranslateClicked);
+			translateToggle.onClick.AddListener (ToggleTranslateClicked);
 		}
 
 		void OnDisable ()
 		{
-			// translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
+			translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
 		}
 
 		#region Public Methods
@@ -81,32 +71,18 @@ namespace Fizz.UI.Components
 			}
 
 			bool showTranslationToggle = _appTranslationEnabled;
-			//bool showTranslationButton = _appTranslationEnabled && !_autoTranslationEnabled && FIZZSDKWrapper.IsTranslatableChatMessageAction (_chatMessageAction);
-
-			//if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslated) {
-			//	showTranslationToggle = true;
-			//	showTranslationButton = false;
-			//} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslationError) {
-			//	showTranslationToggle = showTranslationButton = false;
-			//} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateNotTranslated) {
-			//	showTranslationToggle = false;
-			//	translateButtonText.text = Registry.localization.GetText ("Translation_Translate");
-			//} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslating) {
-			//	showTranslationToggle = false;
-			//	translateButtonText.text = Registry.localization.GetText ("Translation_Translating");
-			//	showTranslationButton = true;
-			//} else {
-			//	showTranslationToggle = showTranslationButton = false;
-			//}
+			
+			translateToggleImage.Configure (_model.TranslationState);
 
 			translateToggleNode.gameObject.SetActive (showTranslationToggle);
 		}
 
-		public void ToggleTranslateClicked ()
+		void ToggleTranslateClicked ()
 		{
             _model.ToggleTranslationState();
             messageLabel.text = _model.GetActiveMessage();
             onTranslateTogglePressed.Invoke(rowNumber);
+			// translateToggleImage.Toggle ();
 		}
 
 		#endregion

@@ -58,13 +58,13 @@ namespace Fizz
 
         public void Open(string userId, string locale, FizzServices services, Action<FizzException> callback)
         {
-            if (_state != FizzClientState.Closed)
-            {
-                Close( () => {
-                    Open(userId, locale, services, callback);
-                });
-                return;
-            }
+            // if (_state != FizzClientState.Closed)
+            // {
+            //     Close( () => {
+            //         Open(userId, locale, services, callback);
+            //     });
+            //     return;
+            // }
 
             try
             {

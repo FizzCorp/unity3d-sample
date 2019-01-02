@@ -22,6 +22,7 @@ namespace Fizz.UI.Components
 		/// The background.
 		/// </summary>
 		[SerializeField] Image background;
+		[SerializeField] Image underlineImg;
 
 		private Action<UIButtonBarItemModel> _callback;
 		private Button _button;
@@ -51,13 +52,14 @@ namespace Fizz.UI.Components
 		public void SetData (UIButtonBarItemModel data, Action<UIButtonBarItemModel> callback)
 		{
 			_item = data;
-			text.text = _item.text;
+			text.text = _item.text.ToUpper ();
 			_callback = callback;
 		}
 
 		public void SetInteractable (bool interactable)
 		{
 			_button.interactable = interactable;
+			underlineImg.gameObject.SetActive (!interactable);
 		}
 
 		#endregion

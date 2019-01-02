@@ -14,7 +14,7 @@ namespace Fizz.Threading
     {
         // TODO: Switch to ReaderWriterLock
         private readonly object synclock = new object();
-        private readonly SortedList<long, Action> timers = new SortedList<long, Action>();
+        private readonly SortedList<long, Action> timers = new SortedList<long, Action>(new DuplicateKeyComparer<long> ());
 
         public void Post(Action action)
         {
@@ -84,5 +84,22 @@ namespace Fizz.Threading
                 FizzLogger.E("Dispatched action threw except:\n" + ex.StackTrace);
             }
         }
+    }
+
+    public class DuplicateKeyComparer<TKey> : IComparer<TKey> where TKey : IComparable
+    {
+        #region IComparer<TKey> Members
+
+        public int Compare(TKey x, TKey y)
+        {
+            int result = x.CompareTo(y);
+
+            if (result == 0)
+                return 1;   // Handle equality as beeing greater
+            else
+                return result;
+        }
+
+        #endregion
     }
 }

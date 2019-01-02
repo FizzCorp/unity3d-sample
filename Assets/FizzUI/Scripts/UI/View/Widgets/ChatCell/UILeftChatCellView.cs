@@ -27,17 +27,19 @@ namespace Fizz.UI.Components {
         [SerializeField] Button translateToggle;
 
         public Action<int> onTranslateTogglePressed;
+        private UITranslateToggleButton translateToggleImage;
 
         protected override void Awake () {
             base.Awake ();
+            translateToggleImage = translateToggle.GetComponent<UITranslateToggleButton> ();
         }
 
         void OnEnable () {
-            // translateToggle.onClick.AddListener (ToggleTranslateClicked);
+            translateToggle.onClick.AddListener (ToggleTranslateClicked);
         }
 
         void OnDisable () {
-            // translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
+            translateToggle.onClick.RemoveListener (ToggleTranslateClicked);
         }
 
         #region Public Methods
@@ -71,28 +73,13 @@ namespace Fizz.UI.Components {
             }
 
             bool showTranslationToggle = _appTranslationEnabled;
-            //bool showTranslationButton = _appTranslationEnabled && !_autoTranslationEnabled && FIZZSDKWrapper.IsTranslatableChatMessageAction (_chatMessageAction);
-
-            //if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslated) {
-            //    showTranslationToggle = true;
-            //    showTranslationButton = false;
-            //} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslationError) {
-            //    showTranslationToggle = showTranslationButton = false;
-            //} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateNotTranslated) {
-            //    showTranslationToggle = false;
-            //    translateButtonText.text = Registry.localization.GetText ("Translation_Translate");
-            //} else if (_chatMessageAction.TranslationState == FIZZChatMessageTranslationState.ChatMessageTranslationStateTranslating) {
-            //    showTranslationToggle = false;
-            //    showTranslationButton = true;
-            //    translateButtonText.text = Registry.localization.GetText ("Translation_Translating");
-            //} else {
-            //    showTranslationToggle = showTranslationButton = false;
-            //}
-
+            
+            translateToggleImage.Configure (_model.TranslationState);
+            
             translateToggleNode.gameObject.SetActive (showTranslationToggle);
         }
 
-        public void ToggleTranslateClicked () {
+        void ToggleTranslateClicked () {
             _model.ToggleTranslationState();
             messageLabel.text = _model.GetActiveMessage();
             onTranslateTogglePressed.Invoke(rowNumber);

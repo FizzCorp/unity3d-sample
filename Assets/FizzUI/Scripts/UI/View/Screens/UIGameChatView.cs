@@ -51,11 +51,15 @@ namespace Fizz.UI.Components {
         public override void OnUIEnable () {
             base.OnUIEnable ();
             buttonBar.onBarItemPressed.AddListener (TabBarButtonHandler);
+
+            FizzService.Instance.OnChannelHistoryUpdated += OnChannelHistoryUpdated;
         }
 
         public override void OnUIDisable () {
             base.OnUIDisable ();
             buttonBar.onBarItemPressed.RemoveListener (TabBarButtonHandler);
+
+            FizzService.Instance.OnChannelHistoryUpdated -= OnChannelHistoryUpdated;
         }
 
         public override void OnUIRefresh () {
@@ -75,25 +79,11 @@ namespace Fizz.UI.Components {
             var items = new List<UIButtonBarItemModel> ();
 
             List<FizzChannel> fizzChannels = FizzService.Instance.Channels;
+
             foreach (FizzChannel channel in fizzChannels)
             {
                 items.Add(new UIButtonBarItemModel { text = channel.Name, data = channel.Id });
             }
-
-            //List<FIZZRoom> _defaultRooms = FIZZSDKWrapper.GetRooms (FIZZRoomType.RoomTypeDefault);
-            //_defaultRooms.Sort (new FIZZRoomComparer (FIZZRoomCompare.FIZZRoomCompareByName));
-            //
-            //foreach (FIZZRoom room in _defaultRooms) {
-            //    if (room.IsEnabled && !room.IsDeleted && room.UserStatus == FIZZRoomUserStatus.RoomUserStatusJoined)
-            //        items.Add (new UIButtonBarItemModel { text = room.Name, data = room.RoomId });
-            //}
-
-            //List<FIZZRoom> _gameRooms = FIZZSDKWrapper.GetRooms (FIZZRoomType.RoomTypeGameRoom);
-            //_gameRooms.Sort (new FIZZRoomComparer (FIZZRoomCompare.FIZZRoomCompareByName));
-            //foreach (FIZZRoom room in _gameRooms) {
-            //    if (room.IsEnabled && !room.IsDeleted && room.UserStatus == FIZZRoomUserStatus.RoomUserStatusJoined)
-            //        items.Add (new UIButtonBarItemModel { text = room.Name, data = room.RoomId });
-            //}
 
             buttonBar.ResetButtons ();
             buttonBar.SetupTabs (items, ((selectedModelItem != null) ? selectedModelItem.data : string.Empty), true);
@@ -110,6 +100,15 @@ namespace Fizz.UI.Components {
 
                 selectedModelItem = selected;
                 chatView.SetData(channel);
+            }
+        }
+
+        private void OnChannelHistoryUpdated (string channelId)
+        {
+            if (!string.IsNullOrEmpty (channelId))
+            {
+                FizzChannel channel = FizzService.Instance.GetChannelById (channelId);
+                buttonBar.AddButton (new UIButtonBarItemModel { text = channel.Name, data = channel.Id });
             }
         }
 

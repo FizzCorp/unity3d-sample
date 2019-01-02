@@ -121,9 +121,11 @@ namespace Fizz.UI.Components
 		/// <param name="_item">Item.</param>
 		public void AddButton (UIButtonBarItemModel _item)
 		{
-			ResetLayout ();
-			_AddButton (_item);
-			_reloadContainerLayout = 1;
+			if (!_buttons.ContainsKey (_item.data)) {
+				ResetLayout ();
+				_AddButton (_item);
+				_reloadContainerLayout = 1;
+			}
 		}
 
 		/// <summary>

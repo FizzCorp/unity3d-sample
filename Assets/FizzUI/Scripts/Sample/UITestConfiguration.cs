@@ -10,6 +10,7 @@ namespace Fizz.UI.Demo {
 
 		[SerializeField] InputField userIdInput;
 		[SerializeField] InputField userNameInput;
+		[SerializeField] Toggle translationToggle;
 
 		[SerializeField] Button channelAddButton;
 		[SerializeField] UITestChannel dafaultChannel;
@@ -21,9 +22,6 @@ namespace Fizz.UI.Demo {
 
 		void Awake ()
 		{
-			PlayerPrefs.DeleteAll();
-			PlayerPrefs.Save ();
-
 			launchButton.interactable = false;
 			connectButton.interactable = true;
 			disconnectButton.interactable = false;
@@ -72,6 +70,7 @@ namespace Fizz.UI.Demo {
 				testMeta.userId, 
 				testMeta.userName,
 				Utils.GetSystemLanguage (),
+				translationToggle.isOn,
 				testMeta.Channels,
 				(bool success) => {
 					launchButton.interactable = success;
@@ -115,6 +114,7 @@ namespace Fizz.UI.Demo {
 			JSONClass json = new JSONClass();
 			json.Add ("userId", new JSONData (meta.userId));
 			json.Add ("userName", new JSONData (meta.userName));
+			json.Add ("translation", new JSONData (translationToggle.isOn));
 
 			JSONArray array = new JSONArray();
 			foreach (TestChannelMeta metaChannel in meta.Channels)
@@ -128,19 +128,20 @@ namespace Fizz.UI.Demo {
 
 			json.Add ("channels", array);
 
-			PlayerPrefs.SetString ("meta", json.ToString ());
+			PlayerPrefs.SetString ("fizz-meta", json.ToString ());
 			PlayerPrefs.Save ();
-			UnityEngine.Debug.Log (json.ToString ());
+			UnityEngine.Debug.Log ("Writing " + json.ToString ());
 		}
 
 		void DeserializeAndLoad ()
 		{
-			string defaultJson = "{\"userId\":\""+ System.Guid.NewGuid () +"\",\"userName\":\"User\",\"channels\":[{\"channelId\":\"global-test\",\"channelName\":\"Global\"}]}";
-			string json = PlayerPrefs.GetString ("meta", defaultJson);
+			string json = PlayerPrefs.GetString ("fizz-meta", GetDefaultUser ());
+			UnityEngine.Debug.Log ("Reading " + json.ToString ());
 			JSONNode jsonClass = JSONClass.Parse (json);
 
 			userIdInput.text = jsonClass["userId"].Value;
 			userNameInput.text = jsonClass["userName"].Value;
+			translationToggle.isOn = jsonClass["translation"].AsBool;
 
 			JSONArray channels = jsonClass["channels"].AsArray;
 			int count = channels.Count;
@@ -160,6 +161,21 @@ namespace Fizz.UI.Demo {
 
 				index ++;
 			}
+		}
+
+		string GetDefaultUser ()
+		{
+			return "{"
+			+	 "\"userId\":\""+ System.Guid.NewGuid () +"\","
+			+	 "\"userName\":\"User\","
+			+ 	 "\"translation\":true,"
+			+	 "\"channels\":["
+			+		"{"
+			+			"\"channelId\":\"global-test\","
+			+			"\"channelName\":\"Global\""
+			+	 	"}"
+			+	 "]"
+			+ "}";
 		}
 	}
 

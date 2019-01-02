@@ -19,7 +19,7 @@ namespace Fizz {
 
         public bool IsConnected { get; private set; } = false;
 
-        public bool IsTranslationEnabled { get; private set; } = true;
+        public bool IsTranslationEnabled { get; private set; } = false;
 
         public string UserId { get; private set; } = "090078601";
 
@@ -48,11 +48,12 @@ namespace Fizz {
             Client.Update();
         }
 
-        public void Open (string userId, string userName, string locale, List<TestChannelMeta> channelList, Action<bool> onDone)
+        public void Open (string userId, string userName, string locale, bool tranlation, List<TestChannelMeta> channelList, Action<bool> onDone)
         {
             UserId = userId;
             UserName = userName;
             metaChannelList = channelList;
+            IsTranslationEnabled = tranlation;
             Client.Open(userId, locale, FizzServices.All, ex =>
             {
                 if (ex == null) {
@@ -67,6 +68,12 @@ namespace Fizz {
 
         public void Close()
         {
+            if (Client != null) {
+                Client.Chat.Listener.OnConnected -= Listener_OnConnected;
+                Client.Chat.Listener.OnDisconnected -= Listener_OnDisconnected;
+                Client.Chat.Listener.OnMessagePublished -= Listener_OnMessagePublished;
+            }
+
             Client.Close(ex =>
             {
                 IsConnected = false;

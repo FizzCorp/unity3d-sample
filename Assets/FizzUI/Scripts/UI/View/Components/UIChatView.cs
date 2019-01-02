@@ -143,7 +143,7 @@ namespace Fizz.UI.Components {
 
         private IEnumerator LoadChatAsync (bool scrollDown) {
 
-            yield return new WaitForSeconds ((scrollDown) ? 0.26f : 0f);
+            yield return new WaitForSeconds ((scrollDown) ? 0f : 0f);
             LoadChat (scrollDown);
 
             scrollRect.RefreshContent ();
@@ -174,6 +174,7 @@ namespace Fizz.UI.Components {
             _actionsLookUpDict.Clear ();
 
             IList<FizzChannelMessage> actionsList = _data.Messages;
+
             for (int index = 0; index < actionsList.Count; index++) {
                 FizzChannelMessage action = actionsList[index];
 
@@ -185,8 +186,6 @@ namespace Fizz.UI.Components {
                 _chatCellModelList.Add (model);
                 AddActionInLookup (model);
             }
-                
-
         }
 
         private void CheckForDateHeader (FizzUIMessage action) {
@@ -359,8 +358,9 @@ namespace Fizz.UI.Components {
 
         void OnChannelHistoryUpdated (string channelId)
         {
-            if (_data != null && _data.Id.Equals (channelId))
-                LoadChatAsync(true);
+            if (_data != null && _data.Id.Equals (channelId)) {
+                StartCoroutine(LoadChatAsync(true));
+            }
         }
 
         void OnChannelMessage (string channelId, FizzChannelMessage action) {
