@@ -110,11 +110,11 @@ namespace Fizz.UI.Components {
             switch (orientation) {
                 case DeviceOrientation.LandscapeLeft:
                 case DeviceOrientation.LandscapeRight:
-                    isSupported = (supportedOrientation == UIOrientaion.Both || supportedOrientation == UIOrientaion.Landscape);
+                    isSupported = (supportedOrientation == UIOrientaion.Landscape);
                     break;
                 case DeviceOrientation.Portrait:
                 case DeviceOrientation.PortraitUpsideDown:
-                    isSupported = (supportedOrientation == UIOrientaion.Both || supportedOrientation == UIOrientaion.Portrait);
+                    isSupported = (supportedOrientation == UIOrientaion.Portrait);
                     break;
                 case DeviceOrientation.Unknown:
                 case DeviceOrientation.FaceDown:
@@ -159,8 +159,7 @@ namespace Fizz.UI.Components {
         public enum UIOrientaion
         {
             Portrait,
-            Landscape,
-            Both
+            Landscape
         }
     }
 }

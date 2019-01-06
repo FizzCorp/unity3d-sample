@@ -171,7 +171,7 @@ namespace Fizz.UI.Demo {
 			+ 	 "\"translation\":true,"
 			+	 "\"channels\":["
 			+		"{"
-			+			"\"channelId\":\"global-test\","
+			+			"\"channelId\":\"global-channel\","
 			+			"\"channelName\":\"Global\""
 			+	 	"}"
 			+	 "]"
