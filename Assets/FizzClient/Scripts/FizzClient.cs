@@ -31,10 +31,13 @@ namespace Fizz
         IFizzChatClient Chat { get; }
         IFizzIngestionClient Ingestion { get; }
         FizzClientState State { get; }
+        string Version { get; }
     }
 
     public class FizzClient: IFizzClient
     {
+        readonly string VERSION = "v1.4.2";
+
         readonly string _appId;
         readonly FizzChatClient _chat;
         readonly IFizzRestClient _restClient;
@@ -148,6 +151,14 @@ namespace Fizz
             get
             {
                 return _state;
+            }
+        }
+
+        public string Version
+        {
+            get
+            {
+                return VERSION;
             }
         }
         
