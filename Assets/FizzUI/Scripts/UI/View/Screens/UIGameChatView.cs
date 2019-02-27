@@ -99,6 +99,7 @@ namespace Fizz.UI.Components {
                 }
 
                 selectedModelItem = selected;
+                chatView.EnableFetchHistory = true;
                 chatView.SetData(channel);
             }
         }

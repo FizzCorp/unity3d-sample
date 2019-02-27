@@ -33,6 +33,8 @@ namespace Fizz.UI {
 
         public UICanvasScaler CanvasScaler { get; private set; }
 
+        public IUIChatDataSource ChatDataSource { get; private set; }
+
         void Awake()
         {
             if (Instance == null)
@@ -69,6 +71,10 @@ namespace Fizz.UI {
             if (onFizzClose != null) {
                 onFizzClose.Invoke ();
             }
+        }
+
+        public void RegisterChatDataSource (IUIChatDataSource datasource) {
+            ChatDataSource = datasource;
         }
 
         #endregion

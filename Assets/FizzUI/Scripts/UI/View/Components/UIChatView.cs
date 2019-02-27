@@ -45,6 +45,14 @@ namespace Fizz.UI.Components {
         /// Scroll Indicator button
         /// </summary>
         [SerializeField] Button scrollIndicator;
+        /// <summary>
+        /// Enable history fetch
+        /// </summary>
+        /// <value></value>
+        public bool EnableFetchHistory {
+            get { return _enableFetchHistory; }
+            set { _enableFetchHistory = value; }
+        }
 
         protected override void Awake () {
             base.Awake ();
@@ -60,6 +68,7 @@ namespace Fizz.UI.Components {
             scrollIndicator.onClick.AddListener (OnScrollIndicator);
 
             scrollRect.onValueChanged.AddListener (OnScollValueChanged);
+            scrollRect.onPullToRefresh.AddListener (OnPullToRefresh);
         }
 
         void OnDisable () {
@@ -70,6 +79,7 @@ namespace Fizz.UI.Components {
             scrollIndicator.onClick.RemoveListener (OnScrollIndicator);
 
             scrollRect.onValueChanged.RemoveListener (OnScollValueChanged);
+            scrollRect.onPullToRefresh.RemoveListener (OnPullToRefresh);
         }
 
         #region Public Methods
@@ -82,6 +92,7 @@ namespace Fizz.UI.Components {
             _data = room;
             _isAppTranslationEnabled = FizzService.Instance.IsTranslationEnabled;
             _userId = FizzService.Instance.UserId;
+            _chatDataSource = FizzUI.Instance.ChatDataSource;
 
             StartCoroutine (LoadChatAsync (true));
             CancelInvoke ("RefreshScrollContent");
@@ -118,6 +129,8 @@ namespace Fizz.UI.Components {
 
             StopAllCoroutines ();
             CancelInvoke ();
+
+            _isFetchHistoryInProgress = false;
         }
 
         #endregion
@@ -242,16 +255,12 @@ namespace Fizz.UI.Components {
             UIChatCellModel model = GetChatCellModelFromAction (message);
             AddNewAction (model, false, true);
 
-            FizzService.Instance.Client.Chat.Publish(message.To, message.Nick, message.Body, message.Data, FizzService.Instance.IsTranslationEnabled, true, ex => { 
+            FizzService.Instance.PublishMessage(message.To, message.Nick, message.Body, message.Data, FizzService.Instance.IsTranslationEnabled, true, ex => { 
                 if (ex == null) {
                     model.Action.PublishState = UIChannelMessageState.Sent;
                     AddNewAction(model);
                 }
             });
-            //IFIZZChatMessageAction _model = FIZZSDKWrapper.ChatMessageSendRequest (message, _data.RoomId, null);
-
-            //UIChatCellModel model = GetChatCellModelFromAction (_model);
-            //AddNewAction (model, false, true);
         }
 
         private void OnScollValueChanged (Vector2 val) {
@@ -263,6 +272,10 @@ namespace Fizz.UI.Components {
             _userScroll = (scrollRect.ContentSize > scrollRect.ViewportSize && diff > 50.0f);
             if (!_userScroll)
                 scrollIndicator.gameObject.SetActive (_userScroll);
+        }
+        
+        private void OnPullToRefresh () {
+            FetchRoomHistory ();
         }
 
         private void OnTranslateToggleClicked (int row) {
@@ -279,6 +292,20 @@ namespace Fizz.UI.Components {
                 _userScroll = false;
                 _resetScroll = true;
                 scrollIndicator.gameObject.SetActive (false);
+            }
+        }
+
+        private void FetchRoomHistory () {
+            if (_enableFetchHistory && !_isFetchHistoryInProgress) {
+                _isHistoryAvailable = (_lastAction !=  null) ? _lastAction.Id > 0 : false;
+                if (_isHistoryAvailable) {
+                    _isFetchHistoryInProgress = true;
+                    spinner.ShowSpinner ();
+                    _data.FetchHistory (() => {
+                        _isFetchHistoryInProgress = false;
+                        spinner.HideSpinner ();
+                    });
+                }
             }
         }
 
@@ -359,7 +386,7 @@ namespace Fizz.UI.Components {
         void OnChannelHistoryUpdated (string channelId)
         {
             if (_data != null && _data.Id.Equals (channelId)) {
-                StartCoroutine(LoadChatAsync(true));
+                StartCoroutine(LoadChatAsync(!_isFetchHistoryInProgress));
             }
         }
 
@@ -410,6 +437,14 @@ namespace Fizz.UI.Components {
                     leftRepeatCell.onTranslateTogglePressed = OnTranslateToggleClicked;
                 } 
 
+                if (!string.IsNullOrEmpty (action.Data)) {
+                    RectTransform customView = null;
+                    if (_chatDataSource != null) {
+                        customView = _chatDataSource.GetCustomMessageDrawable (action);
+                        if (customView != null)
+                            chatCellView.SetCustomData (customView);
+                    }
+                }
             } else if (model.Type == UIChatCellModel.UIChatCellModelType.DateHeader) {
                 UIChatDateHeaderCellView dateHeader = obj.GetComponent<UIChatDateHeaderCellView> ();
                 dateHeader.SetData (model.Action, _isAppTranslationEnabled);
@@ -458,9 +493,10 @@ namespace Fizz.UI.Components {
 
                 if (!ownMessage && lastAction != null && chatAction.From.Equals (lastAction.From)) {
                     cellType = UIChatActionType.TheirsRepeatMessageAction;
-                } else if (ownMessage && nextAction != null && chatAction.From.Equals (nextAction.From)) {
-                    cellType = UIChatActionType.YoursRepeatMessageAction;
-                }
+                } 
+                // else if (ownMessage && nextAction != null && chatAction.From.Equals (nextAction.From)) {
+                //     cellType = UIChatActionType.YoursRepeatMessageAction;
+                // }
 
                 actionType = cellType;
             } else {
@@ -515,11 +551,18 @@ namespace Fizz.UI.Components {
         /// The lookup dictionary for actions
         /// </summary>
         Dictionary<string, UIChatCellModel> _actionsLookUpDict;
+        /// <summary>
+        /// The chat data source
+        /// </summary>
+        IUIChatDataSource _chatDataSource;
 
         private string _userId = string.Empty;
         private bool _isDirty = false;
         private bool _resetScroll = false;
         private bool _userScroll = false;
         private bool _isAppTranslationEnabled = false;
+        private bool _enableFetchHistory = false;
+        private bool _isHistoryAvailable = false;
+        private bool _isFetchHistoryInProgress = false;
     }
 }

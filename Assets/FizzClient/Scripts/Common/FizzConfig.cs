@@ -13,10 +13,10 @@ namespace Fizz.Common
         public static string MQTT_HOST_ENDPOINT = "mqtt.fizz.io";
 #else
         public static readonly string API_PROTOCOL = "http";
-        public static readonly string API_ENDPOINT = "localhost:3000";
+        public static readonly string API_ENDPOINT = "fizz-api-gateway-blue.us-east-1.elasticbeanstalk.com:3000";
 
         public static bool MQTT_USE_TLS = false;
-        public static string MQTT_HOST_ENDPOINT = "localhost";
+        public static string MQTT_HOST_ENDPOINT = "mqtt.fizz.io";
 #endif
 
         public static readonly string API_VERSION = "v1";
@@ -25,6 +25,9 @@ namespace Fizz.Common
         public static readonly string API_PATH_EVENTS = "/events";
         public static readonly string API_PATH_MESSAGES = "/channels/{0}/messages";
         public static readonly string API_PATH_SUBSCRIBERS = "/channels/{0}/subscribers";
+        public static readonly string API_PATH_MESSAGE_ACTION = "channels/{0}/messages/{1}";
+        public static readonly string API_PATH_BAN = "/channels/{0}/bans";
+        public static readonly string API_PATH_MUTE = "/channels/{0}/mutes";
         public static readonly string API_HEADER_SESSION_TOKEN = "Session-Token"; 
     }
 }

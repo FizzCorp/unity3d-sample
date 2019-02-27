@@ -8,65 +8,11 @@ using Fizz.Common.Json;
 
 namespace Fizz.Ingestion.Impl
 {
-    public class FizzInterval
-    {
-        bool _isEnabled = false;
-        readonly IFizzActionDispatcher _dispatcher = null;
-        readonly int _intervalMS;
-        readonly Action _callback;
-
-        public FizzInterval(IFizzActionDispatcher dispatcher, Action callback, int intervalMS)
-        {
-            if (dispatcher == null)
-            {
-                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
-            }
-            if (callback == null)
-            {
-                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_interval_callback");
-            }
-            if (intervalMS <= 0)
-            {
-                throw new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_interval");
-            }
-
-            _dispatcher = dispatcher;
-            _callback = callback;
-            _intervalMS = intervalMS;
-        }
-
-        public void Enable()
-        {
-            if(_isEnabled)
-            {
-                return;
-            }
-
-            _isEnabled = true;
-            _dispatcher.Delay(_intervalMS, Tick);
-        }
-
-        public void Disable()
-        {
-            _isEnabled = false;
-        }
-
-        public void Tick()
-        {
-            if (!_isEnabled)
-            {
-                return;
-            }
-
-            _callback.Invoke();
-            _dispatcher.Delay(_intervalMS, Tick);
-        }
-    }
-
     public class FizzIngestionClient : IFizzIngestionClient
     {
         static readonly int LOG_FLUSH_INTERVAL = 5 * 1000;
         static readonly int EVENT_VER = 1;
+
 #if UNITY_ANDROID
         static readonly string PLATFORM = "android";
 #elif UNITY_IOS
@@ -93,6 +39,10 @@ namespace Fizz.Ingestion.Impl
         public string CustomDimesion01 { get; set; }
         public string CustomDimesion02 { get; set; }
         public string CustomDimesion03 { get; set; }
+
+        private const string KEY_SESSION = "fizz_session";
+        private const string KEY_SESSION_START_TS = "fizz_session";
+        private const string KEY_SESSION_UPDATE_TS = "fizz_session";
 
         public FizzIngestionClient(IFizzEventLog eventLog, IFizzActionDispatcher dispatcher)
         {
@@ -133,6 +83,7 @@ namespace Fizz.Ingestion.Impl
             _startTime = FizzUtils.Now();
             _sessionId = Guid.NewGuid().ToString();
 
+            ClosePreviousSession ();
             SessionStarted();
 
             _interval.Enable();
@@ -143,7 +94,7 @@ namespace Fizz.Ingestion.Impl
             IfOpened(() =>
             {
                 _interval.Disable();
-                SessionEnded();
+                SessionEnded(_sessionId, FizzUtils.Now() - _startTime);
                 Flush();
 
                 _onLogEmpty += () =>
@@ -180,7 +131,7 @@ namespace Fizz.Ingestion.Impl
                 }
                 fields["amount"].AsDouble = amount;
 
-                _eventLog.Put(BuildEvent(FizzEventType.product_purchased, fields)); 
+                _eventLog.Put(BuildEvent(_sessionId, FizzEventType.product_purchased, fields)); 
             });
         }
 
@@ -205,37 +156,64 @@ namespace Fizz.Ingestion.Impl
                     fields["nick"] = senderNick;
                 }
 
-                _eventLog.Put(BuildEvent(FizzEventType.text_msg_sent, fields)); 
+                _eventLog.Put(BuildEvent(_sessionId, FizzEventType.text_msg_sent, fields)); 
             });
+        }
+
+        private void ClosePreviousSession ()
+        {
+            string lastSessionId = UnityEngine.PlayerPrefs.GetString (KEY_SESSION, string.Empty);
+            if (!string.IsNullOrEmpty (lastSessionId)) 
+            {
+                long sessionStartTs = FizzUtils.Now () + _timeOffset;
+                long sessionUpdateTs = FizzUtils.Now () + _timeOffset;
+                long.TryParse (UnityEngine.PlayerPrefs.GetString (KEY_SESSION_START_TS), out sessionStartTs);
+                long.TryParse (UnityEngine.PlayerPrefs.GetString (KEY_SESSION_UPDATE_TS), out sessionUpdateTs);
+
+                SessionEnded (lastSessionId, sessionUpdateTs - sessionStartTs);
+
+                UnityEngine.PlayerPrefs.DeleteKey (KEY_SESSION);
+                UnityEngine.PlayerPrefs.DeleteKey (KEY_SESSION_START_TS);
+                UnityEngine.PlayerPrefs.DeleteKey (KEY_SESSION_UPDATE_TS);
+                UnityEngine.PlayerPrefs.Save ();
+            }
         }
 
         private void SessionStarted()
         {
             FizzLogger.D("Session Started");
+            
+            //Persist Session Start
+            UnityEngine.PlayerPrefs.SetString (KEY_SESSION, _sessionId);
+            UnityEngine.PlayerPrefs.SetString (KEY_SESSION_START_TS, (FizzUtils.Now () + _timeOffset).ToString ());
+            UnityEngine.PlayerPrefs.Save ();
 
-            _eventLog.Put(BuildEvent(FizzEventType.session_started, null));   
+            _eventLog.Put(BuildEvent(_sessionId, FizzEventType.session_started, null));   
         }
 
-        private void SessionEnded()
+        private void SessionEnded(string sessionId, long duration)
         {
             FizzLogger.D("Session Ended");
 
             JSONClass fields = new JSONClass();
 
-            fields["duration"].AsDouble = FizzUtils.Now() - _startTime;
-
-            _eventLog.Put(BuildEvent(FizzEventType.session_ended, fields));
+            fields["duration"].AsDouble = duration;
+            
+            _eventLog.Put(BuildEvent(_sessionId, FizzEventType.session_ended, fields));
         }
 
-        private FizzEvent BuildEvent(FizzEventType type, JSONNode fields)
+        private FizzEvent BuildEvent(string sessionId, FizzEventType type, JSONNode fields)
         {
             try
             {
+                UnityEngine.PlayerPrefs.SetString (KEY_SESSION_UPDATE_TS, (FizzUtils.Now () + _timeOffset).ToString ());
+                UnityEngine.PlayerPrefs.Save ();
+
                 return new FizzEvent(
                     _userId,
                     type,
                     EVENT_VER,
-                    _sessionId,
+                    sessionId,
                     FizzUtils.Now() + _timeOffset,
                     PLATFORM,
                     BuildVer,

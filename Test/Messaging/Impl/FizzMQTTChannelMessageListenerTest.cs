@@ -193,11 +193,11 @@ namespace Fizz.Messaging.Impl
             await Task.Delay(100);
         }
 
-        FizzJsonChannelMessage BuildTextMessage(long id, String from, String content)
+        FizzJsonChannelMessage BuildTextMessage(long id, string from, string content)
         {
             return new FizzJsonChannelMessage(
                 id, from, "text",
-                new Dictionary<String, String>() {
+                new Dictionary<string, string>() {
                 {"content", content}
                 },
                 Now()
@@ -205,7 +205,7 @@ namespace Fizz.Messaging.Impl
         }
 
         void PublishMessage(FizzMockMQTTChannelMessageListener listener, 
-                            String channelId, 
+                            string channelId, 
                             FizzJsonChannelMessage message)
         {
             var connection = listener.Connection as FizzMockMQTTConnection;
@@ -220,7 +220,7 @@ namespace Fizz.Messaging.Impl
             Assert.AreEqual(lhs.From, rhs.From);
             Assert.AreEqual(lhs.Created, rhs.Created);
 
-            foreach (String key in lhs.Data.Keys)
+            foreach (string key in lhs.Data.Keys)
             {
                 Assert.AreEqual(lhs.Data[key], rhs.Data[key]);
             }

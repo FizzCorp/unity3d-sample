@@ -15,13 +15,13 @@ namespace Fizz {
 
         public static FizzService Instance { get; private set; } = null;
 
-        public IFizzClient Client { get; } = new FizzClient(APP_ID, APP_SECRET);
+        public IFizzClient Client { get { return fizzClient; } }
 
         public bool IsConnected { get; private set; } = false;
 
         public bool IsTranslationEnabled { get; private set; } = false;
 
-        public string UserId { get; private set; } = "090078601";
+        public string UserId { get; private set; } = "123456789";
 
         public string UserName { get; private set; } = "Squid";
 
@@ -32,6 +32,8 @@ namespace Fizz {
 
         List<TestChannelMeta> metaChannelList;
         private Dictionary<string, FizzChannel> channelLoopup = new Dictionary<string, FizzChannel>();
+
+        private IFizzClient fizzClient;
 
         void Awake()
         {
@@ -45,7 +47,10 @@ namespace Fizz {
 
         void Update()
         {
-            Client.Update();
+            if (fizzClient != null)
+            {
+                fizzClient.Update();
+            }
         }
 
         public void Open (string userId, string userName, string locale, bool tranlation, List<TestChannelMeta> channelList, Action<bool> onDone)
@@ -54,13 +59,15 @@ namespace Fizz {
             UserName = userName;
             metaChannelList = channelList;
             IsTranslationEnabled = tranlation;
-            Client.Open(userId, locale, FizzServices.All, ex =>
+            fizzClient = new FizzClient (APP_ID, APP_SECRET);
+            fizzClient.Open(userId, locale, FizzServices.All, ex =>
             {
                 if (ex == null) {
-                    Client.Chat.Listener.OnConnected += Listener_OnConnected;
-                    Client.Chat.Listener.OnDisconnected += Listener_OnDisconnected;
-                    Client.Chat.Listener.OnMessagePublished += Listener_OnMessagePublished;
-                }
+
+                    fizzClient.Chat.Listener.OnConnected += Listener_OnConnected;
+                    fizzClient.Chat.Listener.OnDisconnected += Listener_OnDisconnected;
+                    fizzClient.Chat.Listener.OnMessagePublished += Listener_OnMessagePublished;
+                } 
 
                 onDone(ex == null);
             });
@@ -68,16 +75,34 @@ namespace Fizz {
 
         public void Close()
         {
-            if (Client != null) {
-                Client.Chat.Listener.OnConnected -= Listener_OnConnected;
-                Client.Chat.Listener.OnDisconnected -= Listener_OnDisconnected;
-                Client.Chat.Listener.OnMessagePublished -= Listener_OnMessagePublished;
-            }
-
-            Client.Close(ex =>
+            if (fizzClient != null)
             {
-                IsConnected = false;
-            });
+                if (fizzClient.Chat != null) {
+                    fizzClient.Chat.Listener.OnConnected -= Listener_OnConnected;
+                    fizzClient.Chat.Listener.OnDisconnected -= Listener_OnDisconnected;
+                    fizzClient.Chat.Listener.OnMessagePublished -= Listener_OnMessagePublished;
+                }
+
+                fizzClient.Close(ex =>
+                {
+                    IsConnected = false;
+                });
+            }
+        }
+
+        public void PublishMessage (string channel, string nick, string body, string data, bool translate, bool persist, Action<FizzException> callback) 
+        {
+            if (fizzClient != null) 
+            {
+                fizzClient.Chat.PublishMessage (channel, nick, body, data, translate, persist, ex => {
+                    if (ex == null) {
+                        fizzClient.Ingestion.TextMessageSent (channel, body, nick);
+                    }
+                    if (callback != null) {
+                        callback.Invoke (ex);
+                    }
+                });
+            }
         }
 
         public FizzChannel GetChannelById (string id)
@@ -95,7 +120,10 @@ namespace Fizz {
                 channelLoopup[msg.To].AddMessage(msg);
             }
             
-            FizzService.Instance.OnChannelMessage.Invoke (msg.To, msg);
+            if (OnChannelMessage != null)
+            {
+                OnChannelMessage.Invoke (msg.To, msg);
+            }
         }
 
         void Listener_OnDisconnected(FizzException obj)
@@ -106,7 +134,7 @@ namespace Fizz {
         void Listener_OnConnected(bool syncRequired)
         {
             IsConnected = true;
-
+            
             if (!syncRequired) 
                 return;
 
@@ -124,7 +152,7 @@ namespace Fizz {
             }
         }
 
-        private void OnApplicationQuit()
+        void OnApplicationQuit()
         {
             Close();
         }

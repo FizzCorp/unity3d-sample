@@ -13,10 +13,10 @@ namespace Fizz.Common
         private static int nextId = 0;
 
         private readonly bool _isSessionPresent = false;
-        private readonly String _clientId;
+        private readonly string _clientId;
         private bool _connected = false;
 
-        public FizzMockMQTTConnection(bool isSessionPresent, String clientId)
+        public FizzMockMQTTConnection(bool isSessionPresent, string clientId)
         {
             Id = System.Threading.Interlocked.Increment(ref nextId);
             _isSessionPresent = isSessionPresent;
@@ -61,7 +61,7 @@ namespace Fizz.Common
             return disconnected.Task;
         }
 
-        public void Publish(String topic, byte[] payload)
+        public void Publish(string topic, byte[] payload)
         {
             if (MessageReceived != null)
             {

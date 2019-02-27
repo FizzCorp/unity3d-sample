@@ -84,12 +84,18 @@ namespace Fizz.UI.Components {
             inputMobile.GetComponent<Button> ().interactable = isFizzConnected;
             inputMobile.GetComponent<Button> ().onClick.AddListener (ActivateKeyboard);
 #endif
-
-            if (FizzService.Instance.Client.State == FizzClientState.Opened)
+            try
             {
-                FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
-                FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
+                if (FizzService.Instance.Client.State == FizzClientState.Opened)
+                {
+                    FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
+                    FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
+                }
             }
+			catch (FizzException ex)
+			{
+                Common.FizzLogger.E ("UIChatInput ex " + ex.Message);
+			}
         }
 
         void OnDisable () {
@@ -103,11 +109,18 @@ namespace Fizz.UI.Components {
             inputMobile.GetComponent<Button> ().onClick.RemoveListener (ActivateKeyboard);
 #endif
 
-            if (FizzService.Instance.Client.State == FizzClientState.Opened)
+            try
             {
-                FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
-                FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
+                if (FizzService.Instance.Client.State == FizzClientState.Opened)
+                {
+                    FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
+                    FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
+                }
             }
+			catch (FizzException ex)
+			{
+                Common.FizzLogger.E ("UIChatInput ex " + ex.Message);
+			}
 
              #if UNITY_IPHONE
                 DeactivateKeyboard ();

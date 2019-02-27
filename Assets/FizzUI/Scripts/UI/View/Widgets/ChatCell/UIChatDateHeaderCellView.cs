@@ -24,7 +24,7 @@ namespace Fizz.UI.Components
 		{
 			base.SetData (model, appTranslationEnabled);
 
-            messageLabel.text = Utils.GetFormattedTimeForUnixTimeStamp (_model.Created, false);
+            messageLabel.text = Utils.GetFormattedTimeForUnixTimeStamp (_model.Created);
 		}
 
 		#endregion

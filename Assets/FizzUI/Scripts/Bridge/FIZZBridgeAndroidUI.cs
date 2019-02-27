@@ -78,7 +78,7 @@ namespace FIZZ.Bridge.UI.Android {
 
         }
 
-        public String GetText () {
+        public string GetText () {
             string text = string.Empty;
             if (!IsKeyboardClosed () && m_fizzKBJavaObject != null) {
                 text = m_fizzKBJavaObject.Call<string> ("getText");
@@ -108,7 +108,7 @@ namespace FIZZ.Bridge.UI.Android {
             }
         }
 
-        public void SetKeyboardMessageLayoutGraphics (String mainLayoutBg, String editTextBg, String doneButtonBg) {
+        public void SetKeyboardMessageLayoutGraphics (string mainLayoutBg, string editTextBg, string doneButtonBg) {
             if (m_fizzKBJavaObject != null) {
                 m_fizzKBJavaObject.Call ("setMessageLayoutGraphics", mainLayoutBg, editTextBg, doneButtonBg);
             }

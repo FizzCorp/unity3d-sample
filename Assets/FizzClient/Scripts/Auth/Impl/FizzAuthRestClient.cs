@@ -5,67 +5,30 @@ using Fizz.Common.Json;
 
 namespace Fizz.Common
 {
-    public struct Session
-    {
-        public readonly string _token;
-        public readonly string _subscriberId;
-        public readonly long _serverTS;
-
-        public Session(string token, string subscriberId, long serverTS)
-        {
-            _token = token;
-            _subscriberId = subscriberId;
-            _serverTS = serverTS;
-        }
-    }
-
-    public interface IFizzAuthRestClient
-    {
-        void Open(string userId, string locale);
-        void Close();
-        void FetchSessionToken(Action<FizzException> callback);
-        void Post(string host, string path, string json, Action<string, FizzException> callback);
-        void Delete(string host, string path, string json, Action<string, FizzException> callback);
-        void Get(string host, string path, Action<string, FizzException> callback);
-
-        Session session { get; }
-    }
-
-    public class FizzAuthRestClient: FizzRestClient, IFizzAuthRestClient
+    public class FizzAuthRestClient: IFizzAuthRestClient
     {
         private static readonly FizzException ERROR_SESSION_CREATION_FAILED = new FizzException(FizzError.ERROR_REQUEST_FAILED, "session_creation_failed");
         private static readonly FizzException ERROR_INVALID_APP_SECRET = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_app_secret");
         private static readonly FizzException ERROR_INVALID_LOCALE = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_locale");
 
-        private readonly string _appId;
-        private readonly string _appSecret;
         private string _userId;
         private string _locale;
-        private Session _session;
+        private FizzSession _session;
+        private IFizzRestClient _restClient;
+        private IFizzSessionProvider _sessionClient;
         private Queue<Action<FizzException>> _requestQueue = new Queue<Action<FizzException>>();
 
-        public Session session
+        public FizzSession Session
         {
             get {
                 return _session;
             }
         }
 
-        public FizzAuthRestClient(string appId, 
-                                  string appSecret, 
-                                  IFizzActionDispatcher dispatcher): base(dispatcher)
+        public FizzAuthRestClient(IFizzSessionProvider sessionClient, IFizzRestClient restClient)
         {
-            if (string.IsNullOrEmpty(appId))
-            {
-                throw FizzException.ERROR_INVALID_APP_ID;
-            }
-            if (string.IsNullOrEmpty(appSecret))
-            {
-                throw ERROR_INVALID_APP_SECRET;
-            }
-
-            _appId = appId;
-            _appSecret = appSecret;
+            _restClient = restClient;
+            _sessionClient = sessionClient;
         }
 
         public void Open(string userId, string locale)
@@ -86,13 +49,13 @@ namespace Fizz.Common
 
             _userId = userId;
             _locale = locale;
-            _session = new Session(null, null, 0);
+            _session = new FizzSession(null, null, 0);
         }
 
         public void Close()
         {
             _userId = null;
-            _session = new Session();
+            _session = new FizzSession();
         }
 
         public void Post(string host, 
@@ -100,11 +63,11 @@ namespace Fizz.Common
                          string json,
                          Action<string, FizzException> callback)
         {
-            Post(host, path, json, AuthHeaders(), (response, ex) =>
+            _restClient.Post(host, path, json, AuthHeaders(), (response, ex) =>
             {
                 ProcessResponse(response, ex, callback, () => 
                 {
-                    Post(host, path, json, AuthHeaders(), callback);
+                    _restClient.Post(host, path, json, AuthHeaders(), callback);
                 });
             });
         }
@@ -114,13 +77,13 @@ namespace Fizz.Common
                            string json, 
                            Action<string, FizzException> callback)
         {
-            Delete(host, path, json, AuthHeaders(), (response, ex) => 
+            _restClient.Delete(host, path, json, AuthHeaders(), (response, ex) => 
             {
                 ProcessResponse(
                     response, 
                     ex, 
                     callback, 
-                    () => Delete(host, path, json, AuthHeaders(), callback)
+                    () => _restClient.Delete(host, path, json, AuthHeaders(), callback)
                 );
             });    
         }
@@ -129,13 +92,13 @@ namespace Fizz.Common
                         string path, 
                         Action<string, FizzException> callback)
         {
-            Get(host, path, AuthHeaders(), (response, ex) => 
+            _restClient.Get(host, path, AuthHeaders(), (response, ex) => 
             {
                 ProcessResponse(
                     response, 
                     ex, 
                     callback, 
-                    () => Get(host, path, AuthHeaders(), callback)
+                    () => _restClient.Get(host, path, AuthHeaders(), callback)
                 );
             });
         }
@@ -148,17 +111,7 @@ namespace Fizz.Common
                 return;
             }
 
-            JSONClass node = new JSONClass();
-            node["app_id"] = _appId;
-            node["user_id"] = _userId;
-            node["locale"] = _locale;
-
-            string body = node.ToString();
-            string digest = GenerateHmac(body, _appSecret);
-            var headers = new Dictionary<string, string>() { { "Authorization", "HMAC-SHA256 " + digest } };
-
-            Post(FizzConfig.API_BASE_URL, FizzConfig.API_PATH_SESSIONS, body, headers, (response, ex) =>
-            {
+            _sessionClient.FetchToken (_userId, _locale, (session, ex) => {
                 if (ex != null)
                 {
                     while (_requestQueue.Count > 0)
@@ -166,38 +119,17 @@ namespace Fizz.Common
                         FizzUtils.DoCallback(ex, _requestQueue.Dequeue());
                     }
                 }
-                else
+                else 
                 {
-                    try
+                    _session = session;
+                    while (_requestQueue.Count > 0)
                     {
-                        _session = ParseSession(JSONNode.Parse(response));
-                        while (_requestQueue.Count > 0)
-                        {
-                            FizzUtils.DoCallback(null, _requestQueue.Dequeue());
-                        }
-                    }
-                    catch (Exception responseEx)
-                    {
-                        FizzLogger.E(responseEx.Message);
-                        while (_requestQueue.Count > 0)
-                        {
-                            FizzUtils.DoCallback(ERROR_SESSION_CREATION_FAILED, _requestQueue.Dequeue());
-                        }
+                        FizzUtils.DoCallback(null, _requestQueue.Dequeue());
                     }
                 }
             });
         }
-
-        private Session ParseSession(JSONNode json) 
-        {
-            string token = json["token"];
-            string subId = json["subscriber_id"];
-            long now = 0;
-            long.TryParse(json["now_ts"], out now);
-
-            return new Session(token, subId, now);
-        }
-
+       
         private IDictionary<string,string> AuthHeaders()
         {
             if (string.IsNullOrEmpty(_session._token))
@@ -243,19 +175,6 @@ namespace Fizz.Common
             else
             {
                 FizzUtils.DoCallback<string>(response, ex, onResult);
-            }
-        }
-
-        private string GenerateHmac(string json, string secretKey)
-        {
-            var encoding = new System.Text.UTF8Encoding();
-            var body = encoding.GetBytes(json);
-            var key = encoding.GetBytes(secretKey);
-
-            using (var encoder = new HMACSHA256(key))
-            {
-                byte[] hashmessage = encoder.ComputeHash(body);
-                return System.Convert.ToBase64String(hashmessage);
             }
         }
     }

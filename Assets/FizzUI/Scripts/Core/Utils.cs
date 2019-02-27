@@ -219,7 +219,7 @@ namespace Fizz.UI.Core
 			languageCode = "lt";
 				break;
 			case SystemLanguage.Norwegian:
-			languageCode = "no";
+			languageCode = "nb";
 				break;
 			case SystemLanguage.Polish:
 			languageCode = "pl";
@@ -244,7 +244,7 @@ namespace Fizz.UI.Core
 			languageCode = "es";
 				break;
 			case SystemLanguage.Swedish:
-			languageCode = "sw";
+			languageCode = "sv";
 				break;
 			case SystemLanguage.Thai:
 			languageCode = "th";
@@ -259,10 +259,10 @@ namespace Fizz.UI.Core
 			languageCode = "vi";
 				break;
 			case SystemLanguage.ChineseSimplified:
-			languageCode = "zh-CHS";
+			languageCode = "zh-Hans";
 				break;
 			case SystemLanguage.ChineseTraditional:
-			languageCode = "zh-CHT";
+			languageCode = "zh-Hant";
 				break;
 			case SystemLanguage.Hungarian:
 			languageCode = "hu";

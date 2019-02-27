@@ -23,9 +23,9 @@ namespace Fizz.Chat.Impl
         }
 
         public long Id { get; private set; }
-        public String Type { get; private set; }
-        public String From { get; private set; }
-        public String Data { get; private set; }
+        public string Type { get; private set; }
+        public string From { get; private set; }
+        public string Data { get; private set; }
         public long Created { get; private set; }
     }
 }

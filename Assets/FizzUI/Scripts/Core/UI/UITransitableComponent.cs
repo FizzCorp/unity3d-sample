@@ -15,20 +15,34 @@ namespace Fizz.UI.Core
 
 		public virtual void OnEnable ()
 		{
-            if (FizzService.Instance.Client.State == FizzClientState.Opened)
-            {
-                FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
-                FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
-            }
+			try
+			{
+				if (FizzService.Instance.Client.State == FizzClientState.Opened)
+				{
+					FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
+					FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
+				}
+			}
+			catch (FizzException ex)
+			{
+                Common.FizzLogger.E ("UITransitableComponent ex " + ex.Message);
+			}
 		}
 
 		public virtual void OnDisable ()
 		{
-            if (FizzService.Instance.Client.State == FizzClientState.Opened)
-            {
-                FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
-                FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
-            }
+			try
+			{
+				if (FizzService.Instance.Client.State == FizzClientState.Opened)
+				{
+					FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
+					FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
+				}
+			}
+			catch (FizzException ex)
+			{
+                Common.FizzLogger.E ("UITransitableComponent ex " + ex.Message);
+			}
         }
 
 		public virtual void Popup ()

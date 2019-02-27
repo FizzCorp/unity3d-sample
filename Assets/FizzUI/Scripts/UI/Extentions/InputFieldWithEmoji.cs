@@ -95,7 +95,6 @@ namespace Fizz.UI.Components
 			if (m_Keyboard != null && m_Keyboard.done && !m_Keyboard.wasCanceled) {
 				if (onDone != null) {
 					onDone.Invoke ();
-					Debug.Log ("OnDone");
 					m_Keyboard = null;
 				}
 			}

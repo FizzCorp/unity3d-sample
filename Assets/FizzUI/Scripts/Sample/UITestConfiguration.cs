@@ -130,13 +130,12 @@ namespace Fizz.UI.Demo {
 
 			PlayerPrefs.SetString ("fizz-meta", json.ToString ());
 			PlayerPrefs.Save ();
-			UnityEngine.Debug.Log ("Writing " + json.ToString ());
 		}
 
 		void DeserializeAndLoad ()
 		{
 			string json = PlayerPrefs.GetString ("fizz-meta", GetDefaultUser ());
-			UnityEngine.Debug.Log ("Reading " + json.ToString ());
+
 			JSONNode jsonClass = JSONClass.Parse (json);
 
 			userIdInput.text = jsonClass["userId"].Value;

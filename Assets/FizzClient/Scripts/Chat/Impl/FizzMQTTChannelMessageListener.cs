@@ -25,7 +25,7 @@ namespace Fizz.Chat.Impl
         public Action<FizzChannelMessage> OnMessageUpdated { get; set; }
         public Action<FizzChannelMessage> OnMessageDeleted { get; set; }
 
-        protected Session _session;
+        protected FizzSession _session;
         protected string _userId;
         protected IFizzMqttConnection _connection;
 
@@ -49,7 +49,7 @@ namespace Fizz.Chat.Impl
             _dispatcher = dispatcher;
         }
 
-        public void Open(string userId, Session session)
+        public void Open(string userId, FizzSession session)
         {
             if (_connection != null)
             {
@@ -86,7 +86,7 @@ namespace Fizz.Chat.Impl
                 return;
             }
 
-            _session = new Session();
+            _session = new FizzSession();
             var conn = _connection;
             _connection = null;
             conn.DisconnectAsync();

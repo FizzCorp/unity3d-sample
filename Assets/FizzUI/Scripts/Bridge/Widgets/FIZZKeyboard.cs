@@ -33,7 +33,7 @@ public class FIZZKeyboard {
         FIZZBridgeUI.Instance.ShowKeyboard (text, hintText, isEmoji);
     }
 
-    public static String GetText () {
+    public static string GetText () {
         return FIZZBridgeUI.Instance.GetText ();
     }
 
@@ -49,7 +49,7 @@ public class FIZZKeyboard {
         FIZZBridgeUI.Instance.HideKeyboard ();
     }
 
-    public static void SetKeyboardMessageLayoutGraphics (String mainLayoutBg, String editTextBg, String doneButtonBg) {
+    public static void SetKeyboardMessageLayoutGraphics (string mainLayoutBg, string editTextBg, string doneButtonBg) {
         FIZZBridgeUI.Instance.SetKeyboardMessageLayoutGraphics (mainLayoutBg, editTextBg, doneButtonBg);
     }
 }

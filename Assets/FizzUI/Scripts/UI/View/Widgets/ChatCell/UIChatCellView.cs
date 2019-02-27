@@ -24,6 +24,10 @@ namespace Fizz.UI.Components
 		/// </summary>
 		[SerializeField] protected TextWithEmoji messageLabel;
 		/// <summary>
+		/// Custom view node.
+		/// </summary>
+		[SerializeField] protected RectTransform customNode;
+		/// <summary>
 		/// Chat message time label.
 		/// </summary>
 		[SerializeField] protected Text timeLabel;
@@ -56,6 +60,21 @@ namespace Fizz.UI.Components
                 DateTime dt = Utils.GetDateTimeToUnixTime (_model.Created);
 				string timeFormat = string.Format ("{0:h:mm tt}", dt);
 				timeLabel.text = timeFormat;
+			}
+
+			if (customNode != null) {
+				customNode.DestroyChildren();
+				customNode.gameObject.SetActive (false);
+			}			
+		}
+
+		public virtual void SetCustomData (RectTransform customView) {
+			if (customNode != null) {
+				customNode.gameObject.SetActive (true);
+				customNode.DestroyChildren();
+				if (customView != null) {
+					customView.SetParent (customNode, false);
+				}
 			}
 		}
 

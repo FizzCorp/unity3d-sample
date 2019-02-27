@@ -5,14 +5,7 @@ using Fizz.Common;
 
 namespace Fizz.Ingestion.Impl
 {
-    public interface IFizzEventLog 
-    {
-        void Put(FizzEvent item);
-        void Read(int count, Action<List<FizzEvent>> callback);
-        void RollTo(FizzEvent item);
-    }
-
-    class FizzEventComparer : IComparer<FizzEvent>
+    class FizzInMemoryEventComparer : IComparer<FizzEvent>
     {
         public int Compare(FizzEvent lhs, FizzEvent rhs) 
         {
@@ -22,7 +15,7 @@ namespace Fizz.Ingestion.Impl
 
     public class FizzInMemoryEventLog : IFizzEventLog
     {
-        private readonly SortedSet<FizzEvent> log = new SortedSet<FizzEvent>(new FizzEventComparer());
+        private readonly SortedSet<FizzEvent> log = new SortedSet<FizzEvent>(new FizzInMemoryEventComparer());
 
         public void Put(FizzEvent item)
         {

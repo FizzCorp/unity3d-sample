@@ -35,11 +35,14 @@ namespace Fizz
 
     public class FizzClient: IFizzClient
     {
-        readonly FizzActionDispatcher _dispatcher = new FizzActionDispatcher();
-        readonly FizzChatClient _chat;
-        readonly FizzIngestionClient _ingestion;
         readonly string _appId;
-        readonly IFizzAuthRestClient _restClient;
+        readonly FizzChatClient _chat;
+        readonly IFizzRestClient _restClient;
+        readonly IFizzAuthRestClient _authClient;
+        readonly IFizzSessionProvider _sessionClient;
+        readonly FizzIngestionClient _ingestionClient;
+        readonly FizzActionDispatcher _dispatcher = new FizzActionDispatcher();
+        
         string _userId;
         FizzClientState _state;
 
@@ -51,35 +54,44 @@ namespace Fizz
             }
 
             _appId = appId;
-            _restClient = CreateRestClient(_appId, appSecret, _dispatcher);
             _chat = new FizzChatClient(appId, _dispatcher);
-            _ingestion = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
+            _restClient = new FizzRestClient (_dispatcher);
+            _sessionClient = new FizzIdSecretSessionProvider (appId, appSecret, _restClient);
+            _authClient = new FizzAuthRestClient(_sessionClient, _restClient);
+            _ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
+        }
+
+        public FizzClient (string appId, IFizzSessionProvider sessionClient)
+        {
+            if (string.IsNullOrEmpty(appId))
+            {
+                throw FizzException.ERROR_INVALID_APP_ID;
+            }
+            _appId = appId;
+
+            _sessionClient = sessionClient;
+            _chat = new FizzChatClient(appId, _dispatcher);
+            _restClient = new FizzRestClient (_dispatcher);
+            _authClient = new FizzAuthRestClient(_sessionClient, _restClient);
+            _ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
         }
 
         public void Open(string userId, string locale, FizzServices services, Action<FizzException> callback)
         {
-            // if (_state != FizzClientState.Closed)
-            // {
-            //     Close( () => {
-            //         Open(userId, locale, services, callback);
-            //     });
-            //     return;
-            // }
-
             try
             {
-                _restClient.Open(userId, locale);
-                _restClient.FetchSessionToken(ex =>
+                _authClient.Open(userId, locale);
+                _authClient.FetchSessionToken(ex =>
                 {
                     if (ex == null)
                     {
                         if (services.HasFlag(FizzServices.Chat))
                         {
-                            _chat.Open(userId, _restClient);
+                            _chat.Open(userId, _authClient);
                         }
                         if (services.HasFlag(FizzServices.Analytics))
                         {
-                            _ingestion.Open(userId, _restClient.session._serverTS, _restClient);
+                            _ingestionClient.Open(userId, _authClient.Session._serverTS, _authClient);
                         }
 
                         _userId = userId;
@@ -127,7 +139,7 @@ namespace Fizz
         {
             get
             {
-                return _userId != null ? _ingestion : null;
+                return _userId != null ? _ingestionClient : null;
             }
         }
 
@@ -138,25 +150,18 @@ namespace Fizz
                 return _state;
             }
         }
-
+        
         private void Close(Action callback)
         {
-            _ingestion.Close(() =>
+            _ingestionClient.Close(() =>
             {
                 _chat.Close();
-                _restClient.Close();
+                _authClient.Close();
                 _userId = null;
                 _state = FizzClientState.Closed;
 
                 callback();
             });
-        }
-
-        protected IFizzAuthRestClient CreateRestClient(string appId, 
-                                                       string appSecret, 
-                                                       IFizzActionDispatcher dispatcher)
-        {
-            return new FizzAuthRestClient(appId, appSecret, dispatcher);
         }
     }
 }

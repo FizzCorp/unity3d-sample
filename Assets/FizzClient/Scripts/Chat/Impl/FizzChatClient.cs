@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using Fizz.Common;
 using Fizz.Common.Json;
 
@@ -7,14 +8,16 @@ namespace Fizz.Chat.Impl
 {
     public class FizzChatClient : IFizzChatClient
     {
-        private static readonly FizzException ERROR_INVALID_EVENTBUS = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_eventbus");
-        private static readonly FizzException ERROR_INVALID_DISPATCHER = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
-        private static readonly FizzException ERROR_INVALID_REST_CLIENT = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_rest_client");
-        private static readonly FizzException ERROR_INVALID_CHANNEL = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_channel_id");
-        private static readonly FizzException ERROR_INVALID_MESSAGE_TYPE = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_message_type");
-        private static readonly FizzException ERROR_INVALID_MESSAGE_DATA = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_message_data");
-        private static readonly FizzException ERROR_INVALID_RESPONSE_FORMAT = new FizzException(FizzError.ERROR_REQUEST_FAILED, "invalid_response_format");
-        private static readonly FizzException ERROR_INVALID_MESSAGE_QUERY_COUNT = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_query_count");
+        private static readonly FizzException ERROR_INVALID_EVENTBUS = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_eventbus");
+        private static readonly FizzException ERROR_INVALID_DISPATCHER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
+        private static readonly FizzException ERROR_INVALID_REST_CLIENT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_rest_client");
+        private static readonly FizzException ERROR_INVALID_CHANNEL = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_channel_id");
+        private static readonly FizzException ERROR_INVALID_USER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_user_id");
+        private static readonly FizzException ERROR_INVALID_MESSAGE_ID = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_id");
+        private static readonly FizzException ERROR_INVALID_MESSAGE_TYPE = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_type");
+        private static readonly FizzException ERROR_INVALID_MESSAGE_DATA = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_data");
+        private static readonly FizzException ERROR_INVALID_RESPONSE_FORMAT = new FizzException (FizzError.ERROR_REQUEST_FAILED, "invalid_response_format");
+        private static readonly FizzException ERROR_INVALID_MESSAGE_QUERY_COUNT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_query_count");
 
         private readonly IFizzActionDispatcher _dispatcher;
         private readonly FizzMQTTChannelMessageListener _messageListener;
@@ -22,15 +25,15 @@ namespace Fizz.Chat.Impl
         private string _userId;
         protected string _sessionId;
 
-        public IFizzChannelMessageListener Listener 
-        { 
+        public IFizzChannelMessageListener Listener
+        {
             get
             {
                 return _messageListener;
             }
         }
 
-        public FizzChatClient(string appId, IFizzActionDispatcher dispatcher)
+        public FizzChatClient (string appId, IFizzActionDispatcher dispatcher)
         {
             if (dispatcher == null)
             {
@@ -39,205 +42,411 @@ namespace Fizz.Chat.Impl
 
             _dispatcher = dispatcher;
 
-            _messageListener = CreateListener(appId, _dispatcher);
+            _messageListener = CreateListener (appId, _dispatcher);
         }
 
-        public void Open(string userId, IFizzAuthRestClient client)
+        public void Open (string userId, IFizzAuthRestClient client)
         {
-			IfClosed (() => {
-				if (string.IsNullOrEmpty (userId)) {
-					throw FizzException.ERROR_INVALID_USER_ID;
-				}
-				if (client == null) {
-					throw ERROR_INVALID_REST_CLIENT;
-				}
+            IfClosed (() =>
+            {
+                if (string.IsNullOrEmpty (userId))
+                {
+                    throw FizzException.ERROR_INVALID_USER_ID;
+                }
+                if (client == null)
+                {
+                    throw ERROR_INVALID_REST_CLIENT;
+                }
 
-				if (_userId == userId) {
-					return;
-				}
+                if (_userId == userId)
+                {
+                    return;
+                }
 
-				Close ();
+                Close ();
 
-				_sessionId = client.session._subscriberId;
-				_userId = userId;
-				_restClient = client;
+                _sessionId = client.Session._subscriberId;
+                _userId = userId;
+                _restClient = client;
 
-				_messageListener.Open (userId, client.session);
-				_messageListener.OnDisconnected += MessageListenerDisconnected;
-			});
+                _messageListener.Open (userId, client.Session);
+                _messageListener.OnDisconnected += MessageListenerDisconnected;
+            });
         }
 
-        public void Close()
+        public void Close ()
         {
-            IfOpened(() =>
+            IfOpened (() =>
             {
                 _userId = null;
                 _sessionId = null;
                 _restClient = null;
 
-                _messageListener.Close();
+                _messageListener.Close ();
             });
         }
 
-        public void Publish(String channel, 
-                            String nick, 
-                            String body, 
-                            String data,
-                            bool translate,
-                            bool persist,
-                            Action<FizzException> callback)
+        public void PublishMessage (string channel,
+            string nick,
+            string body,
+            string data,
+            bool translate,
+            bool persist,
+            Action<FizzException> callback)
         {
-            IfOpened(() =>
+            IfOpened (() =>
             {
-                if (string.IsNullOrEmpty(channel))
+                if (string.IsNullOrEmpty (channel))
                 {
-                    FizzUtils.DoCallback(ERROR_INVALID_CHANNEL, callback);
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
                     return;
                 }
 
                 try
                 {
-                    string path = string.Format(FizzConfig.API_PATH_MESSAGES, channel);
-                    JSONClass json = new JSONClass();
+                    string path = string.Format (FizzConfig.API_PATH_MESSAGES, channel);
+                    JSONClass json = new JSONClass ();
                     json[FizzJsonChannelMessage.KEY_NICK] = nick;
                     json[FizzJsonChannelMessage.KEY_BODY] = body;
                     json[FizzJsonChannelMessage.KEY_DATA] = data;
                     json["translate"].AsBool = translate;
                     json["persist"].AsBool = persist;
 
-                    _restClient.Post(FizzConfig.API_BASE_URL, path, json.ToString(), (response, ex) =>
+                    _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) =>
                     {
-                        FizzUtils.DoCallback(ex, callback);
+                        FizzUtils.DoCallback (ex, callback);
                     });
                 }
                 catch (FizzException ex)
                 {
-                    FizzUtils.DoCallback(ex, callback);
+                    FizzUtils.DoCallback (ex, callback);
                 }
             });
         }
 
-        public void Subscribe(String channel, Action<FizzException> callback)
+        public void UpdateMessage (string channel,
+            long messageId,
+            string nick,
+            string body,
+            string data,
+            bool translate,
+            bool persist,
+            Action<FizzException> callback)
         {
-            IfOpened(() => 
+            IfOpened (() =>
             {
-                if (channel == null || string.IsNullOrEmpty(channel))
+                if (string.IsNullOrEmpty (channel))
                 {
-                    FizzUtils.DoCallback(ERROR_INVALID_CHANNEL, callback);
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
                     return;
                 }
 
-                string path = string.Format(FizzConfig.API_PATH_SUBSCRIBERS, channel);
-
-                _restClient.Post(FizzConfig.API_BASE_URL, path, "", (resp, ex) =>
+                if (messageId < 1)
                 {
-                    FizzUtils.DoCallback(ex, callback);
+                    FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
+                }
+
+                try
+                {
+                    string path = string.Format (FizzConfig.API_PATH_MESSAGE_ACTION, channel, messageId);
+                    JSONClass json = new JSONClass ();
+                    json[FizzJsonChannelMessage.KEY_NICK] = nick;
+                    json[FizzJsonChannelMessage.KEY_BODY] = body;
+                    json[FizzJsonChannelMessage.KEY_DATA] = data;
+                    json["translate"].AsBool = translate;
+                    json["persist"].AsBool = persist;
+
+                    _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) =>
+                    {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                }
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
+        }
+
+        public void DeleteMessage (string channelId, long messageId, Action<FizzException> callback)
+        {
+            IfOpened (() => {
+                if (string.IsNullOrEmpty (channelId)) {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
+                }
+                if (messageId < 1)
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
+                }
+
+                try 
+                {
+                    string path = string.Format (FizzConfig.API_PATH_MESSAGE_ACTION, channelId, messageId);
+                    _restClient.Delete (FizzConfig.API_BASE_URL, path, string.Empty, (response, ex) => {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                } 
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
+        }
+
+        public void Subscribe (string channel, Action<FizzException> callback)
+        {
+            IfOpened (() =>
+            {
+                if (channel == null || string.IsNullOrEmpty (channel))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
+                }
+
+                string path = string.Format (FizzConfig.API_PATH_SUBSCRIBERS, channel);
+
+                _restClient.Post (FizzConfig.API_BASE_URL, path, "", (resp, ex) =>
+                {
+                    FizzUtils.DoCallback (ex, callback);
                 });
             });
         }
 
-        public void Unsubscribe(String channel, Action<FizzException> callback)
+        public void Unsubscribe (string channel, Action<FizzException> callback)
         {
-            IfOpened(() => 
+            IfOpened (() =>
             {
-                if (channel == null || string.IsNullOrEmpty(channel))
+                if (channel == null || string.IsNullOrEmpty (channel))
                 {
-                    FizzUtils.DoCallback(ERROR_INVALID_CHANNEL, callback);
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
                     return;
                 }
 
-                string path = string.Format(FizzConfig.API_PATH_SUBSCRIBERS, channel);
+                string path = string.Format (FizzConfig.API_PATH_SUBSCRIBERS, channel);
 
-                _restClient.Delete(FizzConfig.API_BASE_URL, path, "", (resp, ex) =>
+                _restClient.Delete (FizzConfig.API_BASE_URL, path, "", (resp, ex) =>
                 {
-                    FizzUtils.DoCallback(ex, callback);
+                    FizzUtils.DoCallback (ex, callback);
                 });
             });
         }
 
-        public void QueryLatest(String channel, int count, Action<IList<FizzChannelMessage>, FizzException> callback)
+        public void QueryLatest (string channel, int count, Action<IList<FizzChannelMessage>, FizzException> callback)
         {
-            IfOpened(() => 
+            QueryLatest (channel, count, -1, callback);
+        }
+
+        public void QueryLatest (string channel, int count, long beforeId, Action<IList<FizzChannelMessage>, FizzException> callback)
+        {
+            IfOpened (() =>
             {
-                if (string.IsNullOrEmpty(channel))
+                if (string.IsNullOrEmpty (channel))
                 {
-                    FizzUtils.DoCallback<IList<FizzChannelMessage>>(null, ERROR_INVALID_CHANNEL, callback);
+                    FizzUtils.DoCallback<IList<FizzChannelMessage>> (null, ERROR_INVALID_CHANNEL, callback);
                     return;
                 }
                 if (count < 0)
                 {
-                    FizzUtils.DoCallback<IList<FizzChannelMessage>>(null, ERROR_INVALID_MESSAGE_QUERY_COUNT, callback);
+                    FizzUtils.DoCallback<IList<FizzChannelMessage>> (null, ERROR_INVALID_MESSAGE_QUERY_COUNT, callback);
                     return;
                 }
                 if (count == 0)
                 {
-                    FizzUtils.DoCallback<IList<FizzChannelMessage>>(new List<FizzChannelMessage>(), null, callback);
+                    FizzUtils.DoCallback<IList<FizzChannelMessage>> (new List<FizzChannelMessage> (), null, callback);
                     return;
                 }
 
-                string path = string.Format(FizzConfig.API_PATH_MESSAGES, channel);
-                _restClient.Get(FizzConfig.API_BASE_URL, path + "?count=" + count, (response, ex) =>
+                string path = string.Format (FizzConfig.API_PATH_MESSAGES, channel) + "?count=" + count;
+                if (beforeId > 0)
+                {
+                    path += "&before_id=" + beforeId;
+                }
+                _restClient.Get (FizzConfig.API_BASE_URL, path, (response, ex) =>
                 {
                     if (ex != null)
                     {
-                        FizzUtils.DoCallback<IList<FizzChannelMessage>>(null, ex, callback);
+                        FizzUtils.DoCallback<IList<FizzChannelMessage>> (null, ex, callback);
                     }
                     else
                     {
                         try
                         {
-                            JSONArray messagesArr = JSONNode.Parse(response).AsArray;
-                            IList<FizzChannelMessage> messages = new List<FizzChannelMessage>();
+                            JSONArray messagesArr = JSONNode.Parse (response).AsArray;
+                            IList<FizzChannelMessage> messages = new List<FizzChannelMessage> ();
                             foreach (JSONNode message in messagesArr.Childs)
                             {
-                                messages.Add(new FizzJsonChannelMessage(message));
+                                messages.Add (new FizzJsonChannelMessage (message));
                             }
-                            FizzUtils.DoCallback<IList<FizzChannelMessage>>(messages, null, callback);
+                            FizzUtils.DoCallback<IList<FizzChannelMessage>> (messages, null, callback);
                         }
                         catch
                         {
-                            FizzUtils.DoCallback<IList<FizzChannelMessage>>(null, ERROR_INVALID_RESPONSE_FORMAT, callback);
+                            FizzUtils.DoCallback<IList<FizzChannelMessage>> (null, ERROR_INVALID_RESPONSE_FORMAT, callback);
                         }
                     }
                 });
             });
         }
 
-        protected FizzMQTTChannelMessageListener CreateListener(string appId, IFizzActionDispatcher dispatcher)
+        public void Ban(string channel, string userId, Action<FizzException> callback)
         {
-            return new FizzMQTTChannelMessageListener(appId, dispatcher);
+            IfOpened (() => {
+                if (string.IsNullOrEmpty (channel))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                }
+                if (string.IsNullOrEmpty (userId))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                }
+
+                try
+                {
+                    string path = string.Format (FizzConfig.API_PATH_BAN, channel);
+                    JSONClass json = new JSONClass ();
+                    json["user_id"] = userId;
+
+                    _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) => {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                }
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
         }
 
-		private void MessageListenerDisconnected (FizzException ex) {
-			if (ex != null && ex.Code == FizzError.ERROR_AUTH_FAILED) {
-				IfOpened (() => {
-					_restClient.FetchSessionToken (tokenEx => {
-						_messageListener.Close ();
-						_messageListener.Open (_userId, _restClient.session);
-					});
-				});
-			}
-		}
-
-        private void IfOpened(Action callback)
+        public void Unban(string channel, string userId, Action<FizzException> callback)
         {
-			if (!string.IsNullOrEmpty (_userId))
+            IfOpened (() => {
+                if (string.IsNullOrEmpty (channel))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                }
+                if (string.IsNullOrEmpty (userId))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                }
+
+                try
+                {
+                    string path = string.Format (FizzConfig.API_PATH_BAN, channel);
+                    JSONClass json = new JSONClass ();
+                    json["user_id"] = userId;
+
+                    _restClient.Delete (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) => {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                }
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
+        }
+
+        public void Mute(string channel, string userId, Action<FizzException> callback)
+        {
+            IfOpened (() => {
+                if (string.IsNullOrEmpty (channel))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                }
+                if (string.IsNullOrEmpty (userId))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                }
+
+                try
+                {
+                    string path = string.Format (FizzConfig.API_PATH_MUTE, channel);
+                    JSONClass json = new JSONClass ();
+                    json["user_id"] = userId;
+
+                    _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) => {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                }
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
+        }
+
+        public void Unmute(string channel, string userId, Action<FizzException> callback)
+        {
+            IfOpened (() => {
+                if (string.IsNullOrEmpty (channel))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                }
+                if (string.IsNullOrEmpty (userId))
+                {
+                    FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                }
+
+                try
+                {
+                    string path = string.Format (FizzConfig.API_PATH_MUTE, channel);
+                    JSONClass json = new JSONClass ();
+                    json["user_id"] = userId;
+
+                    _restClient.Delete (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) => {
+                        FizzUtils.DoCallback (ex, callback);
+                    });
+                }
+                catch (FizzException ex)
+                {
+                    FizzUtils.DoCallback (ex, callback);
+                }
+            });
+        }
+
+        protected FizzMQTTChannelMessageListener CreateListener (string appId, IFizzActionDispatcher dispatcher)
+        {
+            return new FizzMQTTChannelMessageListener (appId, dispatcher);
+        }
+
+        private void MessageListenerDisconnected (FizzException ex)
+        {
+            if (ex != null && ex.Code == FizzError.ERROR_AUTH_FAILED)
             {
-				FizzUtils.DoCallback (callback);
+                IfOpened (() =>
+                {
+                    _restClient.FetchSessionToken (tokenEx =>
+                    {
+                        _messageListener.Close ();
+                        _messageListener.Open (_userId, _restClient.Session);
+                    });
+                });
+            }
+        }
+
+        private void IfOpened (Action callback)
+        {
+            if (!string.IsNullOrEmpty (_userId))
+            {
+                FizzUtils.DoCallback (callback);
             }
             else
             {
-                FizzLogger.W("Chat client should be opened before usage.");
+                FizzLogger.W ("Chat client should be opened before usage.");
             }
         }
 
-		private void IfClosed(Action callback)
-		{
-			if (string.IsNullOrEmpty (_userId)) {
-				FizzUtils.DoCallback (callback);
-			} else {
-				FizzLogger.W ("Chat client should be closed before opening.");
-			}
-		}
+        private void IfClosed (Action callback)
+        {
+            if (string.IsNullOrEmpty (_userId))
+            {
+                FizzUtils.DoCallback (callback);
+            }
+            else
+            {
+                FizzLogger.W ("Chat client should be closed before opening.");
+            }
+        }
     }
 }
