@@ -1,7 +1,7 @@
 ﻿
-#if UNITY_IOS || UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_IOS && !UNITY_EDITOR
 using FIZZ.Bridge.UI.iOS;
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
 using FIZZ.Bridge.UI.Android;
 #else
 using FIZZ.Bridge.UI.Mock;

@@ -64,11 +64,11 @@ namespace Fizz.UI.Components
 			messageLabel.gameObject.SetActive (true);
 
 			
-            if (false) {// Utils.ShouldFixRTLMessage (_chatMessageAction)) {
-                messageLabel.text = ArabicSupport.ArabicFixer.Fix ( _model.GetActiveMessage ());
-			} else {
+   //         if (false) {// Utils.ShouldFixRTLMessage (_chatMessageAction)) {
+   //             messageLabel.text = ArabicSupport.ArabicFixer.Fix ( _model.GetActiveMessage ());
+			//} else {
                 messageLabel.text = _model.GetActiveMessage ();
-			}
+			//}
 
 			bool showTranslationToggle = _appTranslationEnabled;
 			

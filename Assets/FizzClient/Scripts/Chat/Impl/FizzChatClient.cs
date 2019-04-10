@@ -8,22 +8,20 @@ namespace Fizz.Chat.Impl
 {
     public class FizzChatClient : IFizzChatClient
     {
-        private static readonly FizzException ERROR_INVALID_EVENTBUS = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_eventbus");
         private static readonly FizzException ERROR_INVALID_DISPATCHER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
         private static readonly FizzException ERROR_INVALID_REST_CLIENT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_rest_client");
         private static readonly FizzException ERROR_INVALID_CHANNEL = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_channel_id");
         private static readonly FizzException ERROR_INVALID_USER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_user_id");
         private static readonly FizzException ERROR_INVALID_MESSAGE_ID = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_id");
-        private static readonly FizzException ERROR_INVALID_MESSAGE_TYPE = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_type");
-        private static readonly FizzException ERROR_INVALID_MESSAGE_DATA = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_data");
         private static readonly FizzException ERROR_INVALID_RESPONSE_FORMAT = new FizzException (FizzError.ERROR_REQUEST_FAILED, "invalid_response_format");
         private static readonly FizzException ERROR_INVALID_MESSAGE_QUERY_COUNT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_query_count");
 
         private readonly IFizzActionDispatcher _dispatcher;
         private readonly FizzMQTTChannelMessageListener _messageListener;
-        private IFizzAuthRestClient _restClient;
+
         private string _userId;
-        protected string _sessionId;
+        private IFizzAuthRestClient _restClient;
+        private FizzSessionRepository sessionRepository;
 
         public IFizzChannelMessageListener Listener
         {
@@ -45,7 +43,7 @@ namespace Fizz.Chat.Impl
             _messageListener = CreateListener (appId, _dispatcher);
         }
 
-        public void Open (string userId, IFizzAuthRestClient client)
+        public void Open (string userId, IFizzAuthRestClient client, FizzSessionRepository sessionRepository)
         {
             IfClosed (() =>
             {
@@ -57,20 +55,20 @@ namespace Fizz.Chat.Impl
                 {
                     throw ERROR_INVALID_REST_CLIENT;
                 }
+                if (sessionRepository == null)
+                {
+                    throw FizzException.ERROR_INVALID_SESSION_REPOSITORY;
+                }
 
                 if (_userId == userId)
                 {
                     return;
                 }
 
-                Close ();
-
-                _sessionId = client.Session._subscriberId;
                 _userId = userId;
                 _restClient = client;
 
-                _messageListener.Open (userId, client.Session);
-                _messageListener.OnDisconnected += MessageListenerDisconnected;
+                _messageListener.Open (userId, sessionRepository);
             });
         }
 
@@ -79,7 +77,6 @@ namespace Fizz.Chat.Impl
             IfOpened (() =>
             {
                 _userId = null;
-                _sessionId = null;
                 _restClient = null;
 
                 _messageListener.Close ();
@@ -89,7 +86,7 @@ namespace Fizz.Chat.Impl
         public void PublishMessage (string channel,
             string nick,
             string body,
-            string data,
+            Dictionary<string, string> data,
             bool translate,
             bool persist,
             Action<FizzException> callback)
@@ -108,9 +105,22 @@ namespace Fizz.Chat.Impl
                     JSONClass json = new JSONClass ();
                     json[FizzJsonChannelMessage.KEY_NICK] = nick;
                     json[FizzJsonChannelMessage.KEY_BODY] = body;
-                    json[FizzJsonChannelMessage.KEY_DATA] = data;
-                    json["translate"].AsBool = translate;
-                    json["persist"].AsBool = persist;
+                    json[FizzJsonChannelMessage.KEY_PERSIST].AsBool = persist;
+                    json[FizzJsonChannelMessage.KEY_TRANSLATE].AsBool = translate;
+
+                    string dataStr = string.Empty;
+                    if (data != null)
+                    {
+                        JSONClass dataJson = new JSONClass();
+                        foreach (KeyValuePair<string, string> pair in data)
+                        {
+                            dataJson.Add(pair.Key, new JSONData(pair.Value));
+                        }
+
+                        dataStr = dataJson.ToString();
+                    }
+
+                    json[FizzJsonChannelMessage.KEY_DATA] = dataStr;
 
                     _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) =>
                     {
@@ -128,7 +138,7 @@ namespace Fizz.Chat.Impl
             long messageId,
             string nick,
             string body,
-            string data,
+            Dictionary<string, string> data,
             bool translate,
             bool persist,
             Action<FizzException> callback)
@@ -144,6 +154,7 @@ namespace Fizz.Chat.Impl
                 if (messageId < 1)
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
+                    return;
                 }
 
                 try
@@ -152,9 +163,22 @@ namespace Fizz.Chat.Impl
                     JSONClass json = new JSONClass ();
                     json[FizzJsonChannelMessage.KEY_NICK] = nick;
                     json[FizzJsonChannelMessage.KEY_BODY] = body;
-                    json[FizzJsonChannelMessage.KEY_DATA] = data;
-                    json["translate"].AsBool = translate;
-                    json["persist"].AsBool = persist;
+                    json[FizzJsonChannelMessage.KEY_PERSIST].AsBool = persist;
+                    json[FizzJsonChannelMessage.KEY_TRANSLATE].AsBool = translate;
+
+                    string dataStr = string.Empty;
+                    if (data != null)
+                    {
+                        JSONClass dataJson = new JSONClass();
+                        foreach (KeyValuePair<string, string> pair in data)
+                        {
+                            dataJson.Add(pair.Key, new JSONData(pair.Value));
+                        }
+
+                        dataStr = dataJson.ToString();
+                    }
+
+                    json[FizzJsonChannelMessage.KEY_DATA] = dataStr;
 
                     _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) =>
                     {
@@ -178,6 +202,7 @@ namespace Fizz.Chat.Impl
                 if (messageId < 1)
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
+                    return;
                 }
 
                 try 
@@ -295,10 +320,12 @@ namespace Fizz.Chat.Impl
                 if (string.IsNullOrEmpty (channel))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
                 }
                 if (string.IsNullOrEmpty (userId))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                    return;
                 }
 
                 try
@@ -324,10 +351,12 @@ namespace Fizz.Chat.Impl
                 if (string.IsNullOrEmpty (channel))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
                 }
                 if (string.IsNullOrEmpty (userId))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                    return;
                 }
 
                 try
@@ -353,10 +382,12 @@ namespace Fizz.Chat.Impl
                 if (string.IsNullOrEmpty (channel))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
                 }
                 if (string.IsNullOrEmpty (userId))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                    return;
                 }
 
                 try
@@ -382,10 +413,12 @@ namespace Fizz.Chat.Impl
                 if (string.IsNullOrEmpty (channel))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
+                    return;
                 }
                 if (string.IsNullOrEmpty (userId))
                 {
                     FizzUtils.DoCallback (ERROR_INVALID_USER, callback);
+                    return;
                 }
 
                 try
@@ -408,21 +441,6 @@ namespace Fizz.Chat.Impl
         protected FizzMQTTChannelMessageListener CreateListener (string appId, IFizzActionDispatcher dispatcher)
         {
             return new FizzMQTTChannelMessageListener (appId, dispatcher);
-        }
-
-        private void MessageListenerDisconnected (FizzException ex)
-        {
-            if (ex != null && ex.Code == FizzError.ERROR_AUTH_FAILED)
-            {
-                IfOpened (() =>
-                {
-                    _restClient.FetchSessionToken (tokenEx =>
-                    {
-                        _messageListener.Close ();
-                        _messageListener.Open (_userId, _restClient.Session);
-                    });
-                });
-            }
         }
 
         private void IfOpened (Action callback)

@@ -17,11 +17,8 @@ namespace Fizz.UI.Core
 		{
 			try
 			{
-				if (FizzService.Instance.Client.State == FizzClientState.Opened)
-				{
-					FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
-					FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
-				}
+                FizzService.Instance.OnConnected += OnFizzConnected;
+                FizzService.Instance.OnDisconnected += OnFizzDisconnected;
 			}
 			catch (FizzException ex)
 			{
@@ -33,12 +30,9 @@ namespace Fizz.UI.Core
 		{
 			try
 			{
-				if (FizzService.Instance.Client.State == FizzClientState.Opened)
-				{
-					FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
-					FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
-				}
-			}
+                FizzService.Instance.OnConnected -= OnFizzConnected;
+                FizzService.Instance.OnDisconnected -= OnFizzDisconnected;
+            }
 			catch (FizzException ex)
 			{
                 Common.FizzLogger.E ("UITransitableComponent ex " + ex.Message);

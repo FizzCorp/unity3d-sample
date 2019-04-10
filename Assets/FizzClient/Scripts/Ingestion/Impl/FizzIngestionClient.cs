@@ -41,8 +41,8 @@ namespace Fizz.Ingestion.Impl
         public string CustomDimesion03 { get; set; }
 
         private const string KEY_SESSION = "fizz_session";
-        private const string KEY_SESSION_START_TS = "fizz_session";
-        private const string KEY_SESSION_UPDATE_TS = "fizz_session";
+        private const string KEY_SESSION_START_TS = "fizz_session_start_ts";
+        private const string KEY_SESSION_UPDATE_TS = "fizz_session_update_ts";
 
         public FizzIngestionClient(IFizzEventLog eventLog, IFizzActionDispatcher dispatcher)
         {
@@ -57,36 +57,40 @@ namespace Fizz.Ingestion.Impl
 
             _eventLog = eventLog;
             _dispatcher = dispatcher;
-            _interval = new FizzInterval(dispatcher, Flush, LOG_FLUSH_INTERVAL);
+            _interval = new FizzInterval(_dispatcher, Flush, LOG_FLUSH_INTERVAL);
         }
 
         public void Open(string userId, long curServerTS, IFizzAuthRestClient client)
         {
-            if (_userId != null)
-            {
-                FizzLogger.W("Please close instance before re-opening");
-                return;
-            }
+            IfClosed(() =>
+           {
+               if (_userId != null)
+               {
+                   FizzLogger.W("Please close instance before re-opening");
+                   return;
+               }
 
-            if (userId == null)
-            {
-                throw FizzException.ERROR_INVALID_USER_ID;
-            }
-            if (client == null)
-            {
-                throw ERROR_INVALID_CLIENT;
-            }
+               if (userId == null)
+               {
+                   throw FizzException.ERROR_INVALID_USER_ID;
+               }
+               if (client == null)
+               {
+                   throw ERROR_INVALID_CLIENT;
+               }
 
-            _client = client;
-            _userId = userId;
-            _timeOffset = FizzUtils.Now() - curServerTS;
-            _startTime = FizzUtils.Now();
-            _sessionId = Guid.NewGuid().ToString();
+               _client = client;
+               _userId = userId;
+               _timeOffset = FizzUtils.Now() - curServerTS;
+               _startTime = FizzUtils.Now();
+               _sessionId = Guid.NewGuid().ToString();
 
-            ClosePreviousSession ();
-            SessionStarted();
+               ClosePreviousSession();
+               SessionStarted();
 
-            _interval.Enable();
+               _interval.Enable();
+               _onLogEmpty = () => { };
+           });
         }
 
         public void Close(Action callback)
@@ -95,17 +99,17 @@ namespace Fizz.Ingestion.Impl
             {
                 _interval.Disable();
                 SessionEnded(_sessionId, FizzUtils.Now() - _startTime);
-                Flush();
 
-                _onLogEmpty += () =>
+                _onLogEmpty = () =>
                 {
                     _userId = null;
                     _client = null;
                     _sessionId = null;
                     _onLogEmpty = null;
+                    callback();
                 };
-
-                callback();
+                
+                Flush();
             });
         }
 
@@ -230,7 +234,7 @@ namespace Fizz.Ingestion.Impl
 
         private void IfOpened(Action onInit)
         {
-            if (_userId == null)
+            if (string.IsNullOrEmpty (_userId))
             {
                 FizzLogger.W("Ingestion must be opened before use.");
             }
@@ -240,10 +244,23 @@ namespace Fizz.Ingestion.Impl
             }
         }
 
+        private void IfClosed(Action onClose)
+        {
+            if (string.IsNullOrEmpty (_userId))
+            {
+                onClose.Invoke();
+            }
+            else
+            {
+                FizzLogger.W("Ingestion is already opened");
+            }
+        }
+
         public void Flush()
         {
             if (_flushInProgress)
             {
+                FizzUtils.DoCallback(_onLogEmpty);
                 return;
             }
 
@@ -280,10 +297,10 @@ namespace Fizz.Ingestion.Impl
                         _eventLog.RollTo(items[items.Count - 1]);
                     }
 
+                    FizzUtils.DoCallback(_onLogEmpty);
                     _flushInProgress = false;
                 });
-            }
-          );
+            });
         }
 
         private void PostEvents(List<FizzEvent> events,

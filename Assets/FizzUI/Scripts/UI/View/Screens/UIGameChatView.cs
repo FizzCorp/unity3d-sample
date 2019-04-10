@@ -76,6 +76,7 @@ namespace Fizz.UI.Components {
         }
 
         private void LoadRooms () {
+            chatView.Reset();
             var items = new List<UIButtonBarItemModel> ();
 
             List<FizzChannel> fizzChannels = FizzService.Instance.Channels;

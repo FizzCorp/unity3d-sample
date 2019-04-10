@@ -1,10 +1,10 @@
-﻿using System;
-using Fizz.Common;
-using Fizz.Threading;
-using Fizz.Chat;
+﻿using Fizz.Chat;
 using Fizz.Chat.Impl;
+using Fizz.Common;
 using Fizz.Ingestion;
 using Fizz.Ingestion.Impl;
+using Fizz.Threading;
+using System;
 
 namespace Fizz
 {
@@ -36,9 +36,6 @@ namespace Fizz
 
     public class FizzClient: IFizzClient
     {
-        readonly string VERSION = "v1.4.2";
-
-        readonly string _appId;
         readonly FizzChatClient _chat;
         readonly IFizzRestClient _restClient;
         readonly IFizzAuthRestClient _authClient;
@@ -46,9 +43,6 @@ namespace Fizz
         readonly FizzIngestionClient _ingestionClient;
         readonly FizzActionDispatcher _dispatcher = new FizzActionDispatcher();
         
-        string _userId;
-        FizzClientState _state;
-
         public FizzClient(string appId, string appSecret)
         {
             if (string.IsNullOrEmpty(appId))
@@ -56,11 +50,10 @@ namespace Fizz
                 throw FizzException.ERROR_INVALID_APP_ID;
             }
 
-            _appId = appId;
             _chat = new FizzChatClient(appId, _dispatcher);
             _restClient = new FizzRestClient (_dispatcher);
             _sessionClient = new FizzIdSecretSessionProvider (appId, appSecret, _restClient);
-            _authClient = new FizzAuthRestClient(_sessionClient, _restClient);
+            _authClient = new FizzAuthRestClient(_restClient);
             _ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
         }
 
@@ -70,12 +63,11 @@ namespace Fizz
             {
                 throw FizzException.ERROR_INVALID_APP_ID;
             }
-            _appId = appId;
 
             _sessionClient = sessionClient;
             _chat = new FizzChatClient(appId, _dispatcher);
             _restClient = new FizzRestClient (_dispatcher);
-            _authClient = new FizzAuthRestClient(_sessionClient, _restClient);
+            _authClient = new FizzAuthRestClient(_restClient);
             _ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
         }
 
@@ -83,22 +75,24 @@ namespace Fizz
         {
             try
             {
-                _authClient.Open(userId, locale);
-                _authClient.FetchSessionToken(ex =>
+                if (State == FizzClientState.Opened)
+                    return;
+
+                FizzSessionRepository sessionRepo = new FizzSessionRepository(userId, locale, _sessionClient);
+                _authClient.Open(sessionRepo, ex =>
                 {
                     if (ex == null)
                     {
                         if (services.HasFlag(FizzServices.Chat))
                         {
-                            _chat.Open(userId, _authClient);
+                            _chat.Open(userId, _authClient, sessionRepo);
                         }
                         if (services.HasFlag(FizzServices.Analytics))
                         {
-                            _ingestionClient.Open(userId, _authClient.Session._serverTS, _authClient);
+                            _ingestionClient.Open(userId, sessionRepo.Session._serverTS, _authClient);
                         }
 
-                        _userId = userId;
-                        _state = FizzClientState.Opened;
+                        State = FizzClientState.Opened;
                         FizzUtils.DoCallback(null, callback);
                     }
                     else
@@ -117,6 +111,9 @@ namespace Fizz
         {
             try
             {
+                if (State == FizzClientState.Closed)
+                    return;
+
                 Close(() => { FizzUtils.DoCallback(null, callback); });
             }
             catch (FizzException ex)
@@ -134,7 +131,7 @@ namespace Fizz
         {
             get
             {
-                return _userId != null ? _chat : null;
+                return _chat;
             }
         }
 
@@ -142,34 +139,21 @@ namespace Fizz
         {
             get
             {
-                return _userId != null ? _ingestionClient : null;
+                return _ingestionClient;
             }
         }
 
-        public FizzClientState State
-        {
-            get
-            {
-                return _state;
-            }
-        }
+        public FizzClientState State { get; private set; }
 
-        public string Version
-        {
-            get
-            {
-                return VERSION;
-            }
-        }
-        
+        public string Version { get; } = "v1.4.3";
+
         private void Close(Action callback)
         {
             _ingestionClient.Close(() =>
             {
                 _chat.Close();
                 _authClient.Close();
-                _userId = null;
-                _state = FizzClientState.Closed;
+                State = FizzClientState.Closed;
 
                 callback();
             });

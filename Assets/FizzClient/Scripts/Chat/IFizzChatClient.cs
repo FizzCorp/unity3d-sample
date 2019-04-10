@@ -10,7 +10,7 @@ namespace Fizz.Chat
         void PublishMessage (string channel,
             string nick,
             string body,
-            string data,
+            Dictionary<string, string> data,
             bool translate,
             bool persist,
             Action<FizzException> callback);
@@ -18,7 +18,7 @@ namespace Fizz.Chat
             long messageId,
             string nick,
             string body,
-            string data,
+            Dictionary<string, string> data,
             bool translate,
             bool persist,
             Action<FizzException> callback);

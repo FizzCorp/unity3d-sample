@@ -13,8 +13,6 @@ namespace Fizz.Chat.Impl
     public class FizzMQTTChannelMessageListener: IFizzChannelMessageListener
     {
         private static readonly FizzException ERROR_INVALID_APP_ID = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_app_id");
-        private static readonly FizzException ERROR_INVALID_SUBSCRIBER_ID = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_subscriber_id");
-        private static readonly FizzException ERROR_INVALID_SESSION_TOKEN = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_session_token");
         private static readonly FizzException ERROR_INVALID_DISPATCHER = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
 		private static readonly FizzException ERROR_CONNECTION_FAILED = new FizzException (FizzError.ERROR_REQUEST_FAILED, "request_failed");
 		private static readonly FizzException ERROR_AUTH_FAILED = new FizzException(FizzError.ERROR_AUTH_FAILED, "auth_failed");
@@ -25,12 +23,11 @@ namespace Fizz.Chat.Impl
         public Action<FizzChannelMessage> OnMessageUpdated { get; set; }
         public Action<FizzChannelMessage> OnMessageDeleted { get; set; }
 
-        protected FizzSession _session;
         protected string _userId;
         protected IFizzMqttConnection _connection;
+        protected FizzSessionRepository _sessionRepo;
 
         private readonly object synclock = new object();
-        private readonly string _topicPrefix;
         private readonly IFizzActionDispatcher _dispatcher;
 
         public FizzMQTTChannelMessageListener(string appId, 
@@ -45,11 +42,10 @@ namespace Fizz.Chat.Impl
                 throw ERROR_INVALID_DISPATCHER;
             }
 
-            _topicPrefix = appId + "/";
             _dispatcher = dispatcher;
         }
 
-        public void Open(string userId, FizzSession session)
+        public void Open(string userId, FizzSessionRepository sessionRepository)
         {
             if (_connection != null)
             {
@@ -60,23 +56,31 @@ namespace Fizz.Chat.Impl
             {
                 throw FizzException.ERROR_INVALID_USER_ID;
             }
-            if (string.IsNullOrEmpty(session._subscriberId))
+            if (sessionRepository == null)
             {
-                throw ERROR_INVALID_SUBSCRIBER_ID;
+                throw FizzException.ERROR_INVALID_SESSION_REPOSITORY;
             }
-            if (string.IsNullOrEmpty(session._token))
-            {
-                throw ERROR_INVALID_SESSION_TOKEN;
-            }
+            //if (string.IsNullOrEmpty(session._subscriberId))
+            //{
+            //    throw ERROR_INVALID_SUBSCRIBER_ID;
+            //}
+            //if (string.IsNullOrEmpty(session._token))
+            //{
+            //    throw ERROR_INVALID_SESSION_TOKEN;
+            //}
 
-            _session = session;
             _userId = userId;
+            _sessionRepo = sessionRepository;
+            _sessionRepo.OnSessionUpdate += OnSessionUpdate;
 
-            _connection = CreateConnection();
-            _connection.Connected += OnConnConnected;
-            _connection.Disconnected += OnConnDisconnected;
-            _connection.MessageReceived += OnMessage;
-            _connection.ConnectAsync();
+            lock (synclock)
+            {
+                _connection = CreateConnection();
+                _connection.Connected += OnConnConnected;
+                _connection.Disconnected += OnConnDisconnected;
+                _connection.MessageReceived += OnMessage;
+                _connection.ConnectAsync();
+            }
         }
 
         public void Close()
@@ -86,20 +90,48 @@ namespace Fizz.Chat.Impl
                 return;
             }
 
-            _session = new FizzSession();
-            var conn = _connection;
-            _connection = null;
-            conn.DisconnectAsync();
+            lock (synclock)
+            {
+                _sessionRepo.OnSessionUpdate -= OnSessionUpdate;
+                _sessionRepo = null;
+                var conn = _connection;
+                _connection = null;
+                conn.DisconnectAsync();
+            }
         }
 
         protected virtual IFizzMqttConnection CreateConnection()
         {
             return new FizzMQTTConnection(_userId,
-                                          _session._token,
-                                          clientId: _session._subscriberId, 
+                                          _sessionRepo.Session._token,
+                                          clientId: _sessionRepo.Session._subscriberId, 
                                           retry: true, 
                                           cleanSession: false, 
                                           dispatcher: _dispatcher);
+        }
+
+        private void OnSessionUpdate ()
+        {
+            try
+            {
+
+                if (_connection != null)
+                {
+                    var conn = _connection;
+                    _connection = null;
+                    conn.DisconnectAsync();
+                }
+
+                _connection = CreateConnection();
+                _connection.Connected += OnConnConnected;
+                _connection.Disconnected += OnConnDisconnected;
+                _connection.MessageReceived += OnMessage;
+                _connection.ConnectAsync();
+            }
+            catch (Exception e)
+            {
+                FizzLogger.E("Reconnect Session " + e);
+            }
         }
 
         private void OnConnConnected(int connId, object sender, MqttClientConnectedEventArgs args)
@@ -128,12 +160,22 @@ namespace Fizz.Chat.Impl
 
             if (OnDisconnected != null)
             {
-				if (args.Exception == null) {
+				if (args.Exception == null)
+                {
 					OnDisconnected.Invoke (null);
-				} else {
-					if (args.Exception.GetType () == typeof(MQTTnet.Adapter.MqttConnectingFailedException)) {
+				}
+                else
+                {
+					if (args.Exception.GetType () == typeof(MQTTnet.Adapter.MqttConnectingFailedException))
+                    {
 						OnDisconnected.Invoke (ERROR_AUTH_FAILED);
-					} else {
+                        if (_sessionRepo != null)
+                        {
+                            _sessionRepo.FetchToken(null);
+                        }
+					}
+                    else
+                    {
 						OnDisconnected.Invoke (ERROR_CONNECTION_FAILED);
 					}
 				}
@@ -193,13 +235,27 @@ namespace Fizz.Chat.Impl
                 }
             }
 
+            Dictionary<string, string> dataDict = null;
+            if (payload["data"] != null)
+            {
+                JSONNode messageData = JSONNode.Parse(payload["data"]);
+                if (messageData != null)
+                {
+                    dataDict = new Dictionary<string, string>();
+                    foreach (string key in messageData.Keys)
+                    {
+                        dataDict.Add(key, messageData[key]);
+                    }
+                }
+            }
+
             return new FizzChannelMessage(
                 message.Id,
                 message.From,
                 payload["nick"],
                 payload["to"],
                 payload["body"],
-                payload["data"],
+                dataDict,
                 translations,
                 message.Created
             );

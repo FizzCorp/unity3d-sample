@@ -75,7 +75,7 @@ namespace Fizz.UI.Components {
 
             sendButton.onClick.AddListener (OnSend);
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputEditor.interactable = isFizzConnected;
             inputEditor.onDone.AddListener (OnSend);
             inputEditor.onSelect.AddListener (OnInputFieldSelect);
@@ -84,24 +84,14 @@ namespace Fizz.UI.Components {
             inputMobile.GetComponent<Button> ().interactable = isFizzConnected;
             inputMobile.GetComponent<Button> ().onClick.AddListener (ActivateKeyboard);
 #endif
-            try
-            {
-                if (FizzService.Instance.Client.State == FizzClientState.Opened)
-                {
-                    FizzService.Instance.Client.Chat.Listener.OnConnected += OnFizzConnected;
-                    FizzService.Instance.Client.Chat.Listener.OnDisconnected += OnFizzDisconnected;
-                }
-            }
-			catch (FizzException ex)
-			{
-                Common.FizzLogger.E ("UIChatInput ex " + ex.Message);
-			}
+            FizzService.Instance.OnConnected += OnFizzConnected;
+            FizzService.Instance.OnDisconnected += OnFizzDisconnected;
         }
 
         void OnDisable () {
             sendButton.onClick.RemoveListener (OnSend);
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputEditor.onDone.RemoveListener (OnSend);
             inputEditor.onSelect.RemoveListener (OnInputFieldSelect);
             inputEditor.onDeselect.RemoveListener (OnInputFieldDeselect);
@@ -109,31 +99,21 @@ namespace Fizz.UI.Components {
             inputMobile.GetComponent<Button> ().onClick.RemoveListener (ActivateKeyboard);
 #endif
 
-            try
-            {
-                if (FizzService.Instance.Client.State == FizzClientState.Opened)
-                {
-                    FizzService.Instance.Client.Chat.Listener.OnConnected -= OnFizzConnected;
-                    FizzService.Instance.Client.Chat.Listener.OnDisconnected -= OnFizzDisconnected;
-                }
-            }
-			catch (FizzException ex)
-			{
-                Common.FizzLogger.E ("UIChatInput ex " + ex.Message);
-			}
+            FizzService.Instance.OnConnected -= OnFizzConnected;
+            FizzService.Instance.OnDisconnected -= OnFizzDisconnected;
 
-             #if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
                 DeactivateKeyboard ();
-            #elif UNITY_ANDROID
-                FIZZKeyboard.HideKeyboard();
-            #endif
+#elif UNITY_ANDROID && !UNITY_EDITOR
+            FIZZKeyboard.HideKeyboard();
+#endif
         }
 
         void OnApplicationPause (bool pauseState) {
             if (pauseState) {
-#if UNITY_IPHONE
+#if UNITY_IOS && !UNITY_EDITOR
                 DeactivateKeyboard ();
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
                 //NOTHING to do anything. Android widget handle itself
                 FIZZKeyboard.HideKeyboard();
 #endif
@@ -144,7 +124,7 @@ namespace Fizz.UI.Components {
 
         public void ResetText () {
             _message = string.Empty;
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputEditor.ResetText ();
 #else
             inputMobile.text = string.Empty;
@@ -174,7 +154,7 @@ namespace Fizz.UI.Components {
 
             UpdatePlaceholderText ();
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputMobile.gameObject.SetActive (false);
             inputEditor.gameObject.SetActive (true);
 #else
@@ -185,7 +165,7 @@ namespace Fizz.UI.Components {
         }
 
         void OnSend () {
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             onSend.Invoke (inputEditor.text);
             _message = string.Empty;
 #else
@@ -207,7 +187,7 @@ namespace Fizz.UI.Components {
         }
 
         void UpdatePlaceholderText () {
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             if (inputEditor.placeholder != null) {
                 Text placeHolderText = inputEditor.placeholder.GetComponent<Text> ();
                 if (placeHolderText != null) {
@@ -220,7 +200,7 @@ namespace Fizz.UI.Components {
         }
 
         void ActivateKeyboard () {
-#if UNITY_IPHONE 
+#if UNITY_IPHONE  && !UNITY_EDITOR
             _handleTouches = true;
             FIZZTouchScreenKeyboard.SetCustomMessage (true, OnMessageCallback, OnStickerCallback);
             if (_keyboard == null) {
@@ -235,7 +215,7 @@ namespace Fizz.UI.Components {
                 nodeToMove != null) {
                 _moveUI = true;
             }
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
             _handleTouches = true;
 
             RemoveAllAndroidKBListener ();
@@ -291,7 +271,7 @@ namespace Fizz.UI.Components {
         }
 
         void DeactivateKeyboard () {
-#if UNITY_IPHONE
+#if UNITY_IPHONE && !UNITY_EDITOR
             _handleTouches = false;
             if (_keyboard != null) {
                 string _keyboardText = _keyboard.text;
@@ -353,7 +333,7 @@ namespace Fizz.UI.Components {
         }
 
         void LateUpdate () {
-#if UNITY_IPHONE || UNITY_ANDROID
+#if !UNITY_EDITOR && (UNITY_IPHONE || UNITY_ANDROID)
             if (_moveUI && _keyboard.active && FIZZTouchScreenKeyboard.area.height > 0) {
                 _moveUI = false;
                 
@@ -377,7 +357,7 @@ namespace Fizz.UI.Components {
 
         void OnFizzConnected (bool syncReq) {
             sendButton.interactable = true;
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputEditor.interactable = true;
 #else
             inputMobile.GetComponent<Button> ().interactable = true;
@@ -386,7 +366,7 @@ namespace Fizz.UI.Components {
 
         void OnFizzDisconnected (FizzException ex) {
             sendButton.interactable = false;
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR || UNITY_STANDALONE
             inputEditor.interactable = false;
 #else
             inputMobile.GetComponent<Button> ().interactable = false;

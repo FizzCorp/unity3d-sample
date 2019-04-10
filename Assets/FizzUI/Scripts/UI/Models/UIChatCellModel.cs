@@ -39,20 +39,16 @@ namespace Fizz.UI.Components.Models
                                   string nick,
                                   string to,
                                   string body,
-                                  string data,
+                                  Dictionary<string, string> data,
                                   IDictionary<string, string> translations,
                               long created) : base(id, from, nick, to, body, data, translations, created)
         {
             TranslationState = UITranslationState.Translated;
             PublishState = UIChannelMessageState.Pending;
 
-            if (!string.IsNullOrEmpty(Data))
+            if (data != null && data.ContainsKey (KEY_CLIENT_ID))
             {
-                JSONNode json = JSONNode.Parse(Data);
-                if (json[KEY_CLIENT_ID] != null)
-                {
-                    AlternateId = (long) json[KEY_CLIENT_ID].AsDouble;
-                }
+                AlternateId = long.Parse(data[KEY_CLIENT_ID]);
             }
         }
 

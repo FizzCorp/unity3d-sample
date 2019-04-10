@@ -7,7 +7,9 @@ namespace Fizz.Common
 {
     public class FizzIdSecretSessionProvider : IFizzSessionProvider
     {
+        private static readonly FizzException ERROR_INVALID_APP_SECRET = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_app_secret");
         private static readonly FizzException ERROR_SESSION_CREATION_FAILED = new FizzException(FizzError.ERROR_REQUEST_FAILED, "session_creation_failed");
+        private static readonly FizzException ERROR_INVALID_LOCALE = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_locale");
 
         readonly string _appId;
         readonly string _appSecret;
@@ -20,6 +22,11 @@ namespace Fizz.Common
                 throw FizzException.ERROR_INVALID_APP_ID;
             }
 
+            if (string.IsNullOrEmpty (appSecret))
+            {
+                throw ERROR_INVALID_APP_SECRET;
+            }
+
             _appId = appId;
             _appSecret = appSecret;
             _restClient = restClient;
@@ -27,6 +34,12 @@ namespace Fizz.Common
 
         public void FetchToken(string userId, string locale, Action<FizzSession, FizzException> callback)
         {
+            if (string.IsNullOrEmpty (locale))
+            {
+                FizzUtils.DoCallback<FizzSession>(new FizzSession(null, null, 0), ERROR_INVALID_LOCALE, callback);
+                return;
+            }
+
             JSONClass node = new JSONClass();
             node["user_id"] = userId;
             node["locale"] = locale;

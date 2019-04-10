@@ -7,55 +7,30 @@ namespace Fizz.Common
 {
     public class FizzAuthRestClient: IFizzAuthRestClient
     {
-        private static readonly FizzException ERROR_SESSION_CREATION_FAILED = new FizzException(FizzError.ERROR_REQUEST_FAILED, "session_creation_failed");
-        private static readonly FizzException ERROR_INVALID_APP_SECRET = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_app_secret");
-        private static readonly FizzException ERROR_INVALID_LOCALE = new FizzException(FizzError.ERROR_BAD_ARGUMENT, "invalid_locale");
-
-        private string _userId;
-        private string _locale;
-        private FizzSession _session;
         private IFizzRestClient _restClient;
-        private IFizzSessionProvider _sessionClient;
+        private FizzSessionRepository _sessionRepository;
         private Queue<Action<FizzException>> _requestQueue = new Queue<Action<FizzException>>();
 
-        public FizzSession Session
-        {
-            get {
-                return _session;
-            }
-        }
-
-        public FizzAuthRestClient(IFizzSessionProvider sessionClient, IFizzRestClient restClient)
+        public FizzAuthRestClient(IFizzRestClient restClient)
         {
             _restClient = restClient;
-            _sessionClient = sessionClient;
         }
 
-        public void Open(string userId, string locale)
+        public void Open(FizzSessionRepository sessionRepo, Action<FizzException> callback)
         {
-            if (string.IsNullOrEmpty(userId))
+            if (sessionRepo == null)
             {
-                throw FizzException.ERROR_INVALID_APP_ID;
-            }
-            if (string.IsNullOrEmpty(locale))
-            {
-                throw ERROR_INVALID_LOCALE;
+                throw FizzException.ERROR_INVALID_SESSION_REPOSITORY;
             }
 
-            if (_userId == userId)
-            {
-                return;
-            }
+            _sessionRepository = sessionRepo;
 
-            _userId = userId;
-            _locale = locale;
-            _session = new FizzSession(null, null, 0);
+            FetchSessionToken(callback);
         }
 
         public void Close()
         {
-            _userId = null;
-            _session = new FizzSession();
+            _sessionRepository = null;
         }
 
         public void Post(string host, 
@@ -111,7 +86,7 @@ namespace Fizz.Common
                 return;
             }
 
-            _sessionClient.FetchToken (_userId, _locale, (session, ex) => {
+            _sessionRepository.FetchToken ((session, ex) => {
                 if (ex != null)
                 {
                     while (_requestQueue.Count > 0)
@@ -121,7 +96,6 @@ namespace Fizz.Common
                 }
                 else 
                 {
-                    _session = session;
                     while (_requestQueue.Count > 0)
                     {
                         FizzUtils.DoCallback(null, _requestQueue.Dequeue());
@@ -132,13 +106,13 @@ namespace Fizz.Common
        
         private IDictionary<string,string> AuthHeaders()
         {
-            if (string.IsNullOrEmpty(_session._token))
+            if (_sessionRepository == null || string.IsNullOrEmpty(_sessionRepository.Session._token))
             {
                 return null;
             }
             else
             {
-                return FizzUtils.headers(_session._token);
+                return FizzUtils.headers(_sessionRepository.Session._token);
             }
         }
 

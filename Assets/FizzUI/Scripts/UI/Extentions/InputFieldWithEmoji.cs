@@ -92,7 +92,7 @@ namespace Fizz.UI.Components
 
 		void Update ()
 		{
-			if (m_Keyboard != null && m_Keyboard.done && !m_Keyboard.wasCanceled) {
+			if (m_Keyboard != null && m_Keyboard.status == TouchScreenKeyboard.Status.Done) {
 				if (onDone != null) {
 					onDone.Invoke ();
 					m_Keyboard = null;

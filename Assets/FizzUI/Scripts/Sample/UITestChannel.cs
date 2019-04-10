@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Fizz.UI.Demo 
 {
 	public class UITestChannel : MonoBehaviour 
 	{
-		[SerializeField] InputField channelIdInput;
 		[SerializeField] InputField channelNameInput;
 
 		[SerializeField] Button removeButton;
 
-		void OnEnable ()
+        private TestChannelMeta meta;
+
+        void OnEnable ()
 		{
 			removeButton.onClick.AddListener (OnRemoveButtonPressed);
 		}
@@ -24,28 +23,26 @@ namespace Fizz.UI.Demo
 
 		void OnRemoveButtonPressed ()
 		{
-			Destroy (this.gameObject);
+            FizzService.Instance.RemoveChannel(meta.channelId);
+            Destroy (this.gameObject);
 		}
 
-		public void PopulateData (string id, string name)
-		{
-			channelIdInput.text = id;
-			channelNameInput.text = name;
-		}
+        public void PopulateData(TestChannelMeta meta)
+        {
+            this.meta = meta;
+
+            channelNameInput.text = meta.channelName;
+        }
 
 		public void SetRemoveButtonActive (bool active)
 		{
 			removeButton.gameObject.SetActive (active);
 		}
 
-		public TestChannelMeta Build ()
-		{
-			return new TestChannelMeta () 
-			{ 
-				channelId= channelIdInput.text, 
-				channelName = channelNameInput.text 
-			};
-		}
+        public TestChannelMeta GetMeta()
+        {
+            return meta;
+        }
 	}
 
 	public class TestChannelMeta {

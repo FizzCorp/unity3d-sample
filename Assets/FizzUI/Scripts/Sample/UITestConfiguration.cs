@@ -12,8 +12,11 @@ namespace Fizz.UI.Demo {
 		[SerializeField] InputField userNameInput;
 		[SerializeField] Toggle translationToggle;
 
-		[SerializeField] Button channelAddButton;
-		[SerializeField] UITestChannel dafaultChannel;
+        [SerializeField] InputField channelIdInput;
+        [SerializeField] InputField channelNameInput;
+        [SerializeField] UITestChannel dafaultChannel;
+        [SerializeField] Button channelAddButton;
+        [SerializeField] ScrollRect channelScrollRect;
 
 		[SerializeField] Button launchButton;
 		[SerializeField] Button connectButton;
@@ -25,7 +28,6 @@ namespace Fizz.UI.Demo {
 			launchButton.interactable = false;
 			connectButton.interactable = true;
 			disconnectButton.interactable = false;
-			channelAddButton.interactable = true;
 
 			DeserializeAndLoad ();
 		}
@@ -45,16 +47,7 @@ namespace Fizz.UI.Demo {
 			connectButton.onClick.RemoveListener (OnConnectButtonPressed);
 			disconnectButton.onClick.RemoveListener (OnDisconnectButtonPressed);
 		}
-
-		void OnChannelAddButtonPressed ()
-		{
-			UITestChannel testChannel = Instantiate (dafaultChannel);
-			testChannel.transform.SetParent (dafaultChannel.transform.parent);
-			testChannel.transform.localScale = Vector3.one;
-			testChannel.transform.SetAsLastSibling ();
-			testChannel.SetRemoveButtonActive (true);
-		}
-
+        
 		void OnLaunchButtonPressed ()
 		{
 			FizzUI.Instance.LaunchFizz ();
@@ -64,7 +57,6 @@ namespace Fizz.UI.Demo {
 		{
 			connectButton.interactable = false;
 			TestConfigurationMeta testMeta = BuildMeta ();
-			SerializeAndSave (testMeta);
 			connectingAnim.gameObject.SetActive (true);
 			FizzService.Instance.Open (
 				testMeta.userId, 
@@ -76,10 +68,10 @@ namespace Fizz.UI.Demo {
 					launchButton.interactable = success;
 					disconnectButton.interactable = success;
 					connectButton.interactable = !success;
-					channelAddButton.interactable = !success;
 					connectingAnim.gameObject.SetActive (false);
 				}
 			);
+			SerializeAndSave (testMeta);
         }
 
 		void OnDisconnectButtonPressed ()
@@ -89,16 +81,45 @@ namespace Fizz.UI.Demo {
 			launchButton.interactable = false;
 			disconnectButton.interactable = false;
 			connectButton.interactable = true;
-			channelAddButton.interactable = true;
 		}
 
-		TestConfigurationMeta BuildMeta () 
+        void OnChannelAddButtonPressed()
+        {
+            if (string.IsNullOrEmpty(channelIdInput.text) || string.IsNullOrEmpty(channelNameInput.text))
+                return;
+
+            UITestChannel channel = CreateTestChannel(channelIdInput.text, channelNameInput.text);
+            FizzService.Instance.AddChannel(channel.GetMeta());
+
+            SerializeAndSave(BuildMeta());
+        }
+
+        UITestChannel CreateTestChannel(string channeId, string channelName)
+        {
+            TestChannelMeta meta = new TestChannelMeta()
+            {
+                channelId = channeId,
+                channelName = channelName
+            };
+
+            UITestChannel testChannel = Instantiate(dafaultChannel);
+            testChannel.gameObject.SetActive(true);
+            testChannel.transform.SetParent(channelScrollRect.content);
+            testChannel.transform.localScale = Vector3.one;
+            testChannel.transform.SetAsLastSibling();
+            testChannel.SetRemoveButtonActive(true);
+            testChannel.PopulateData(meta);
+
+            return testChannel;
+        }
+
+        TestConfigurationMeta BuildMeta () 
 		{
 			List<TestChannelMeta> channelMeta = new List<TestChannelMeta> ();
-			UITestChannel[] testChannelComponent = dafaultChannel.transform.parent.GetComponentsInChildren<UITestChannel> ();
-			foreach (UITestChannel channel in testChannelComponent)
+            UITestChannel[] testChannelComponent = channelScrollRect.content.GetComponentsInChildren<UITestChannel>();
+            foreach (UITestChannel channel in testChannelComponent)
 			{
-				channelMeta.Add (channel.Build ());
+				channelMeta.Add (channel.GetMeta ());
 			}
 
 			return new TestConfigurationMeta ()
@@ -128,13 +149,13 @@ namespace Fizz.UI.Demo {
 
 			json.Add ("channels", array);
 
-			PlayerPrefs.SetString ("fizz-meta", json.ToString ());
+			PlayerPrefs.SetString ("fizz-meta-143", json.ToString ());
 			PlayerPrefs.Save ();
 		}
 
 		void DeserializeAndLoad ()
 		{
-			string json = PlayerPrefs.GetString ("fizz-meta", GetDefaultUser ());
+			string json = PlayerPrefs.GetString ("fizz-meta-143", GetDefaultUser ());
 
 			JSONNode jsonClass = JSONClass.Parse (json);
 
@@ -144,10 +165,6 @@ namespace Fizz.UI.Demo {
 
 			JSONArray channels = jsonClass["channels"].AsArray;
 			int count = channels.Count;
-			
-			for (int i = 1; i< count; i++) {
-				OnChannelAddButtonPressed ();
-			}
 
 			int index = 0;
 			foreach (JSONNode node in channels)
@@ -155,10 +172,9 @@ namespace Fizz.UI.Demo {
 				string channelId = node["channelId"].Value;
 				string channelName = node["channelName"].Value;
 
-				UITestChannel testChannel = dafaultChannel.transform.parent.GetChild (index).GetComponent<UITestChannel> ();
-				testChannel.PopulateData (channelId, channelName);
+                UITestChannel testChannel = CreateTestChannel(channelId, channelName);
 
-				index ++;
+                index ++;
 			}
 		}
 

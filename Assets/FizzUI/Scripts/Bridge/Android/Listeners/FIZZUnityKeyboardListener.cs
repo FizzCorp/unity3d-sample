@@ -3,7 +3,7 @@
 //
 //  Copyright (c) 2016 Fizz Inc
 //
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 using FIZZ.Bridge;
 
 class FIZZUnityKeyboardListener : JavaInterfaceProxy {

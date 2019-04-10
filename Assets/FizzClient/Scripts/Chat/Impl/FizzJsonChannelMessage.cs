@@ -11,6 +11,8 @@ namespace Fizz.Chat.Impl
         public static readonly string KEY_TO = "to";
         public static readonly string KEY_BODY = "body";
         public static readonly string KEY_DATA = "data";
+        public static readonly string KEY_TRANSLATE = "translate";
+        public static readonly string KEY_PERSIST = "persist";
         public static readonly string KEY_TRANSLATIONS = "translations";
         public static readonly string KEY_CREATED = "created";
 
@@ -25,12 +27,24 @@ namespace Fizz.Chat.Impl
             Nick = json[KEY_NICK];
             To = json[KEY_TO];
             Body = json[KEY_BODY];
-            Data = json[KEY_DATA];
             Created = (long)json[KEY_CREATED].AsDouble;
+            
+            if (json[KEY_DATA] != null)
+            {
+                JSONNode messageData = JSONNode.Parse(json[KEY_DATA]);
+                if (messageData != null)
+                {
+                    Data = new Dictionary<string, string>();
+                    foreach (string key in messageData.Keys)
+                    {
+                        Data.Add(key, messageData[key]);
+                    }
+                }
+            }
 
             if (json[KEY_TRANSLATIONS] != null)
             {
-                JSONClass translationData = json["translations"].AsObject;
+                JSONClass translationData = json[KEY_TRANSLATIONS].AsObject;
                 Translations = new Dictionary<string, string>();
                 foreach (string key in translationData.Keys)
                 {

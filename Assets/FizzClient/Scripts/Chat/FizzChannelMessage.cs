@@ -9,7 +9,7 @@ namespace Fizz.Chat
                                   string nick,
                                   string to,
                                   string body,
-                                  string data,
+                                  Dictionary<string, string> data,
                                   IDictionary<string,string> translations,
                                   long created) {
             if (from == null)
@@ -26,7 +26,7 @@ namespace Fizz.Chat
             Nick = nick;
             To = to;
             Body = body == null ? "" : body;
-            Data = data == null ? "" : data;
+            Data = data;
             Translations = translations;
             Created = created;
         }
@@ -41,7 +41,7 @@ namespace Fizz.Chat
 
         public string Body { get; protected set; }
 
-        public string Data { get; protected set; }
+        public Dictionary<string, string> Data { get; protected set; }
 
         public IDictionary<string, string> Translations { get; protected set; }
 

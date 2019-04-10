@@ -66,11 +66,11 @@ namespace Fizz.UI.Components {
 
             nickLabel.text = _model.Nick;
 
-            if (false) { //Utils.ShouldFixRTLMessage (_chatMessageAction)) {
-                messageLabel.text = ArabicSupport.ArabicFixer.Fix (_model.GetActiveMessage ());
-            } else {
+            //if (false) { //Utils.ShouldFixRTLMessage (_chatMessageAction)) {
+            //    messageLabel.text = ArabicSupport.ArabicFixer.Fix (_model.GetActiveMessage ());
+            //} else {
                 messageLabel.text = _model.GetActiveMessage ();
-            }
+            //}
 
             bool showTranslationToggle = _appTranslationEnabled;
             
