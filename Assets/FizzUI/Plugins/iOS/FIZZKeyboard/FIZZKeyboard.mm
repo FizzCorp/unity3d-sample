@@ -438,13 +438,6 @@ i = res.items;												\
     // We can't use setText on iOS7 because it does not update the undo stack.
     // We still prefer setText on other iOSes, because an undo operation results
     // in a smaller selection shown on the UI
-    if(_ios70orNewer && !_ios80orNewer) {
-        if (_multiline) {
-            [self setTextWorkaround:(_isCustomMessageInput? composerBar.textView : textView) text:newText];
-        } else {
-            [self setTextWorkaround:textField text:newText];
-        }
-    }
     
     if(_multiline) {
         if (_isCustomMessageInput) {
