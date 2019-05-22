@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using Fizz.Common;
 using Fizz.Common.Json;
 
-namespace Fizz.ContentModerator.Impl
+namespace Fizz.Moderation.Impl
 {
-	public class FizzContentModeratorClient : IFizzContentModeratorClient
+	public class FizzModerationClient : IFizzModerationClient
 	{
 		private static readonly FizzException ERROR_INVALID_REST_CLIENT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_rest_client");
 		private static readonly FizzException ERROR_INVALID_TEXT_LIST = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_text_list");
@@ -15,7 +15,7 @@ namespace Fizz.ContentModerator.Impl
 
 		private IFizzAuthRestClient _restClient;
 
-		public FizzContentModeratorClient ()
+		public FizzModerationClient ()
 		{
 		}
 
@@ -42,7 +42,7 @@ namespace Fizz.ContentModerator.Impl
 				});
 		}
 
-		public void Moderate (IList<string> texts, 
+		public void SanitizeText (IList<string> texts, 
 			Action<IList<string>, FizzException> callback)
 		{
 			IfOpened (() =>
@@ -114,7 +114,7 @@ namespace Fizz.ContentModerator.Impl
 			}
 			else
 			{
-				FizzLogger.W ("Content Moderator client should be opened before usage.");
+				FizzLogger.W ("Moderation client should be opened before usage.");
 			}
 		}
 
@@ -126,7 +126,7 @@ namespace Fizz.ContentModerator.Impl
 			}
 			else
 			{
-				FizzLogger.W ("Content Moderator client should be closed before opening.");
+				FizzLogger.W ("Moderation client should be closed before opening.");
 			}
 		}
 	}

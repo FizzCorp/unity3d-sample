@@ -3,8 +3,8 @@ using Fizz.Chat.Impl;
 using Fizz.Common;
 using Fizz.Ingestion;
 using Fizz.Ingestion.Impl;
-using Fizz.ContentModerator;
-using Fizz.ContentModerator.Impl;
+using Fizz.Moderation;
+using Fizz.Moderation.Impl;
 using Fizz.Threading;
 using System;
 
@@ -21,8 +21,8 @@ namespace Fizz
     {
         Chat =      1 << 0,
         Analytics = 1 << 1,
-		ContentModerator = 1 << 2,
-		All = Chat | Analytics | ContentModerator
+		Moderation = 1 << 2,
+		All = Chat | Analytics | Moderation
     }
 
     public interface IFizzClient
@@ -33,7 +33,7 @@ namespace Fizz
 
         IFizzChatClient Chat { get; }
         IFizzIngestionClient Ingestion { get; }
-		IFizzContentModeratorClient ContentModerator { get; }
+		IFizzModerationClient Moderation { get; }
         FizzClientState State { get; }
         string Version { get; }
     }
@@ -45,7 +45,7 @@ namespace Fizz
         readonly IFizzAuthRestClient _authClient;
         readonly IFizzSessionProvider _sessionClient;
         readonly FizzIngestionClient _ingestionClient;
-		readonly FizzContentModeratorClient _contentModeratorClient;
+		readonly FizzModerationClient _moderationClient;
         readonly FizzActionDispatcher _dispatcher = new FizzActionDispatcher();
         
         public FizzClient(string appId, string appSecret)
@@ -60,7 +60,7 @@ namespace Fizz
             _sessionClient = new FizzIdSecretSessionProvider (appId, appSecret, _restClient);
             _authClient = new FizzAuthRestClient(_restClient);
             _ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
-			_contentModeratorClient = new FizzContentModeratorClient();      
+			_moderationClient = new FizzModerationClient();      
 		}
 
         public FizzClient (string appId, IFizzSessionProvider sessionClient)
@@ -75,7 +75,7 @@ namespace Fizz
             _restClient = new FizzRestClient (_dispatcher);
             _authClient = new FizzAuthRestClient(_restClient);
 			_ingestionClient = new FizzIngestionClient(new FizzInMemoryEventLog(), _dispatcher);
-			_contentModeratorClient = new FizzContentModeratorClient();
+			_moderationClient = new FizzModerationClient();
         }
 
         public void Open(string userId, string locale, FizzServices services, Action<FizzException> callback)
@@ -98,9 +98,9 @@ namespace Fizz
                         {
                             _ingestionClient.Open(userId, sessionRepo.Session._serverTS, _authClient);
                         }
-						if (services.HasFlag(FizzServices.ContentModerator))
+						if (services.HasFlag(FizzServices.Moderation))
 						{
-							_contentModeratorClient.Open(_authClient);
+							_moderationClient.Open(_authClient);
 						}
 
                         State = FizzClientState.Opened;
@@ -154,17 +154,17 @@ namespace Fizz
             }
         }
 
-		public IFizzContentModeratorClient ContentModerator
+		public IFizzModerationClient Moderation
 		{
 			get
 			{
-				return _contentModeratorClient;
+				return _moderationClient;
 			}
 		}
 
         public FizzClientState State { get; private set; }
 
-        public string Version { get; } = "v1.4.4";
+        public string Version { get; } = "v1.4.5";
 
         private void Close(Action callback)
         {
@@ -172,7 +172,7 @@ namespace Fizz
             {
                 _chat.Close();
                 _authClient.Close();
-				_contentModeratorClient.Close();
+				_moderationClient.Close();
                 State = FizzClientState.Closed;
 
                 callback();
