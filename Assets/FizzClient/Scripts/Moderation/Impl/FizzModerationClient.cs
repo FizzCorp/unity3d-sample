@@ -13,6 +13,9 @@ namespace Fizz.Moderation.Impl
 		private static readonly FizzException ERROR_INVALID_TEXT_LIST_SIZE = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_text_list_size");
 		private static readonly FizzException ERROR_INVALID_RESPONSE_FORMAT = new FizzException (FizzError.ERROR_REQUEST_FAILED, "invalid_response_format");
 
+		private const int MAX_TEXT_LIST_SIZE = 5;
+		private const int MAX_TEXT_LENGTH = 1024;
+
 		private IFizzAuthRestClient _restClient;
 
 		public FizzModerationClient ()
@@ -53,14 +56,16 @@ namespace Fizz.Moderation.Impl
 						return;
 					}
 
-					if (texts.Count < 1 || texts.Count > 5)
+					if (texts.Count > MAX_TEXT_LIST_SIZE)
 					{
 						FizzUtils.DoCallback<IList<string>> (null, ERROR_INVALID_TEXT_LIST_SIZE, callback);
 						return;
 					}
 
-					foreach (string text in texts) {
-						if (string.IsNullOrEmpty(text)) {
+					foreach (string text in texts)
+					{
+						if (text == null || text.Length > MAX_TEXT_LENGTH) 
+						{
 							FizzUtils.DoCallback<IList<string>> (null, ERROR_INVALID_TEXT_LIST, callback);
 							return;
 						}
@@ -70,7 +75,8 @@ namespace Fizz.Moderation.Impl
 					{
 						string path = FizzConfig.API_PATH_CONTENT_MODERATION;
 						JSONArray json = new JSONArray ();
-						foreach (string text in texts) {
+						foreach (string text in texts)
+						{
 							json.Add(new JSONData(text));
 						}
 
