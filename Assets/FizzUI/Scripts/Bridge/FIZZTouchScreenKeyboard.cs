@@ -1,5 +1,7 @@
 using System;
+#if UNITY_IOS
 using System.Runtime.InteropServices;
+#endif
 using UnityEngine;
 
 namespace Fizz.UI.Bridge {
@@ -11,7 +13,9 @@ namespace Fizz.UI.Bridge {
     //     ///
     public class FIZZTouchScreenKeyboard {
         public FIZZTouchScreenKeyboard (string text, FIZZTouchScreenKeyboardType keyboardType, bool autocorrection, bool multiline, bool secure, bool alert, string textPlaceholder) {
-                FIZZUnityKeyboard_Create ((int) keyboardType, autocorrection ? 1 : 0, multiline ? 1 : 0, secure ? 1 : 0, alert ? 1 : 0, text, textPlaceholder);
+#if UNITY_IOS
+            FIZZUnityKeyboard_Create ((int) keyboardType, autocorrection ? 1 : 0, multiline ? 1 : 0, secure ? 1 : 0, alert ? 1 : 0, text, textPlaceholder);
+#endif
             }
 
             ~FIZZTouchScreenKeyboard () {
@@ -20,32 +24,47 @@ namespace Fizz.UI.Bridge {
 
         public static void SetCustomMessage (bool custom, Action<string> onMessage, Action onSticker) {
             if (custom) {
+#if UNITY_IOS
                 _messageCallback = onMessage;
                 _stickerCallback = onSticker;
                 FIZZUnityKeyboard_CustomMessageInput (custom, MessageCallback, StickerCallback);
+#endif
             } else {
+#if UNITY_IOS
                 _messageCallback = null;
+#endif
             }
         }
 
         public static Rect area {
             get {
+#if UNITY_IOS
                 float x;
                 float y;
                 float w;
                 float h;
                 FIZZUnityKeyboard_GetRect (out x, out y, out w, out h);
                 return new Rect (x, y, w, h);
+#else
+                return new Rect(0, 0, 0, 0);
+#endif
+
             }
         }
 
         public static bool hideInput {
             get {
+#if UNITY_IOS
                 return (FIZZUnityKeyboard_IsInputHidden () == 1);
+#else
+                return false;
+#endif
             }
 
             set {
+#if UNITY_IOS
                 FIZZUnityKeyboard_SetInputHidden (value ? 1 : 0);
+#endif
             }
         }
 
@@ -67,39 +86,65 @@ namespace Fizz.UI.Bridge {
 
         public static bool visible {
             get {
+#if UNITY_IOS
                 return (FIZZUnityKeyboard_IsActive () == 1) && (area.height > 0);
+#else
+                return false;
+#endif
             }
         }
         public int targetDisplay { get; set; }
 
         public bool wasCanceled {
             get {
+#if UNITY_IOS
                 return FIZZUnityKeyboard_WasCanceled () == 1;
+#else
+                return false;
+#endif
             }
         }
 
         public string text {
             get {
+#if UNITY_IOS
                 return Marshal.PtrToStringAuto (FIZZUnityKeyboard_GetText ());
+#else
+                return string.Empty;
+#endif
             }
             set {
+#if UNITY_IOS
                 FIZZUnityKeyboard_SetText (value);
+#endif
             }
         }
 
         public bool done {
             get {
+#if UNITY_IOS
                 return FIZZUnityKeyboard_IsDone () == 1;
+#else
+                return false;
+#endif
             }
         }
         public bool active {
             get {
+#if UNITY_IOS
                 return (FIZZUnityKeyboard_IsActive () == 1);
+#else
+                return false;
+#endif
             }
 
             set {
                 if (!value)
-                    FIZZUnityKeyboard_Hide ();
+                {
+#if UNITY_IOS
+                    FIZZUnityKeyboard_Hide();
+#endif
+                }
             }
         }
 
@@ -129,9 +174,13 @@ namespace Fizz.UI.Bridge {
 
         public static FIZZTouchScreenKeyboard Open (string text, FIZZTouchScreenKeyboardType keyboardType = FIZZTouchScreenKeyboardType.Default, bool autocorrection = true, bool multiline = false, bool secure = false, bool alert = false, string textPlaceholder = "") {
             FIZZTouchScreenKeyboard keyboard = new FIZZTouchScreenKeyboard (text, keyboardType, autocorrection, multiline, secure, alert, textPlaceholder);
+#if UNITY_IOS
             FIZZUnityKeyboard_Show ();
+#endif
             return keyboard;
         }
+
+#if UNITY_IOS
 
         [DllImport ("__Internal")]
         private static extern void FIZZUnityKeyboard_Create (int keyboardType, int autocorrection, int multiline, int secure, int alert, [MarshalAs (UnmanagedType.LPStr)] string text, [MarshalAs (UnmanagedType.LPStr)] string placeholder);
@@ -185,6 +234,8 @@ namespace Fizz.UI.Bridge {
             if (_stickerCallback != null)
                 _stickerCallback.Invoke ();
         }
+
+#endif
     }
 
     public enum FIZZTouchScreenKeyboardType {
