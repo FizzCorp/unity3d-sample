@@ -7,14 +7,17 @@ namespace Fizz.Chat
     {
         IFizzChannelMessageListener Listener { get; }
 
-        void PublishMessage (string channel,
+        void PublishMessage (
+            string channelId,
             string nick,
             string body,
             Dictionary<string, string> data,
             bool translate,
             bool persist,
             Action<FizzException> callback);
-        void UpdateMessage (string channel,
+
+        void UpdateMessage (
+            string channelId,
             long messageId,
             string nick,
             string body,
@@ -22,14 +25,36 @@ namespace Fizz.Chat
             bool translate,
             bool persist,
             Action<FizzException> callback);
-        void DeleteMessage (string channelId, 
+
+        void UpdateMessage (
+            string channelId,
+            string topicId,
+            long messageId,
+            string nick,
+            string body,
+            Dictionary<string, string> data,
+            bool translate,
+            bool persist,
+            Action<FizzException> callback);
+
+        void DeleteMessage (
+            string channelId, 
             long messageId,
             Action<FizzException> callback);
-        
-        void QueryLatest (string channel,
+
+        void DeleteMessage (
+            string channelId,
+            string topicId,
+            long messageId,
+            Action<FizzException> callback);
+
+        void QueryLatest (
+            string channelId,
             int count,
             Action<IList<FizzChannelMessage>, FizzException> callback);
-        void QueryLatest (string channel,
+
+        void QueryLatest (
+            string channelId,
             int count,
             long beforeId,
             Action<IList<FizzChannelMessage>, FizzException> callback);

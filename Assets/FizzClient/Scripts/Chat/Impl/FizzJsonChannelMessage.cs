@@ -11,6 +11,7 @@ namespace Fizz.Chat.Impl
         public static readonly string KEY_TO = "to";
         public static readonly string KEY_BODY = "body";
         public static readonly string KEY_DATA = "data";
+        public static readonly string KEY_TOPIC = "topic";
         public static readonly string KEY_TRANSLATE = "translate";
         public static readonly string KEY_PERSIST = "persist";
         public static readonly string KEY_TRANSLATIONS = "translations";
@@ -27,6 +28,7 @@ namespace Fizz.Chat.Impl
             Nick = json[KEY_NICK];
             To = json[KEY_TO];
             Body = json[KEY_BODY];
+            Topic = json[KEY_TOPIC];
             Created = (long)json[KEY_CREATED].AsDouble;
             
             if (json[KEY_DATA] != null)

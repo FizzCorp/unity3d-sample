@@ -266,13 +266,14 @@ namespace Fizz.UI.Components {
             Dictionary<string, string> data = new Dictionary<string, string>();
             data.Add(FizzUIMessage.KEY_CLIENT_ID, now + "");
 
-            FizzChannelMessage message = new FizzChannelMessage(
-                now, 
-                FizzService.Instance.UserId, 
-                FizzService.Instance.UserName, 
-                _data.Id, 
-                messageStr, 
-                data, 
+            FizzChannelMessage message = new FizzChannelMessage (
+                now,
+                FizzService.Instance.UserId,
+                FizzService.Instance.UserName,
+                _data.Id,
+                messageStr,
+                string.Empty,
+                data,
                 null, 
                 now);
 
@@ -404,7 +405,7 @@ namespace Fizz.UI.Components {
         private UIChatCellModel GetChatCellModelFromAction (FizzChannelMessage action) {
             var model = new UIChatCellModel
             {
-                Action = new FizzUIMessage(action.Id, action.From, action.Nick, action.To, action.Body, action.Data, action.Translations, action.Created),
+                Action = new FizzUIMessage(action.Id, action.From, action.Nick, action.To, action.Body, action.Topic, action.Data, action.Translations, action.Created),
                 Type = UIChatCellModel.UIChatCellModelType.ChatAction
             };
             return model;

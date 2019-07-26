@@ -255,6 +255,7 @@ namespace Fizz.Chat.Impl
                 payload["nick"],
                 payload["to"],
                 payload["body"],
+                payload["topic"],
                 dataDict,
                 translations,
                 message.Created
