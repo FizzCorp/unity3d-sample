@@ -39,10 +39,9 @@ namespace Fizz.UI.Components.Models
                                   string nick,
                                   string to,
                                   string body,
-                                  string topic,
                                   Dictionary<string, string> data,
                                   IDictionary<string, string> translations,
-                              long created) : base(id, from, nick, to, body, topic, data, translations, created)
+                              long created) : base(id, from, nick, to, body, data, translations, created)
         {
             TranslationState = UITranslationState.Translated;
             PublishState = UIChannelMessageState.Pending;

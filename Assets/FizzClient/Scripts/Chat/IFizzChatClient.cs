@@ -26,25 +26,8 @@ namespace Fizz.Chat
             bool persist,
             Action<FizzException> callback);
 
-        void UpdateMessage (
-            string channelId,
-            string topicId,
-            long messageId,
-            string nick,
-            string body,
-            Dictionary<string, string> data,
-            bool translate,
-            bool persist,
-            Action<FizzException> callback);
-
         void DeleteMessage (
             string channelId, 
-            long messageId,
-            Action<FizzException> callback);
-
-        void DeleteMessage (
-            string channelId,
-            string topicId,
             long messageId,
             Action<FizzException> callback);
 

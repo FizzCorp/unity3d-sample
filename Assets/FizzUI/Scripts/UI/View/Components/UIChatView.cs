@@ -272,7 +272,6 @@ namespace Fizz.UI.Components {
                 FizzService.Instance.UserName,
                 _data.Id,
                 messageStr,
-                string.Empty,
                 data,
                 null, 
                 now);
@@ -405,7 +404,7 @@ namespace Fizz.UI.Components {
         private UIChatCellModel GetChatCellModelFromAction (FizzChannelMessage action) {
             var model = new UIChatCellModel
             {
-                Action = new FizzUIMessage(action.Id, action.From, action.Nick, action.To, action.Body, action.Topic, action.Data, action.Translations, action.Created),
+                Action = new FizzUIMessage(action.Id, action.From, action.Nick, action.To, action.Body, action.Data, action.Translations, action.Created),
                 Type = UIChatCellModel.UIChatCellModelType.ChatAction
             };
             return model;

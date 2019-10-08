@@ -11,7 +11,6 @@ namespace Fizz.Chat.Impl
         private static readonly FizzException ERROR_INVALID_DISPATCHER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_dispatcher");
         private static readonly FizzException ERROR_INVALID_REST_CLIENT = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_rest_client");
         private static readonly FizzException ERROR_INVALID_CHANNEL = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_channel_id");
-        private static readonly FizzException ERROR_INVALID_TOPIC = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_topic_id");
         private static readonly FizzException ERROR_INVALID_USER = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_user_id");
         private static readonly FizzException ERROR_INVALID_MESSAGE_ID = new FizzException (FizzError.ERROR_BAD_ARGUMENT, "invalid_message_id");
         private static readonly FizzException ERROR_INVALID_RESPONSE_FORMAT = new FizzException (FizzError.ERROR_REQUEST_FAILED, "invalid_response_format");
@@ -194,72 +193,6 @@ namespace Fizz.Chat.Impl
             });
         }
 
-        public void UpdateMessage (
-            string channelId,
-            string topicId,
-            long messageId,
-            string nick,
-            string body,
-            Dictionary<string, string> data,
-            bool translate,
-            bool persist,
-            Action<FizzException> callback)
-        {
-            IfOpened (() =>
-            {
-                if (string.IsNullOrEmpty (channelId))
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
-                    return;
-                }
-
-                if (string.IsNullOrEmpty (topicId))
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_TOPIC, callback);
-                    return;
-                }
-
-                if (messageId < 1)
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
-                    return;
-                }
-
-                try
-                {
-                    string path = string.Format (FizzConfig.API_PATH_TOPIC_MESSAGE_ACTION, channelId, topicId, messageId);
-                    JSONClass json = new JSONClass ();
-                    json[FizzJsonChannelMessage.KEY_NICK] = nick;
-                    json[FizzJsonChannelMessage.KEY_BODY] = body;
-                    json[FizzJsonChannelMessage.KEY_PERSIST].AsBool = persist;
-                    json[FizzJsonChannelMessage.KEY_TRANSLATE].AsBool = translate;
-
-                    string dataStr = string.Empty;
-                    if (data != null)
-                    {
-                        JSONClass dataJson = new JSONClass ();
-                        foreach (KeyValuePair<string, string> pair in data)
-                        {
-                            dataJson.Add (pair.Key, new JSONData (pair.Value));
-                        }
-
-                        dataStr = dataJson.ToString ();
-                    }
-
-                    json[FizzJsonChannelMessage.KEY_DATA] = dataStr;
-
-                    _restClient.Post (FizzConfig.API_BASE_URL, path, json.ToString (), (response, ex) =>
-                    {
-                        FizzUtils.DoCallback (ex, callback);
-                    });
-                }
-                catch (FizzException ex)
-                {
-                    FizzUtils.DoCallback (ex, callback);
-                }
-            });
-        }
-
         public void DeleteMessage (string channelId, long messageId, Action<FizzException> callback)
         {
             IfOpened (() => {
@@ -280,40 +213,6 @@ namespace Fizz.Chat.Impl
                         FizzUtils.DoCallback (ex, callback);
                     });
                 } 
-                catch (FizzException ex)
-                {
-                    FizzUtils.DoCallback (ex, callback);
-                }
-            });
-        }
-
-        public void DeleteMessage (string channelId, string topicId, long messageId, Action<FizzException> callback)
-        {
-            IfOpened (() => {
-                if (string.IsNullOrEmpty (channelId))
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_CHANNEL, callback);
-                    return;
-                }
-                if (string.IsNullOrEmpty (topicId))
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_TOPIC, callback);
-                    return;
-                }
-                if (messageId < 1)
-                {
-                    FizzUtils.DoCallback (ERROR_INVALID_MESSAGE_ID, callback);
-                    return;
-                }
-
-                try
-                {
-                    string path = string.Format (FizzConfig.API_PATH_TOPIC_MESSAGE_ACTION, channelId, topicId, messageId);
-                    UnityEngine.Debug.Log ("PATH " + path);
-                    _restClient.Delete (FizzConfig.API_BASE_URL, path, string.Empty, (response, ex) => {
-                        FizzUtils.DoCallback (ex, callback);
-                    });
-                }
                 catch (FizzException ex)
                 {
                     FizzUtils.DoCallback (ex, callback);
